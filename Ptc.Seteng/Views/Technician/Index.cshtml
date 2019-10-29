@@ -1,0 +1,262 @@
+﻿@model Ptc.Seteng.Models.TechnicianViewModel
+
+@{
+    var IsVendor = new List<KeyValuePair<String, Object>>
+    {
+        new KeyValuePair<string, Object>("技師主管", true),
+        new KeyValuePair<string, Object>("技師", false)     
+    };
+    var Enable = new List<KeyValuePair<String, Object>>
+    {
+        new KeyValuePair<string, Object>("正常", true),
+        new KeyValuePair<string, Object>("停用", false)
+    };
+
+    var attr = new { @class = "col-xs-12 col-sm-2 col-md-4 col-lg-4 control-label", @style = "text-align:left" };
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        @using (Html.BeginForm("GetList", "Technician", FormMethod.Post, new { @id = "searchForm", @name = "searchForm", @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+        {
+
+         <!--RWD condition ctrl-->
+            <div type="button" class="visible-xs visible-sm hidden-md hidden-lg  btn btn-default ptc-dismiss">隱藏條件</div>
+         <!--end RWD condition ctrl -->
+
+         <!--dynamic tabs-->
+            <div class="row ptc-conditions">
+                
+                <!--clone block-->
+                <div clsss="ptc-content-clone" hidden>
+                    <button type="button" class="ptc-cancel" data-toggle="tooltip btn btn-secondary" data-placement="bottom" title="移除條件">x</button>
+                    <div class="container-fluid">
+                        
+                        <div class="row">
+                            @Html.HiddenFor(x => x.CompCd)
+                            @Html.HiddenFor(x => x.VenderCd)
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                <!--公司-->
+                                @TechnicianHelper.TextBoxFor(Html, m => m.CompName, new { @readonly = "readonly" }, attr)
+                                <!--厂商-->
+                                @TechnicianHelper.TextBoxFor(Html, m => m.VendorName, new { @readonly = "readonly" }, attr)
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                <!--技師名稱-->
+                                @TechnicianHelper.TextBoxFor(Html, m => m.Name, null, attr)
+                                <!--账号-->
+                                @TechnicianHelper.TextBoxFor(Html, m => m.Account, null, attr)
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                <!--角色-->
+                                @TechnicianHelper.CheckBox(Html, "IsVendor", "角色", IsVendor, attr)
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                <!--账号启用-->
+                                @TechnicianHelper.CheckBox(Html, "Enable", "帳號啟用", Enable, attr)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end clone block-->
+                <!--tabs block-->
+                <ul class="ptc-tabs nav nav-tabs"></ul>
+                <!--end tabs block-->
+                <!--content block-->
+                <div class="ptc-content tab-content"></div>
+                <!--end content block-->
+
+            </div>
+         <!--end dynamic tabs-->
+
+         <!--btn block-->
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <button type="submit" class="btn-search btn-sm AuthRead" id="searchBtn" name="searchBtn" data-loading-text="處理中...">查詢</button>
+                </div>
+            </div>
+         <!--end btn block-->
+
+        }
+
+    </div>
+</div>
+
+<div class="row">
+    <div id="grid-table">
+
+        <!--table header-->
+        <div class="table-header">
+            <span>&nbsp;<a class="btn btn-sm btn-warning" href="javascript:Add()" style="float:right;">新增</a></span>
+
+        </div>
+        <!--end table header-->
+        <!--result table-->
+        <table class="table table-bordered table-striped table-bordered dt-responsive nowrap" id="resultTable">
+            <thead>
+                <tr role="row">
+                    <th class="center" role="columnheader">帳號</th>
+                    <th class="center" role="columnheader">技師名稱</th>
+                    <th class="center" role="columnheader">帳號啟用</th>
+                    <th class="center" role="columnheader">角色</th>
+                    <th class="center" role="columnheader">編輯</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <!--end result table-->
+
+    </div>
+</div>
+
+@section scripts{
+
+    <script src="~/Scripts/PTC/PTCFloatTableFooter.js"></script>
+    <script src="~/Scripts/PTC/PTCDatatables.js"></script>
+
+    <script type="text/javascript">
+        jQuery(function ($) {
+
+            PTCDynamicTabs();
+
+            DataTable();
+
+            $("#searchBtn").prop("disabled", false);
+
+        });
+    </script>
+
+    <!--跳转页面动作-->
+    <script type="text/javascript">
+
+        //往新增畫面
+        function Add() {
+
+            DirectToUrl('@Url.Action("Add", "Technician")');
+
+        }
+
+        //往修改畫面
+        function Modify(full) {
+
+            var arr = full.split(",")
+            var model = {
+                CompCd: arr[4],
+                VenderCd: arr[5],
+                Account: arr[0],
+            };
+
+            DirectToUrl('@Url.Action("Modify", "Technician")', model);
+        }
+
+        //往檢視畫面
+        function Read(full) {
+            debugger;
+            var arr = full.split(",")
+            var model = {
+                CompCd: arr[4],
+                VenderCd: arr[5],
+                Account: arr[0],
+            };
+
+            DirectToUrl('@Url.Action("Read", "Technician")', model);
+        }
+
+    </script>
+    <!--checkBox-->
+    <script type="text/javascript">
+
+
+        function InitCheckBox(index) {
+
+            $("#c" + index + " #IsVendor").on('change', function () {
+                $("#c" + index + "  #IsVendor").not(this).prop('checked', false);
+            });
+
+            $("#c" + index + " #Enable").on('change', function () {
+                $("#c" + index + "  #Enable").not(this).prop('checked', false);
+            });
+        }
+
+    </script>
+    <!--tabs-->
+    <script type="text/javascript">
+
+        function PTCDynamicTabs() {
+            $('.ptc-tabs').PTCDynamicTabs({ initUI: this.InitUI });
+        }
+
+        function InitUI(index) {
+            InitCheckBox(index);
+        }
+
+    </script>
+
+    <script type="text/javascript">
+
+        function Backfill(key, index) {
+            $(index).each(function () {
+                if (this.value == key)
+                    $(this).prop('checked', true);
+            })
+        };
+    </script>
+    <!--dataTable-->
+    <script type="text/javascript">
+        function DataTable() {
+            var columns = [
+          { targets: 0, name: "Account", id: "Account", className: 'min-tablet-l text-center' },
+          { targets: 1, name: "Name", id: "Name", className: 'text-center' },
+          { targets: 2, name: "Enable", id: "Enable", className: 'min-tablet-p text-center' },
+          { targets: 3, name: "IsVendor", id: "IsVendor", className: 'min-tablet-p text-center' },
+          {
+              targets: 4,
+              classname: 'text-center',
+              searchable: false,
+              orderable: false,
+              render: function (data, type, full, meta) {
+                  var read = '<button type="button" onclick="Read(' + "'" + full + "'" + ')" role="button" class="btn btn-xs btn-success rowtabholdok' +
+                             '"><i class="ace-icon fa fa-search bigger-120"></i></button>';
+                  var update = '<button type="button" onclick="Modify(' + "'" + full + "'" + ')" role="button" class="btn btn-xs btn-info rowtabholdno' +
+                                 '"><i class="ace-icon fa fa-pencil bigger-120"></i></button>';
+                  return read + update;
+              }
+          },
+
+            ];
+
+            $('#resultTable').PTCDataTable({
+                colmDefs: columns,
+                form: "#searchForm",
+                refill: function (criteria) {
+
+                    $(this.form).ReductionDynamicTabs({
+                        array: criteria,
+                        refill: function (data, index) {
+
+                            var no = index + 1;
+                            if (data.Name)                                                    //姓名
+                                $("#c" + no + " #Name").val(data.Name);
+
+                            if (data.Account)                                                 //账号
+                                $("#c" + no + " #Account").val(data.Account);
+
+                            if (data.Enable)                                                  //账号启用
+                                Backfill(data.Enable, $("#c" + no + " #Enable"));
+
+                            if (data.IsVendor)                                               //角色
+                                Backfill(data.IsVendor, $("#c" + no + " #IsVendor"));
+
+
+                        }
+                    });
+                }
+            });
+        };
+
+
+
+    </script>
+
+
+}

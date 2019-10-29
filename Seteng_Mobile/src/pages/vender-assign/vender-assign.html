@@ -1,0 +1,53 @@
+﻿<!--標題-->
+<ion-header>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>未完修案件管理</ion-title>
+    </ion-navbar>
+</ion-header>
+<!--end 標題-->
+<!--內文-->
+<ion-content>
+
+    <!--查詢條件-->
+    <div padding class="border-bottom text-lg">
+        <span (click)="setConditions()" color="gray">
+            查詢條件
+            <ion-icon name="md-arrow-dropdown"></ion-icon>
+        </span>
+    </div>
+    <!--end 查詢條件-->
+
+    <!--refresher-->
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingText="往下滑動刷新" 
+                               refreshingSpinner="circles" 
+                               refreshingText="更新中...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <!--end refresher-->
+
+    <!--查詢清單外框-->
+    <ptc-list [features]="features"></ptc-list>
+    <!--end 查詢清單外框-->
+
+    <!--續載區塊-->
+    <ion-infinite-scroll (ionInfinite)="continuousLoading($event)"  [enabled]="InfiniteEnabled">
+        <ion-infinite-scroll-content  
+                loadingSpinner="bubbles" 
+                loadingText="更新中...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    <!--end續載區塊-->
+
+</ion-content>
+<!--end 內文-->
+<!--標底-->
+<ion-footer class="category">
+    <ion-toolbar position="bottom">
+        <div> <span class="total" color="danger">總共: {{totalCount}} 筆</span></div>
+    </ion-toolbar>
+</ion-footer>
+<!--end 標底-->

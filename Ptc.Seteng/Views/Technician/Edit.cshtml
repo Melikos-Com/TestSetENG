@@ -1,0 +1,456 @@
+﻿@model Ptc.Spcc.CCEng.Models.TechnicianEditViewModel
+
+@{
+    var title = "檢視";
+    if (Model.ActionType == Ptc.AspnetMvc.Authentication.AuthNodeType.Create)
+    {
+        title = "新增";
+    }
+    if (Model.ActionType == Ptc.AspnetMvc.Authentication.AuthNodeType.Edit)
+    {
+        title = "修改";
+    }
+    if (Model.ActionType == Ptc.AspnetMvc.Authentication.AuthNodeType.Read)
+    {
+        title = "檢視";
+    }
+
+    var attr = new { @class = "col-xs-12  col-md-2  control-label" };
+}
+<div class="row">
+    <div class="col-xs-12">
+        <button class="btn-title-style cust-font-style btn-arrow-right btn-title-bgc">@title</button>
+    </div>
+</div>
+@using (Html.BeginForm("Edit", "Technician", FormMethod.Post, new { @id = "updateForm", @name = "updateForm", @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(x => x.ActionType)
+
+      <!--大頭照-->
+    <div class="row" id="FileStickersPath">
+        <div class="col-xs-12  col-sm-12 col-lg-12">
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-2 col-md-2 control-label ">@Html.DisplayNameFor(x => x.StickersPath)</label>
+                <div class="col-xs-12  col-sm-8 col-md-8">
+                    <input id="PhotofileInput" name="PhotofileInput" type="file" multiple class="file-loading">
+                </div>
+                <div class="col-xs-offset-0  col-sm-2 col-md-2"></div>
+            </div>
+        </div>
+    </div>
+     <!--圖片路徑-->
+    <div class="row">
+        <div class="col-xs-12  col-sm-12 col-lg-12">
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-2 col-md-2 control-label ">@Html.DisplayNameFor(x => x.TechniciansPath)</label>
+                <div class="col-xs-12  col-sm-8 col-md-8">
+                    <input id="fileInput" name="fileInput" type="file" multiple class="file-loading">
+                </div>
+                <div class="col-xs-offset-0  col-sm-2 col-md-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--公司-->
+    @TechnicianHelper.TextBoxFor(Html, m => m.CompName, new { @disabled = "disabled" }, attr)
+    <!--廠商-->
+    @TechnicianHelper.TextBoxFor(Html, m => m.VendorName, new { @disabled = "disabled" }, attr)
+    <!--帳號-->
+    @TechnicianHelper.TextBoxFor(Html, m => m.Account, null, attr)
+
+    <div style="padding-bottom:1%">
+        <!--密碼-->
+        @TechnicianHelper.PasswordFor(Html, m => m.Password, new { @style = "width: 100%"},attr)
+        <!--確認新密碼-->
+        <div id="CreateConfirmpwd">
+            @TechnicianHelper.PasswordFor(Html, m => m.CreateConfirmPassword, new { @style = "width: 100%" }, attr)
+        </div>
+        <div id="NewPwd" style="display:none">
+            <!--新密碼-->
+            @TechnicianHelper.PasswordFor(Html, m => m.NewPassword, new { @style = "width: 100%" }, attr)
+            <!--確認新密碼-->
+            @TechnicianHelper.PasswordFor(Html, m => m.ConfirmPassword, new { @style = "width: 100%" }, attr)
+        </div>
+        <input type="button" value="變更密碼" id="ChangePwd" class="col-md-offset-9 btn-search btn-sm check-mark" />
+    </div>
+
+
+
+    <!--姓名-->
+    @TechnicianHelper.TextBoxFor(Html, m => m.Name, null, attr)
+    <!--是否啟用-->
+    @TechnicianHelper.RadioButtonFor(Html, x => x.Enable, null, attr)
+    <!--是否透過QRCode-->
+    @TechnicianHelper.RadioButtonFor(Html, x => x.IsManually, null, attr)
+    <!--是否廠商-->
+    @TechnicianHelper.RadioButtonFor(Html, x => x.IsVendor, null, attr)
+    <!--審核狀態-->
+  
+        <div class="col-xs-12  col-sm-12 col-lg-12">
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-2 col-md-2 control-label ">是否送審</label>
+                <div class="col-xs-12  col-sm-8 col-md-8">
+
+                    @{
+
+                        switch (Model.HQCheckKind)
+                        {
+                            case (int)HQCheckKind.WaitCheck:
+                                @Html.Label("送審中", new { @class = "control-label" })
+                                @Html.RadioButtonFor(x => x.HQCheckKind, (int)HQCheckKind.WaitCheck, new { @checked = "checked" , @class = "hidden" })
+                                break;
+                            case (int)HQCheckKind.Passed:
+                                @Html.Label("審核通過", new { @class = "control-label" })
+                                @Html.RadioButtonFor(x => x.HQCheckKind, (int)HQCheckKind.Passed, new { @checked = "checked" ,@class = "hidden"})
+                                break;
+                            case (int)HQCheckKind.Retreat:
+
+                                if (Model.ActionType == Ptc.AspnetMvc.Authentication.AuthNodeType.Read)
+                                {
+                                    @Html.Label("退回", new { @class = "control-label" })
+                                    @Html.RadioButtonFor(x => x.HQCheckKind, (int)HQCheckKind.Passed, new { @checked = "checked", @class = "hidden" })
+                                }
+                                else
+                                {
+                                    @Html.RadioButtonFor(x => x.HQCheckKind, (int)HQCheckKind.WaitCheck)
+                                    <text>送審</text>
+                                    @Html.RadioButtonFor(x => x.HQCheckKind, (int)HQCheckKind.Retreat)
+                                    <text>退回</text>
+                                }
+                                break;
+                                default:
+
+                                    @Html.RadioButtonFor(x => x.HQCheckKind, (int)HQCheckKind.WaitCheck, new { @checked = "checked" })
+                                    <text>是</text>
+                                    @Html.RadioButtonFor(x => x.HQCheckKind, (int)HQCheckKind.Retreat)
+                                    <text>否</text>
+                           
+                                break;
+                        }
+                    }
+
+
+                </div>
+                <div class="col-xs-offset-0  col-sm-2 col-md-2"></div>
+            </div>
+        </div>
+  
+
+    if (Model.HQCheckKind == (int)HQCheckKind.Retreat)
+    {
+        <!--退回原因-->
+        <div class="row" id="Switch">
+            <div class="col-xs-12  col-sm-12 col-lg-12">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 control-label ">退回原因</label>
+                    <div class="col-xs-12  col-sm-8 col-md-8">
+                        @Html.TextAreaFor(x => x.IsHQCheckRemark, new { @disabled = "disabled" })
+                    </div>
+                    <div class="col-xs-offset-0  col-sm-2 col-md-2"></div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+    if (Model.ActionType == Ptc.AspnetMvc.Authentication.AuthNodeType.Read)
+    {
+         <!--QrCode-->
+        <div class="row" id="QrCode">
+            <div class="col-xs-12 col-sm-12 col-lg-12">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 control-label ">@Html.DisplayNameFor(x => x.QrCode)</label>
+                    <div class="col-xs-12  col-sm-8 col-md-8">
+                        @{
+                            var imageData = string.Format("data:image/gif;base64,{0}", Model.QrCode);
+                        }
+                        <img src="@imageData">
+                    </div>
+                    <div class="col-xs-offset-0  col-sm-2 col-md-2"></div>
+                </div>
+            </div>
+        </div>
+      }
+
+      }
+<!--按鈕區塊-->
+<div class="row">
+    <div class="col-xs-12 text-center">
+        <button type="button" class="btn-search btn-sm AuthRead" id="saveBtn" name="saveBtn" onclick="SubmitBtn()">@title</button>
+        <button type="button" class="btn-search btn-sm AuthRead" id="backBtn" name="backBtn" onclick="history.back()">返回</button>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/PTC/PTCValidation.js"></script>
+    <!--on page init-->
+    <script type="text/javascript">
+        jQuery(function ($) {
+
+            InitFileInput();      //證件照
+
+            InitPhotoFileInput(); //大頭貼
+
+            InitValidation();     //前端驗證
+
+            ControlSwitch();      //控制項開關
+
+            $("#ChangePwd").click(function () {
+
+                if($("#NewPwd").is(":hidden"))
+                {
+                    $("#NewPwd").show();
+                    $(this).val('取消變更');
+                }
+                else {
+                    $(this).val('變更密碼');
+                    $("#NewPwd :password").val('');
+                    $("#NewPwd").hide();
+                }
+
+            })
+
+
+
+        });
+    </script>
+    <!--Control switch -->
+    <script type="text/javascript">
+
+        function ControlSwitch() {
+
+            //新增
+            if ('@Model.ActionType' == '@Ptc.AspnetMvc.Authentication.AuthNodeType.Create'){
+                $("#QrCode").hide();                                   //QRCode圖片隱藏
+                $("#Enable").prop("checked", true);                    //帳號預設啟用
+                $("#ChangePwd").remove();                              //移除變更密碼
+            }
+            //修改
+            if ('@Model.ActionType' == '@Ptc.AspnetMvc.Authentication.AuthNodeType.Edit'){
+                $("#Account").prop("disabled", true);                  //帳號關閉
+                $("#QrCode").hide();                                   //QRCode圖片隱藏
+                $("#Password").val('@Model.Password');                 //密碼hash值
+                $("#Password").prop("disabled", true);                 //密碼關閉
+                $("#CreateConfirmpwd").remove();                  //移除Create確認密碼
+            }
+            //明細
+            if ('@Model.ActionType' == '@Ptc.AspnetMvc.Authentication.AuthNodeType.Read'){
+                $("#CreateConfirmpwd").remove();                       //移除Create確認密碼
+                $("#ChangePwd").remove();                              //移除變更密碼
+                $("input:enabled").prop("disabled", true);             //關閉所有輸入控制項
+                $("#saveBtn").remove();                                //移除儲存按鈕
+                $("#Password").val('@Model.Password');                 //密碼hash值
+                $("#PasswordConfirm").val('@Model.Password');          //密碼hash值
+                //刪除(刪除圖片)按鈕
+                $("#updateForm :button").each(function() {
+                    if(this.title == "Remove file")
+                        $(this).remove();
+                });
+            }
+
+        }
+    </script>
+    <!-- 送出查詢 -->
+    <script type="text/javascript">
+
+        function SubmitBtn() {
+
+            if (!$("#updateForm").valid()) { return  ;}  //前端驗證
+
+            window.PTC.Loading(true);                    //
+
+            var url = '';                                //連結
+
+            if ('@Model.ActionType' == '@Ptc.AspnetMvc.Authentication.AuthNodeType.Create')
+            {
+                url = '@Url.Action("Add", "Technician")';
+            }
+            else{
+                url = '@Url.Action("Edit", "Technician")'
+            }
+
+
+            //組合物件
+            var data = new FormData();
+
+            for (var i = 0; i < $('#fileInput').get(0).files.length; i++) {        //證件照
+
+                if (data) {
+                    data.append("fileInput", $('#fileInput').get(0).files[i]);
+                }
+            }
+            for (var i = 0; i < $('#PhotofileInput').get(0).files.length; i++) {   //大頭照
+
+                if (data) {
+                    data.append("PhotofileInput", $('#PhotofileInput').get(0).files[i]);
+                }
+            }
+
+
+            data.append("Account", $('#Account').val());                //帳號
+            data.append("Password", $('#Password').val());              //密碼
+            data.append("NewPassword", $('#NewPassword').val());        //新密碼
+            data.append("Name", $('#Name').val());                      //姓名
+            data.append("Enable", $('#Enable:checked').val());          //是否帳號啟用
+            data.append("IsManually", $('#IsManually:checked').val());  //是否透過QRCode
+            data.append("IsVendor", $('#IsVendor:checked').val());      //是否為廠商
+            data.append("HQCheckKind", $('#HQCheckKind:checked').val());//總部審核
+            data.append("ActionType", '@Model.ActionType');             //操作模式
+            data.append("VenderCd", '@Model.VenderCd');                 //廠商
+            data.append("CompCd", '@Model.CompCd' );                    //公司
+
+            $.ajax({
+                url: url,
+                data: data,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                success:function (data) {
+                    if (data.StatusCode == 401) {
+                        alert(data.StatusDescription);
+                        window.location.reload();
+                    }
+                    var result = data.Data
+
+                    if (result.IsSuccess)
+                    {
+                        window.PTC.alertInfo(result.Message)
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
+
+                        window.PTC.Loading(false);
+                        return;
+                    }
+                    window.PTC.alertInfo(result.Message)
+
+                    window.PTC.Loading(false);
+
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    window.PTC.alertInfo(thrownError)
+                }
+
+            });
+        }
+    </script>
+    <!--init fileInput-->
+    <script type="text/javascript">
+
+
+        function InitFileInput()
+        {
+            var modelPath =@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TechniciansPath)) || [];
+            var deleteUrl = '@Url.Action("DeleteImage", "Technician")';
+            var initialPreview = [];
+            var initialPreviewConfig = [];
+            if (modelPath){
+
+                modelPath.forEach((val,index,array) => {
+                    initialPreview.push(val);
+                    initialPreviewConfig.push({url:`${deleteUrl}?Account=${$('#Account').val()}&VenderCd=${'@Model.VenderCd'}&CompCd=${'@Model.CompCd'}&filepath=${val.split('?filePath=')[1]}`});
+
+                });
+
+
+            };
+
+
+            $("#fileInput").fileinput({
+                initialPreviewAsData: true,
+                overwriteInitial: true,
+                initialPreview: initialPreview,
+                initialPreviewConfig:initialPreviewConfig,
+                allowedFileExtensions: ["GIF", "JPEG", "TIFF", "PCX", "PNG", "JPG"],
+                maxFilePreviewSize: 10240,
+                maxFileCount:5,
+                msgFilesTooMany:"選擇上傳的文件數量({n}) 超過允許的最大數值{m}！",
+                deleteUrl: '',
+                browseClass: "btn",
+                uploadClass: "btn btn-file",
+                removeClass: "btn btn-file",
+                showUpload: false,
+                showRemove: false,
+                uploadAsync: false
+            });
+        }
+
+        function InitPhotoFileInput()
+        {
+            var modelPath =@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.StickersPath)) || [];
+            var deleteUrl = '@Url.Action("DeleteImage", "Technician")';
+            var initialPreview = [];
+            var initialPreviewConfig = [];
+            if (modelPath){
+
+                modelPath.forEach((val,index,array) => {
+                    initialPreview.push(val);
+                    initialPreviewConfig.push({url:`${deleteUrl}?Account=${$('#Account').val()}&VenderCd=${'@Model.VenderCd'}&CompCd=${'@Model.CompCd'}&filepath=${val.split('?filePath=')[1]}`});
+                });
+            };
+
+            $("#PhotofileInput").fileinput({
+                initialPreviewAsData: true,
+                overwriteInitial: true,
+                initialPreview: initialPreview,
+                initialPreviewConfig:initialPreviewConfig,
+                allowedFileExtensions: ["GIF", "JPEG", "TIFF", "PCX", "PNG", "JPG"],
+                maxFilePreviewSize: 10240,
+                maxFileCount:1,
+                msgFilesTooMany:"選擇上傳的文件數量({n}) 超過允許的最大數值{m}！",
+                deleteUrl: '',
+                browseClass: "btn",
+                uploadClass: "btn btn-file",
+                removeClass: "btn btn-file",
+                showUpload: false,
+                showRemove: false,
+                uploadAsync: false
+            });
+
+        }
+    </script>
+    <!--init Validation-->
+    <script type="text/javascript">
+
+        function InitValidation(){
+            //檢查照片數量
+
+            $.validator.addMethod("checkStickersPath", function (value, element, params) {
+                if($("#FileStickersPath img").length == 0)
+                    return false;
+                else
+                    return true;
+            }, "*此欄位為必要欄位");
+
+
+
+            $.validator.addMethod("checkpwd", function (value, element, params) {
+                if($("#NewPwd").is(":hidden"))
+                    return true;
+                else{
+                    if(value)
+                        return true;
+                    else
+                        return false;
+                }
+            }, "*此欄位為必要欄位");
+
+            $('#updateForm').PTCValidation(
+            {
+                rules:{
+                    PhotofileInput :{checkStickersPath: true},
+                    Name: { required: true , maxlength: 20},
+                    Password: { required: true , maxlength: 40},
+                    CreateConfirmPassword : { required: true , maxlength: 40, equalTo: "#Password",},
+                    NewPassword: { checkpwd: true , maxlength: 40},
+                    ConfirmPassword: { checkpwd: true , maxlength: 40, equalTo: "#NewPassword",},
+                    Account: { required: true , maxlength: 20,},
+                },
+
+            });
+        }
+
+    </script>
+
+}

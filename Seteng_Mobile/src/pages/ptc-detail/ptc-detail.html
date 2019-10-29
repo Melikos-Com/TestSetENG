@@ -1,0 +1,617 @@
+﻿<!--明細內容判別-->
+<ion-content [ngSwitch]="viewType">
+    <!--廠商技師執行工單-->
+    <div *ngSwitchCase="'venderConfirm'" style="margin-top: 5vh;">
+        <wizard (slideDirect)="slideDirect($event)"></wizard>
+        <ion-slides (ionSlideDidChange)="slideChanged()">
+            <!--案件信息-->
+            <ion-slide>
+                <div class="card light-bg info" margin-top>
+                    <div class="title">案件資訊</div>
+                    <ion-grid>
+                        <ion-row class="item-stats">
+                            <ion-col text-center>
+                                <span class="text-sm" color="gray">叫修編號</span>
+                                <div>{{item.Sn}}</div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="item-stats">
+                            <ion-col col-3 text-center>
+                                <span class="text-sm" color="gray">門市</span>
+                                <div>{{item.StoreName}}</div>
+
+                            </ion-col>
+                            <ion-col col-9 text-center>
+                                <span class="text-sm" color="gray">住址</span>
+                                <div>{{item.StoreAddress}}</div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="item-stats">
+                            <ion-col col-3 text-center (click)="callPhone(item.StoreTel)">
+                                <span class="text-sm" color="gray">電話</span>
+                                <div class="hyperlink">{{item.StoreTel}}</div>
+
+                            </ion-col>
+                            <ion-col col-9 text-center>
+                                <span class="text-sm" color="gray">設備名稱</span>
+                                <div>{{item.AssetName}}</div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="item-stats">
+                            <ion-col col-3 text-center>
+                                <span class="text-sm" color="gray">緊急度</span>
+                                <div>{{item.CallLevel}}</div>
+                            </ion-col>
+                            <ion-col col-9 text-center>
+                                <span class="text-sm" color="gray">故障名稱</span>
+                                <div>{{item.DamageDesc}}</div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="item-stats">
+                            <ion-col col-6 text-center>
+                                <span class="text-sm" color="gray">叫修人</span>
+                                <div>{{item.CallName}}</div>
+                            </ion-col>
+                            <ion-col col-6 text-center>
+                                <span class="text-sm" color="gray">應完成時間</span>
+                                <div>{{item.FdDate}}</div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="item-stats">
+                            <ion-col col-6 text-center>
+                                <span class="text-sm" color="gray">立案時間</span>
+                                <div>{{item.FiDate}}</div>
+                            </ion-col>
+                            <ion-col col-6 text-center>
+                                <span class="text-sm" color="gray">派工時間</span>
+                                <div>{{item.FvDate}}</div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="item-stats">
+                            <ion-col text-center>
+                                <span class="text-sm" color="gray">叫修備註</span>
+                                <div>{{item.CallDesc}}</div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="item-stats">
+                            <ion-col text-center>
+                                <span class="text-sm" color="gray">補充備註</span>
+                                <div>{{item.RemarkAdd}}</div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="item-stats">
+                            <ion-col text-center>
+                                <span class="text-sm" color="gray">認養技師</span>
+                                <div>{{item.AcceptedName}}</div>
+                            </ion-col>
+                            <ion-col text-center>
+                                <div><button ion-button block class="detail-submit" color="buttonYes" (click)="showHistory()" style="background:#007aff;width:100px;">案件歷程</button></div>                               
+                        </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+                <ion-row>
+                    <ion-col>
+                        <button ion-button block class="detail-submit temp" color="buttonSubmit" (click)="scratchOfVndCfm()">暫存</button>
+                    </ion-col>
+                </ion-row>
+            </ion-slide>
+            <!--厂商维修内容-->
+            <ion-slide>
+                <div class="card light-bg info" margin-top>
+                    <div class="title"> 廠商維修內容 </div>
+                    <ion-grid>
+                        <ion-row class="item-stats">
+                            <ion-col text-center>
+                                <span class="text-sm" color="gray">到店時間</span>
+                                <div (click)="SetArriveDate()" item-height="50px">
+                                    {{item.ArriveDate}}
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="item-stats">
+                            <ion-col text-center>
+                                <span class="text-sm" color="gray">修理前</span>
+                                <div class="pic-grid">
+                                    <ion-grid>
+                                        <ion-row>
+                                            <ion-col width-33 *ngFor="let ImageBeforeFix of item.ImgBeforeFix ;let i = index">
+                                                <button class="remove-icon" (click)="removeBeforeImg($event,i)">
+                                                    <ion-icon name="close"></ion-icon>
+                                                </button>
+                                                <img src="{{ImageBeforeFix}}" (click)="viewLargerBefore(i)" onError="this.src='../../assets/img/404.jpg'">
+                                            </ion-col>
+
+                                            <ion-col width-33 class="upload-pic-icon" (click)="uploadBeforefix($event)">
+                                                <ion-icon name="camera"></ion-icon>
+                                            </ion-col>
+                                        </ion-row>
+                                    </ion-grid>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="item-stats">
+                            <ion-col text-center>
+                                <span class="text-sm" color="gray">修理後</span>
+                                <div class="pic-grid">
+                                    <ion-grid>
+                                        <ion-row>
+                                            <ion-col width-33 *ngFor="let ImageAfterFix of item.ImgAfterFix ;let i = index">
+                                                <button class="remove-icon" (click)="removeAfterImg($event,i)">
+                                                    <ion-icon name="close"></ion-icon>
+                                                </button>
+                                                <img src="{{ImageAfterFix}}" (click)="viewLargerAfter(i)" onError="this.src='../../assets/img/404.jpg'">
+                                            </ion-col>
+
+                                            <ion-col width-33 class="upload-pic-icon" (click)="uploadAfterfix($event)">
+                                                <ion-icon name="camera"></ion-icon>
+                                            </ion-col>
+                                        </ion-row>
+                                    </ion-grid>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="item-stats">
+                            <ion-col text-center>
+                                <span class="text-sm" color="gray">工單或店章</span>
+                                <div class="pic-grid">
+                                    <ion-grid>
+                                        <ion-row>
+                                            <ion-col width-33 *ngFor="let Image of item.Img ;let i = index">
+                                                <button class="remove-icon" (click)="removePic($event,i)">
+                                                    <ion-icon name="close"></ion-icon>
+                                                </button>
+                                                <img src="{{Image}}" (click)="viewLarger(i)" onError="this.src='../../assets/img/404.jpg'">
+                                            </ion-col>
+
+                                            <ion-col width-33 class="upload-pic-icon" (click)="uploadPic($event)">
+                                                <ion-icon name="camera"></ion-icon>
+                                            </ion-col>
+                                        </ion-row>
+                                    </ion-grid>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+                <ion-row>
+                    <ion-col>
+                        <button ion-button block class="detail-submit temp" color="buttonSubmit" (click)="scratchOfVndCfm()">暫存</button>
+                    </ion-col>
+                </ion-row>
+            </ion-slide>
+            <!--销案确认-->
+            <ion-slide>
+                <div class="card light-bg info " margin-top>
+                    <div class="title"> 銷案確認 </div>
+                    <ion-grid>
+                        <!--門市 、 設備-->
+                        <ion-row class="item-stats">
+                            <ion-col col-3 text-center>
+                                <span class="text-sm" color="gray">門市</span>
+                                <div>{{item.StoreName}}</div>
+                            </ion-col>
+                            <ion-col col-9 text-center>
+                                <span class="text-sm" color="gray">叫修設施</span>
+                                <div>{{item.AssetName}}</div>
+                            </ion-col>
+                        </ion-row>
+                        <!--工作類型-->
+                        <ion-row class="item-stats">
+                            <ion-col col-12 text-center>
+                                <!-- <span class="text-sm" color="gray"></span> -->
+                                <ion-item>
+                                    <ion-label class="text-sm" color="gray">工作類型</ion-label>
+                                    <ion-select [(ngModel)]="item.TypeWorkId" cancelText="取消" okText="確定">
+                                        <ion-option *ngFor="let itemData of item.Work" [value]="itemData.WorkId">{{itemData.WorkDesc}}</ion-option>
+                                    </ion-select>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+                        <!--銷案類型-->
+                        <ion-row class="item-stats">
+                            <ion-col col-12 text-center>
+                                <!-- <span class="text-sm" color="gray">銷案類型</span> -->
+                                <ion-item>
+                                    <ion-label class="text-sm" color="gray">銷案類型</ion-label>
+                                    <ion-select [(ngModel)]="item.TypeFinishId" cancelText="取消" okText="確定">
+                                        <ion-option *ngFor="let itemData of item.Finish" [value]="itemData.FinishId">{{itemData.FinishName}}</ion-option>
+                                    </ion-select>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+                        <!--處理類型-->
+                        <ion-row class="item-stats">
+                            <ion-col col-12 text-center>
+                                <!-- <span class="text-sm" color="gray">處理類型</span> -->
+                                <ion-item>
+                                    <ion-label class="text-sm" color="gray">處理類型</ion-label>
+                                    <ion-select [(ngModel)]="item.TypePorcnoId" cancelText="取消" okText="確定">
+                                        <ion-option *ngFor="let itemData of item.Proc" [value]="itemData.DamageProcNo">{{itemData.MtnDesc}}</ion-option>
+                                    </ion-select>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="item-stats">
+                            <ion-col text-center>
+                                <span class="text-sm" color="gray">維修說明</span>
+                                <ion-textarea rows="3" placeholder="請輸入維修說明..." [(ngModel)]="item.FixMark" maxlength="100"></ion-textarea>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="item-stats" *ngIf="item.IsCoffeeAsset">
+                            <ion-col text-center>
+                                <span class="text-sm" color="gray">咖啡杯數</span>
+                                <ion-input type="number" maxlength="8" [(ngModel)]="item.CoffeeCup"></ion-input>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="item-stats">
+                            <ion-col text-center>
+                                <span class="text-sm" color="gray">離店時間</span>
+                                <div (click)="SetLeaveDate()">
+                                    {{item.FcDate}}
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+                <ion-row>
+                    <ion-col>
+                        <button ion-button block class="detail-submit confirm" color="buttonYes" (click)="venderConfirm()" >銷案</button>
+                    </ion-col>
+                </ion-row>
+            </ion-slide>
+        </ion-slides>
+    </div>
+    <!--end 廠商技師執行工單-->
+
+    <!--廠商技師受理工單-->
+    <div *ngSwitchCase="'venderAccept'">
+        <div class="card light-bg info" margin-top style="margin-top: 10vh;">
+            <div class="title">案件資訊</div>
+            <ion-grid>
+                <ion-row class="item-stats">
+                    <ion-col text-center>
+                        <span class="text-sm" color="gray">叫修編號</span>
+                        <div>{{item.Sn}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col col-3 text-center>
+                        <span class="text-sm" color="gray">門市</span>
+                        <div>{{item.StoreName}}</div>
+
+                    </ion-col>
+                    <ion-col col-9 text-center>
+                        <span class="text-sm" color="gray">住址</span>
+                        <div>{{item.StoreAddress}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col col-3 text-center (click)="callPhone(item.StoreTel)">
+                        <span class="text-sm" color="gray">電話</span>
+                        <div class="hyperlink">{{item.StoreTel}}</div>
+                    </ion-col>
+                    <ion-col col-9 text-center>
+                        <span class="text-sm" color="gray">設備名稱</span>
+                        <div>{{item.AssetName}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col col-3 text-center>
+                        <span class="text-sm" color="gray">緊急度</span>
+                        <div>{{item.CallLevel}}</div>
+                    </ion-col>
+                    <ion-col col-9 text-center>
+                        <span class="text-sm" color="gray">故障名稱</span>
+                        <div>{{item.DamageDesc}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col col-6 text-center>
+                        <span class="text-sm" color="gray">叫修人</span>
+                        <div>{{item.CallName}}</div>
+                    </ion-col>
+                    <ion-col col-6 text-center>
+                        <span class="text-sm" color="gray">應完成時間</span>
+                        <div>{{item.FdDate}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col col-6 text-center>
+                        <span class="text-sm" color="gray">立案時間</span>
+                        <div>{{item.FiDate}}</div>
+                    </ion-col>
+                    <ion-col col-6 text-center>
+                        <span class="text-sm" color="gray">通知時間</span>
+                        <div>{{item.FvDate}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col text-center>
+                        <span class="text-sm" color="gray">叫修備註</span>
+                        <div>{{item.CallDesc}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col text-center>
+                        <span class="text-sm" color="gray">補充備註</span>
+                        <div>{{item.RemarkAdd}}</div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <button [disabled]="isAcceptDisable" ion-button block class="detail-submit" color="buttonYes" (click)="accept()">認養</button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+    <!--end 廠商技師受理工單-->
+
+    <!--廠商案件查詢-->
+    <div *ngSwitchCase="'venderSearch'">
+        <!--案件資訊-->
+        <div class="cardSearch light-bg info" margin-top style="margin-top: 10vh;">
+            <div class="title">案件資訊</div>
+            <ion-grid>
+                <ion-row class="item-stats">
+                    <ion-col text-center>
+                        <span class="text-sm" color="gray">叫修編號</span>
+                        <div>{{item.Sn}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col col-3 text-center>
+                        <span class="text-sm" color="gray">門市</span>
+                        <div>{{item.StoreName}}</div>
+
+                    </ion-col>
+                    <ion-col col-9 text-center>
+                        <span class="text-sm" color="gray">住址</span>
+                        <div>{{item.StoreAddress}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col col-3 text-center (click)="callPhone(item.StoreTel)">
+                        <span class="text-sm" color="gray">電話</span>
+                        <div class="hyperlink">{{item.StoreTel}}</div>
+                    </ion-col>
+                    <ion-col col-9 text-center>
+                        <span class="text-sm" color="gray">設備名稱</span>
+                        <div>{{item.AssetName}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col col-3 text-center>
+                        <span class="text-sm" color="gray">緊急度</span>
+                        <div>{{item.CallLevel}}</div>
+                    </ion-col>
+                    <ion-col col-9 text-center>
+                        <span class="text-sm" color="gray">故障原因</span>
+                        <div>{{item.DamageDesc}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col col-6 text-center>
+                        <span class="text-sm" color="gray">叫修人</span>
+                        <div>{{item.CallName}}</div>
+                    </ion-col>
+                    <ion-col col-6 text-center>
+                        <span class="text-sm" color="gray">應完成時間</span>
+                        <div>{{item.FdDate}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col col-6 text-center>
+                        <span class="text-sm" color="gray">立案時間</span>
+                        <div>{{item.FiDate}}</div>
+                    </ion-col>
+                    <ion-col col-6 text-center>
+                        <span class="text-sm" color="gray">派工時間</span>
+                        <div>{{item.FvDate}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col text-center>
+                        <span class="text-sm" color="gray">叫修備註</span>
+                        <div>{{item.CallDesc}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col text-center>
+                        <span class="text-sm" color="gray">補充備註</span>
+                        <div>{{item.RemarkAdd}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col text-center>
+                        <span class="text-sm" color="gray">認養技師</span>
+                        <div>{{item.AcceptedName}}</div>
+                    </ion-col>
+                    <ion-col text-center>
+                        <div><button ion-button block class="detail-submit" color="buttonYes" (click)="showHistory()" style="background:#007aff;width:100px;">案件歷程</button></div>
+                </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+
+        <!-- 廠商維修內容 -->
+        <div class="cardSearch light-bg info  " margin-top>
+            <div class="title"> 廠商維修內容 </div>
+            <ion-grid>
+                <ion-row class="item-stats">
+                    <ion-col text-center>
+                        <span class="text-sm" color="gray">到店時間</span>
+                        <div>{{item.ArriveDate}}</div>
+                    </ion-col>
+                    <ion-col text-center>
+                        <span class="text-sm" color="gray">離店時間</span>
+                        <div>{{item.FcDate}}</div>
+
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col text-center>
+                        <span class="text-sm" color="gray">工作類型</span>
+                        <div>{{item.WorkName}}</div>
+                    </ion-col>
+                    <ion-col text-center>
+                        <span class="text-sm" color="gray">銷案類型</span>
+                        <div>{{item.Finish_Name}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats" *ngIf="item.IsCoffeeAsset">
+                    <ion-col text-center>
+                        <span class="text-sm" color="gray">咖啡杯數</span>
+                        <div>{{item.CoffeeCup}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col text-center>
+                        <span class="text-sm" color="gray">處理類型</span>
+                        <div>{{item.Mtn_Desc}}</div>
+                    </ion-col>
+                    <ion-col text-center>
+                        <span class="text-sm" color="gray">维修说明</span>
+                        <div>{{item.FixMark}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col text-center>
+                        <span class="text-sm" color="gray">修理前</span>
+                        <ion-slides pager class="border-bottom">
+                            <ion-slide *ngFor="let img of item.ImgBeforeFix ;let i = index" class="ion-slide-noHeight">
+                                <img src="{{ img }}" alt="" (click)="viewLargerBefore(i)" onError="this.src='../../assets/img/404.jpg'" style="Height:100px">
+                            </ion-slide>
+                        </ion-slides>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col text-center>
+                        <span class="text-sm" color="gray">修理後</span>
+                        <ion-slides pager class="border-bottom">
+                            <ion-slide *ngFor="let img of item.ImgAfterFix ;let i = index" class="ion-slide-noHeight">
+                                <img src="{{ img }}" alt="" (click)="viewLargerAfter(i)" onError="this.src='../../assets/img/404.jpg'" style="Height:100px">
+                            </ion-slide>
+                        </ion-slides>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col text-center>
+                        <span class="text-sm" color="gray">工單或店章</span>
+                        <ion-slides pager class="border-bottom">
+                            <ion-slide *ngFor="let img of item.Img ;let i = index" class="ion-slide-noHeight">
+                                <img src="{{ img }}" alt="" (click)="viewLarger(i)" onError="this.src='../../assets/img/404.jpg'" style="Height:100px">
+                            </ion-slide>
+                        </ion-slides>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </div>
+    <!--end 廠商案件查詢-->
+
+    <!--廠商轉派案件-->
+    <div *ngSwitchCase="'venderAssign'">
+        <div class="card light-bg info" margin-top style="margin-top: 10vh;">
+            <div class="title">案件資訊</div>
+            <ion-grid>
+                <ion-row class="item-stats">
+                    <ion-col text-center>
+                        <span class="text-sm" color="gray">叫修編號</span>
+                        <div>{{item.Sn}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col col-3 text-center>
+                        <span class="text-sm" color="gray">門市</span>
+                        <div>{{item.StoreName}}</div>
+                    </ion-col>
+                    <ion-col col-9 text-center>
+                        <span class="text-sm" color="gray">住址</span>
+                        <div>{{item.StoreAddress}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col col-3 text-center (click)="callPhone(item.StoreTel)">
+                        <span class="text-sm" color="gray">電話</span>
+                        <div class="hyperlink">{{item.StoreTel}}</div>
+                    </ion-col>
+                    <ion-col col-9 text-center>
+                        <span class="text-sm" color="gray">設備名稱</span>
+                        <div>{{item.AssetName}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col col-3 text-center>
+                        <span class="text-sm" color="gray">緊急度</span>
+                        <div>{{item.CallLevel}}</div>
+                    </ion-col>
+                    <ion-col col-9 text-center>
+                        <span class="text-sm" color="gray">故障原因</span>
+                        <div>{{item.DamageDesc}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col col-6 text-center>
+                        <span class="text-sm" color="gray">叫修人</span>
+                        <div>{{item.CallName}}</div>
+                    </ion-col>
+                    <ion-col col-6 text-center>
+                        <span class="text-sm" color="gray">應完成時間</span>
+                        <div>{{item.FdDate}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col col-6 text-center>
+                        <span class="text-sm" color="gray">立案時間</span>
+                        <div>{{item.FiDate}}</div>
+                    </ion-col>
+                    <ion-col col-6 text-center>
+                        <span class="text-sm" color="gray">派工時間</span>
+                        <div>{{item.FvDate}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col text-center>
+                        <span class="text-sm" color="gray">叫修備註</span>
+                        <div>{{item.CallDesc}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col text-center>
+                        <span class="text-sm" color="gray">補充備註</span>
+                        <div>{{item.RemarkAdd}}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="item-stats">
+                    <ion-col text-center>
+                        <span class="text-sm" color="gray">認養技師</span>
+                        <div>{{item.AcceptedName}}</div>
+                    </ion-col>
+                    <ion-col text-center>
+                            <div><button ion-button block class="detail-submit" color="buttonYes" (click)="showHistory()" style="background:#007aff;width:100px;">案件歷程</button></div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+        <ion-grid>
+            <ion-row>
+                <ion-col col-6>
+                    <button *ngIf="!item.IsAccept" [disabled]="isAcceptDisable" ion-button block class="detail-submit" color="buttonSubmit" (click)="notify()">通知</button>
+                </ion-col>
+                <ion-col col-6>
+                    <button *ngIf="!item.IsAccept" [disabled]="isAcceptDisable" ion-button block class="detail-submit" color="buttonYes" (click)="assign()">指派</button>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <button *ngIf="item.IsAccept" [disabled]="isChangeDisable" ion-button block class="detail-submit" color="buttonYes" (click)="change()">改派</button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+    <!-- end廠商轉派案件-->
+</ion-content>

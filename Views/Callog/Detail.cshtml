@@ -1,0 +1,982 @@
+﻿@model Ptc.Spcc.CCEng.Models.CallogDetailViewModel
+
+<style>
+    #material {
+        background-color: whitesmoke;
+        margin: 0px !important;
+        padding-bottom: 6px;
+        padding-top: 6px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-xs-12">
+
+        @*材料選取彈出視窗*@
+        <div id="modal-material-popup" class="modal fade" tabindex="-1" aria-labelledby="materialLabel">
+
+        </div>
+        @*檔案彈出視窗*@
+        <div id="modal-file-popup" class="modal fade">
+
+        </div>
+
+
+
+        @using (Html.BeginForm("", "FMConfirm", FormMethod.Post, new { @id = "updateForm", @name = "updateForm", @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(x => x.Sn);
+            @Html.HiddenFor(x => x.CompCd);
+            @Html.HiddenFor(x => x.StoreCd);
+            @Html.HiddenFor(x => x.AssetCd);
+            @Html.HiddenFor(x => x.VndPartCost);
+            @Html.HiddenFor(x => x.VndArtificialCost);
+            @Html.HiddenFor(x => x.OvertimeFine);
+
+            <!--案件明細-->
+            <div class="widget-box">
+                <div class="widget-header">
+                    <h5 class="widget-title ui-sortable-handle">案件明細</h5>
+                    <div class="widget-toolbar">
+                        <a href="#" data-action="fullscreen" class="orange2">
+                            <i class="ace-icon fa fa-expand"></i>
+                        </a>
+                        <a href="#" data-action="collapse">
+                            <i class="ace-icon fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="widget-body" style="display: block;">
+                    <div class="widget-main grid-system-table">
+
+                        <!--row1-->
+                        <div class="col-xs-12 col-sm-12">
+                            <!--案件編號-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.Sn)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                                        @Html.DisplayName(Model.Sn)
+                                    </div>
+                                </div>
+                            </div>
+                            <!--緊急程度-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.CallLevel)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8" id="CallLevel">
+                                        @Html.DisplayName(Model.CallLevel)
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--案件類型-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.CallKind)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8" id="CallKind">
+                                        @Html.DisplayName(Model.CallKind)
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!--row2-->
+                        <div class="col-xs-12 col-sm-12">
+                            <!--公司名稱-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.CompName)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8" id="CompName">
+                                        @Html.DisplayName(Model.CompName)
+                                    </div>
+                                </div>
+                            </div>
+                            <!--區域名稱-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.ZoName)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8" id="ZoName">
+                                        @Html.DisplayName(Model.ZoName)
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--門市名稱-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.StoreName)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8" id="StoreName">
+                                        @Html.DisplayName(Model.StoreName)
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!--row3-->
+                        <div class="col-xs-12 col-sm-12">
+                            <!--設備名稱-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.AssetName)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8" id="AssetName">
+                                        @Html.DisplayName(Model.AssetName)
+                                    </div>
+                                </div>
+                            </div>
+                            <!--故障描述-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.DamageDesc)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8" id="DamageDesc">
+                                        @Html.DisplayName(Model.DamageDesc)
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--保固狀態-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.AstType)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8" id="AstType">
+                                        @Html.DisplayName(Model.AstType)
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!--row4-->
+                        <div class="col-xs-12 col-sm-12">
+                            <!--設備系統編號-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.AssetSeq)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8" id="AssetSeq">
+                                        @Html.DisplayName(Model.AssetSeq)
+                                    </div>
+                                </div>
+                            </div>
+                            <!--設備財產編號-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.AssetNo)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8" id="AssetNo">
+                                        @Html.DisplayName(Model.AssetNo)
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--誤叫修狀態-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-danger">@Html.DisplayNameFor(x => x.CancelCaseType)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                                        <select id="CancelCaseType" name="CancelCaseType" class="js-data-example-ajax form-control" data-fDisable="TL" data-header="Select a condiment">
+                                            <option value=""></option>
+                                            <option value="0">一般案件</option>
+                                            <option value="1">CC誤叫修</option>
+                                            <option value="2">門市誤叫修</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!--row5-->
+                        <div class="col-xs-12 col-sm-12">
+                            <!--建立人員-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.CreateUser)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8" id="CreateUser">
+                                        @Html.DisplayName(Model.CreateUser)
+                                    </div>
+                                </div>
+                            </div>
+                            <!--建立時間-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.CreateDate)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8" id="CreateDate">
+                                        @Html.DisplayName(Model.CreateDate)
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--重複叫修-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-danger">@Html.DisplayNameFor(x => x.IsRepeat)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                                        @Html.CheckBoxFor(x => x.IsRepeat , new { Data_fDisable = "TL" })
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!--row6-->
+                        <div class="col-xs-12 col-sm-12">
+                            <!--叫修描述-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.CallDesc)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8" id="CallDesc">
+                                        @Html.DisplayName(Model.CallDesc)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!--row7-->
+                        <div class="col-xs-12 col-sm-12">
+                            <!--CC備註-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.CCRemark)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8" id="CCRemark">
+                                        @Html.DisplayName(Model.CCRemark)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!--end-->
+                        <div>
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--銷案資訊-->
+            <div class="widget-box">
+                <div class="widget-header">
+                    <h5 class="widget-title ui-sortable-handle">銷案資訊</h5>
+                    <div class="widget-toolbar">
+                        <a href="#" data-action="fullscreen" class="orange2">
+                            <i class="ace-icon fa fa-expand"></i>
+                        </a>
+                        <a href="#" data-action="collapse">
+                            <i class="ace-icon fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="widget-body" style="display: block;">
+                    <div class="widget-main grid-system-table">
+
+                        <!--row1-->
+                        <div class="col-xs-12 col-sm-12">
+                            <!--廠商-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.VenderName)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                                        @Html.DisplayName(Model.VenderName)
+                                    </div>
+                                </div>
+                            </div>
+                            <!--維修人員-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.EngName)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                                        @Html.DisplayName(Model.EngName)
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--維修人員卡號-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.VndCardNo)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                                        @Html.DisplayName(Model.VndCardNo)
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!--row2-->
+                        <div class="col-xs-12 col-sm-12">
+                            <!--應完成時間-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-danger">@Html.DisplayNameFor(x => x.FdDate)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                                        <div class="input-group">
+                                            <input class="form-control date-picker mailbox-input-text wide-mailbox-input" id="FdDate" name="FdDate" type="text" value="@Model.FdDate" placeholder="應完成時間" disabled />
+                                            <span class="input-group-addon" onclick="$('#FdDate').focus()">
+                                                <i class="fa fa-calendar bigger-110"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--實際完成時間-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-danger">@Html.DisplayNameFor(x => x.FcDate)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                                        <div class="input-group">
+                                            <input class="form-control date-picker mailbox-input-text wide-mailbox-input" id="FcDate" name="FcDate" type="text" value="@Model.FcDate" placeholder="實際完成時間" data-fDisable="TL" />
+                                            <span class="input-group-addon" onclick="$('#FcDate').focus()">
+                                                <i class="fa fa-calendar bigger-110"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--是否超時-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-danger">@Html.DisplayNameFor(x => x.IsOvertime)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                                        @Html.TextBoxFor(x => x.IsOvertime, new { disabled = "disabled" })
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!--row3-->
+                        <div class="col-xs-12 col-sm-12">
+                            <!--案件圖片查詢-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">案件圖片查詢</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                                        <button type="button" class="btn btn-info btn-block" onclick="File()" style="border-radius:10px;">檢視圖片</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!--row4-->
+                        <div class="col-xs-12 col-sm-12">
+                            <!--門市備註-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.StoreCfmRemark)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                                        @Html.DisplayName(Model.StoreCfmRemark)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!--row5-->
+                        <div class="col-xs-12 col-sm-12">
+                            <!--審核備註-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-danger">@Html.DisplayNameFor(x => x.Remark)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                                        @Html.TextBoxFor(x => x.Remark, new { data_fDisable = "TL" })
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--row6-->
+                        <div class="col-xs-12 col-sm-12" data-fHidden="FM">
+                            <!--主管備註-->
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-danger">@Html.DisplayNameFor(x => x.BossCfmRemark)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                                        @Html.TextBoxFor(x => x.BossCfmRemark)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                        <!--end-->
+                        <div>
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--廠商零件管理-->
+            <div class="widget-box">
+                <div class="widget-header">
+                    <h5 class="widget-title ui-sortable-handle">廠商零件管理</h5>
+                    <div class="widget-toolbar">
+                        <a href="javascript:Material('@Ptc.AspnetMvc.Authentication.AuthNodeType.Create')" data-fHidden="TL">
+                            <i class="ace-icon fa fa-shopping-cart red"></i>
+                        </a>
+                        <a href="#" data-action="fullscreen" class="orange2">
+                            <i class="ace-icon fa fa-expand"></i>
+                        </a>
+                        <a href="#" data-action="collapse">
+                            <i class="ace-icon fa fa-chevron-up"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div class="widget-body" style="display: block;">
+                    <div class="widget-main grid-system-table">
+                        <div class="col-xs-12 col-sm-12">
+                            <table id="material" name="material" class="display" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>使用日期</th>
+                                        <th>零件名稱</th>
+                                        <th>規格</th>
+                                        <th>單位</th>
+                                        <th>數量</th>
+                                        <th>價格</th>
+                                        <th>小計</th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+                        </div>
+                        <!--end-->
+                        <div>
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--費用資訊-->
+            <div class="widget-box">
+                <div class="widget-header">
+                    <h5 class="widget-title ui-sortable-handle">費用資訊</h5>
+                    <div class="widget-toolbar">
+                        <a href="#" data-action="fullscreen" class="orange2">
+                            <i class="ace-icon fa fa-expand"></i>
+                        </a>
+                        <a href="#" data-action="collapse">
+                            <i class="ace-icon fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="widget-body" style="display: block;">
+                    <div class="widget-main grid-system-table">
+
+                        <!--row1-->
+                        <div class="col-xs-12 col-sm-12">
+                            <!--估計罰款金額-->
+                            <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.OvertimeFine)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8" id="OvertimeFine">
+                                        @Model.OvertimeFine
+                                    </div>
+                                </div>
+                            </div>
+                            <!--實際罰款金額-->
+                            <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-danger">@Html.DisplayNameFor(x => x.OvertimeFineFact)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8" id="OvertimeFineFact">
+                                        @Html.TextBoxFor(x => x.OvertimeFineFact)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--row2-->
+                        <div class="col-xs-12 col-sm-12">
+                            <!--廠商人工成本-->
+                            <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.VndArtificialCost)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8" id="VndArtificialCost">
+                                        @Model.VndArtificialCost
+                                    </div>
+                                </div>
+                            </div>
+                            <!--實際人工成本-->
+                            <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-danger">@Html.DisplayNameFor(x => x.VndArtificialCostFact)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8" id="VndArtificialCostFact">
+                                        @Html.TextBoxFor(x => x.VndArtificialCostFact)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--row3-->
+                        <div class="col-xs-12 col-sm-12">
+                            <!--廠商材料費用-->
+                            <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-success">@Html.DisplayNameFor(x => x.VndPartCost)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8" id="VndPartCost">
+                                        @Model.VndPartCost
+                                    </div>
+                                </div>
+                            </div>
+                            <!--實際材料成本-->
+                            <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-xs-6 col-sm-6 col-md-4 col-lg-4 label label-danger">@Html.DisplayNameFor(x => x.VndTotalCost)</label>
+                                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8" id="VndTotalCost">
+                                        @Html.TextBoxFor(x => x.VndTotalCost)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--row4-->
+                        <div class="col-xs-12 col-sm-12">
+                            <!---->
+                            <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
+
+                            </div>
+                            <!--總費用-->
+                            <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <div>(自動加總:實際人工+實際材料)</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!--end-->
+                        <div>
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!--按鈕區塊-->
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <button type="button" class="btn-search btn-sm AuthRead" id="confirmBtn" name="confirmBtn" onclick="Confirm()">審核</button>
+                    <button type="button" class="btn-search btn-sm AuthRead" id="saveBtn" name="saveBtn" onclick="Save()">儲存資訊</button>
+                    <button type="button" class="btn-search btn-sm AuthRead" id="backBtn" name="backBtn" onclick="history.back()">返回</button>
+                </div>
+            </div>
+
+        }
+
+    </div>
+</div>
+
+@section scripts{
+
+    <!--init UI-->
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            InitDateTimePicker();
+            InitCheckBox();
+            InitSelect();
+            InitValidation();
+            InitDataTable();
+            InitInput();
+        });
+
+        function InitInput(){
+
+            $('#updateForm').find(`[data-fDisable=${'@Model.FeatureType'}]`).prop('disabled',true);
+            $('#updateForm').find(`[data-fHidden=${'@Model.FeatureType'}]`).hide();
+        }
+
+
+    </script>
+    <!--methods-->
+    <script type="text/javascript">
+
+        //案檢審核
+        function Confirm(){
+
+            if (!$("#updateForm").valid()) { return; }
+
+
+            var path =('@Model.FeatureType' == '@Ptc.Spcc.CCEng.FeatureType.FM')? '@Url.Action("SingleConfirm", "FMConfirm")':'@Url.Action("SingleConfirm", "TLConfirm")'
+            var returnPath =('@Model.FeatureType' == '@Ptc.Spcc.CCEng.FeatureType.FM')? '@Url.Action("Index", "FMConfirm")':'@Url.Action("Index", "TLConfirm")'
+
+            var obj = $("#updateForm").serializeObject();
+
+
+            window.PTC.alertPop.promise({
+                title: "是否審核?",
+                message: "選擇確定/取消",
+                data:obj,
+                type: window.PTC.Enum.AlertPopType.question
+            }
+            ,process)
+
+
+            function process()
+            {
+                $.ajax({
+                    url: path,
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data:obj,
+                    success: function (data) {
+
+                        window.PTC.Loading(false);
+
+                        window.PTC.alertInfo(data.Message)
+
+                        setTimeout(function () {
+                            window.location.href = returnPath;
+                           
+                        }, 1000);
+
+                      
+
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+
+                        window.PTC.Loading(false);
+
+                        window.PTC.alertError(thrownError)
+
+                    }
+                });
+            }
+
+
+        }
+
+        //資料暫存
+        function Save(){
+
+            if (!$("#updateForm").valid()) { return; }
+
+
+            var path =('@Model.FeatureType' == '@Ptc.Spcc.CCEng.FeatureType.FM')? '@Url.Action("Save", "FMConfirm")':'@Url.Action("Save", "TLConfirm")'
+
+            var obj = $("#updateForm").serializeObject();
+
+
+            window.PTC.alertPop.promise({
+                title: "是否暫存?",
+                message: "選擇確定/取消",
+                data:obj,
+                type: window.PTC.Enum.AlertPopType.question
+            }
+            ,process)
+
+
+            function process()
+            {
+                $.ajax({
+                    url: path,
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data:obj,
+                    success: function (data) {
+
+                        window.PTC.Loading(false);
+
+                        window.PTC.alertInfo(data.Message)
+
+                        
+                        setTimeout(function () {
+                            window.location.reload();
+                           
+                        }, 1000);
+
+
+                     
+
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+
+                        window.PTC.Loading(false);
+
+                        window.PTC.alertError(thrownError)
+
+                    }
+                });
+            }
+        }
+
+        //圖片瀏覽視窗
+        function File(){
+
+            window.PTC.Loading(true);
+
+            var obj = {
+                Sn: $('#updateForm #Sn').val(),
+                CompCd : $('#updateForm #CompCd').val(),
+            };
+
+            $.ajax({
+                url: '@Url.Action("FilePopup")',
+                type: 'POST',
+                dataType: 'html',
+                data:obj,
+                success: function (data) {
+
+                    $('#modal-file-popup').html('');
+                    $('#modal-file-popup').html(data);
+                    $('#modal-file-popup').modal('show');
+
+                    window.PTC.Loading(false);
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+
+                    window.PTC.Loading(false);
+
+                    window.PTC.alertError(thrownError)
+
+                }
+            });
+        }
+
+        //[刪除]案件材料
+        function RemoveMaterial(Seq){
+
+            window.PTC.alertPop.promise({
+                title: "是否刪除?",
+                message: "選擇確定/取消",
+                data: {},
+                type: window.PTC.Enum.AlertPopType.question
+            }
+            ,process)
+
+
+            function process()
+            {
+                $.ajax({
+                    url: '@Url.Action("RemoveMaterial")',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data:{
+                        CompCd : $('#updateForm #CompCd').val(),
+                        Sn:$('#updateForm #Sn').val(),
+                        Seq : Seq
+                    },
+                    success: function (data) {
+
+                        window.PTC.Loading(false);
+
+                        window.PTC.alertInfo(data.Message)
+
+                        location.reload();
+
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+
+                        window.PTC.Loading(false);
+
+                        window.PTC.alertError(thrownError)
+
+                    }
+                });
+            }
+
+
+        }
+
+        //[更新/瀏覽]材料異動畫面
+        function Material(type,Seq){
+
+            window.PTC.Loading(true);
+
+            var obj = {};
+            var path = '';
+
+            switch(type)
+            {
+                case '@Ptc.AspnetMvc.Authentication.AuthNodeType.Create':
+                    obj.CompCd = $('#updateForm #CompCd').val();
+                    obj.AssetCd = $('#updateForm #AssetCd').val();
+                    obj.StoreCd = $('#updateForm #StoreCd').val();
+                    obj.Sn = $('#updateForm #Sn').val();
+                    obj.Seq = Seq ;
+                    path = '@Url.Action("AddMaterialPopup")'
+                    break;
+                case '@Ptc.AspnetMvc.Authentication.AuthNodeType.Edit':
+                    obj.CompCd = $('#updateForm #CompCd').val();
+                    obj.Sn = $('#updateForm #Sn').val();
+                    obj.Seq = Seq;
+                    path = '@Url.Action("MaterialPopup")'
+
+                    break;
+                case '@Ptc.AspnetMvc.Authentication.AuthNodeType.Read':
+                    obj.Sn = $('#updateForm #Sn').val();
+                    obj.Seq = Seq;
+                    path = '@Url.Action("MaterialPopup")'
+                    break;
+
+
+            }
+
+            obj.AuthNodeType = type;
+
+
+            $.ajax({
+                url: path,
+                type: 'POST',
+                dataType: 'html',
+                data:obj,
+                success: function (data) {
+
+                    $('#modal-material-popup').html('');
+                    $('#modal-material-popup').html(data);
+                    $('#modal-material-popup').modal('show');
+
+                    window.PTC.Loading(false);
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+
+                    window.PTC.Loading(false);
+
+                    window.PTC.alertError(thrownError);
+
+                }
+            });
+
+        }
+
+    </script>
+    <!--datetime-->
+    <script type="text/javascript">
+
+        function InitDateTimePicker(){
+
+            $(`#FcDate , #FdDate`).datetimepicker({
+                language: 'fr',
+                format: "YYYY/MM/DD HH:mm:ss",
+                pickTime: true,
+                changeMonth: true,
+                changeYear: true,
+                todayHighlight: 'true',
+                autoclose: true
+            });
+
+            $(`#FcDate`).on("dp.change", function (e) {
+
+                var startDate = new Date($('#FdDate').val());
+                var endDate   = new Date(e.date);
+
+                var hour = (endDate.getTime() - startDate.getTime())/(1000*60*60);
+
+
+                if (Math.round(hour) > '@Model.OvertimeHour')
+                {
+                    $('#IsOvertime').val('是');
+                }else{
+                    $('#IsOvertime').val('否');
+                }
+
+            });
+
+            $('.dropdown-menu').hide();
+        }
+
+    </script>
+    <!--checkbox-->
+    <script type="text/javascript">
+
+        function InitCheckBox() {
+
+            $(`#IsRepeat`).on('change', function () {
+                $(`#IsRepeat`).not(this).prop('checked', false);
+            });
+
+        }
+
+    </script>
+    <!--select-->
+    <script type="text/javascript">
+
+        function InitSelect(){
+
+            $(`#CancelCaseType`).val('@Model.CancelCaseType').change();
+
+        }
+    </script>
+    <!--validation-->
+    <script type="text/javascript">
+        function InitValidation(){
+
+            $('#updateForm').PTCValidation({});
+
+            $(`#FcDate`).rules("add", {
+                required:true,
+                date : 0,
+            });
+            $(`#FdDate`).rules("add", {
+                required:true,
+                date : 0,
+            });
+            $(`#IsOvertime`).rules("add", "required");
+            $(`#Remark`).rules("add", "required");
+            $(`#CaseCancelType`).rules("add", "required");
+
+        }
+    </script>
+    <!--dataTable-->
+    <script type="text/javascript">
+
+        function InitDataTable(){
+
+            var columns = [
+            {
+                targets: 0,
+                className: 'min-mobile-l text-center',
+                searchable: false,
+                orderable: false,
+                render: function (data, type, full, meta) {
+                    return `<div style="display: inline-flex;"><button type="button" onclick="Material('@Ptc.AspnetMvc.Authentication.AuthNodeType.Read',${data})" role="button" class="btn btn-xs btn-success` +
+                           `"><i class="ace-icon fa fa-search bigger-120"></i></button>` +
+                           `<button type="button" onclick="Material('@Ptc.AspnetMvc.Authentication.AuthNodeType.Edit',${data})" role="button" class="btn btn-xs btn-info" data-fHidden="TL"` +
+                           `" ><i class="ace-icon fa fa-pencil bigger-120"></i></button>`+
+                           `<button type="button" onclick="RemoveMaterial(${data})" role="button" class="btn btn-xs btn-danger" data-fHidden="TL"` +
+                           `"><i class="ace-icon fa fa-times bigger-120"></i></button></div>`;
+                }
+            },
+             { targets: 1, name: "UseDate", id: "UseDate", className: ' text-center' },
+             { targets: 2, name: "PartName", id: "PartName", className: 'min-mobile-l text-center' },
+             { targets: 3, name: "Spec", id: "Spec", className: 'text-center' },
+             { targets: 4, name: "Unit", id: "Unit", className: 'text-center' },
+             { targets: 5, name: "Qty", id: "Qty", className: 'min-mobile-l text-center' },
+             { targets: 6, name: "Price", id: "Price", className: 'min-mobile-l text-center' },
+             { targets: 7, name: "PreCost", id: "PreCost", className: 'text-center' },
+            ];
+
+            var materialList = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.MaterialList));
+
+
+            var dt = $('#material').DataTable({
+                responsive: true,
+                searching: false,
+                language: dataTables_lang.zhTW,
+                columnDefs:columns,
+                pageLength: 10,
+                data:materialList
+            });
+
+        }
+
+
+    </script>
+
+}

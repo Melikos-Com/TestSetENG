@@ -1,0 +1,523 @@
+﻿@model Ptc.Spcc.CCEng.Models.CheckTechnicianDetailViewModel
+
+<style>
+    textarea {
+        max-width: 500px;
+        max-height: 200px;
+        width: 500px;
+        height: 200px;
+        margin: 5px;
+    }
+
+    .require {
+        color: #d80000;
+    }
+
+    img {
+        max-height: 200px;
+        max-width: 100%;
+    }
+</style>
+@{
+    var title = "检视技师";
+
+    if (Model.ActionType == Ptc.AspnetMvc.Authentication.AuthNodeType.Edit)
+    {
+        title = "审核技师";
+    }
+    if (Model.ActionType == Ptc.AspnetMvc.Authentication.AuthNodeType.Read)
+    {
+        title = "检视技师";
+    }
+
+    var attr = new { @class = "col-xs-12  col-sm-2 col-md-4  control-label" };
+    var attrrequire = new { @class = "col-xs-12  col-sm-2 col-md-4  control-label  require" };
+    var divattr = "col-xs-12 col-sm-12 col-md-5 ";
+}
+
+@**** 查询条件 ****@
+<div class="row">
+    <div class="col-xs-12">
+        <button class="btn-title-style cust-font-style btn-arrow-right btn-title-bgc">@title</button>
+    </div>
+</div>
+
+@using (Html.BeginForm("ConfirmTechnician", "CheckTechnician", FormMethod.Post, new { @id = "modifyForm", @name = "modifyForm", @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(x => x.CompCd)
+    @Html.HiddenFor(x => x.VenderCd)
+    @Html.HiddenFor(x => x.ID)
+
+
+    <div class="row">
+        <div class="@divattr">
+            <!--公司-->
+            <div class="row">
+                <div class="col-xs-12  col-sm-12 col-lg-12">
+                    <div class="form-group">
+                        <label class="@attr">公司名称</label>
+                        <div class="col-xs-12  col-sm-8 col-md-8">
+                            @Html.TextBoxFor(x => x.CompName, new { @disabled = "disabled" })
+                        </div>
+                        <div class="col-xs-offset-0  col-sm-2 col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="@divattr">
+            <!--厂商-->
+            <div class="row">
+                <div class="col-xs-12  col-sm-12 col-lg-12">
+                    <div class="form-group">
+                        <label class="@attr">厂商名称</label>
+                        <div class="col-xs-12  col-sm-8 col-md-8">
+                            @Html.TextBoxFor(x => x.VenderName, new { @disabled = "disabled" })
+                        </div>
+                        <div class="col-xs-offset-0  col-sm-2 col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="@divattr">
+            <!--账号-->
+            <div class="row">
+                <div class="col-xs-12  col-sm-12 col-lg-12">
+                    <div class="form-group">
+                        <label class="@attr">账号</label>
+                        <div class="col-xs-12  col-sm-8 col-md-8">
+                            @Html.TextBoxFor(x => x.Account, new { @disabled = "disabled" })
+                        </div>
+                        <div class="col-xs-offset-0  col-sm-2 col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+            <!--电话-->
+            <div class="row">
+                <div class="col-xs-12  col-sm-12 col-lg-12">
+                    <div class="form-group">
+                        <label class="@attr">电话</label>
+                        <div class="col-xs-12  col-sm-8 col-md-8">
+                            @Html.TextBoxFor(x => x.Phone, new { @disabled = "disabled" })
+                        </div>
+                        <div class="col-xs-offset-0  col-sm-2 col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="@divattr">
+            <!--姓名-->
+            <div class="row">
+                <div class="col-xs-12  col-sm-12 col-lg-12">
+                    <div class="form-group">
+                        <label class="@attr">技师姓名</label>
+                        <div class="col-xs-12  col-sm-8 col-md-8">
+                            @Html.TextBoxFor(x => x.Name, new { @disabled = "disabled" })
+                        </div>
+                        <div class="col-xs-offset-0  col-sm-2 col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="row">
+
+        <div class="@divattr">
+            <!--证件照-->
+            <div class="row" id="FileStickersPath">
+                <div class="col-xs-12  col-sm-12 col-lg-12">
+                    <div class="form-group">
+                        <label class="@attr ">@Html.DisplayNameFor(x => x.StickersPath)</label>
+                        <div class="col-xs-12  col-sm-8 col-md-8">
+                            <input id="PhotofileInput" name="PhotofileInput" type="file" multiple class="file-loading">
+                        </div>
+                        <div class="col-xs-offset-0  col-sm-2 col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="@divattr">
+            <!--身分证复印件-->
+            <div class="row">
+                <div class="col-xs-12  col-sm-12 col-lg-12">
+                    <div class="form-group">
+                        <label class="@attr ">@Html.DisplayNameFor(x => x.TechniciansPath)</label>
+                        <div class="col-xs-12  col-sm-8 col-md-8">
+                            <input id="fileInput" name="fileInput" type="file" multiple class="file-loading">
+                        </div>
+                        <div class="col-xs-offset-0  col-sm-2 col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <!--技能证书-->
+            <div class="row">
+                <div class="col-xs-12  col-sm-12 col-lg-12">
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2 control-label ">@Html.DisplayNameFor(x => x.LicenselmgPath)</label>
+                        <div class="col-xs-12  col-sm-8 col-md-10">
+                            <input id="LicensefileInput" name="LicensefileInput" type="file" multiple class="file-loading">
+                        </div>
+                        <div class="col-xs-offset-0  col-sm-2 col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+                <!--编辑第四列 是否审核-->
+        <div class="row">
+
+            <div class="@divattr">
+                <div class="col-xs-12  col-sm-12 col-lg-12">
+                    <div class="form-group">
+                        <label class="@attr require">审核结果</label>
+                        <div class="col-xs-12  col-sm-8 col-md-8">
+
+                            @Html.RadioButtonFor(x => x.IsHQCheck, (int)HQCheckKind.Passed) <text>通过</text>
+                            @Html.RadioButtonFor(x => x.IsHQCheck, (int)HQCheckKind.Retreat) <text>退回</text>
+
+
+                        </div>
+                        <div class="col-xs-offset-0  col-sm-2 col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--编辑第五列 退回备注-->
+        <div class="row" id="Switch">
+            <div class="@divattr">
+                <div class="col-xs-12  col-sm-12 col-lg-12">
+                    <div class="form-group">
+                        <label class="@attr require">退回原因</label>
+                        <div class="col-xs-12  col-sm-8 col-md-8">
+                            @Html.TextAreaFor(x => x.IsHQCheckRemark)
+                        </div>
+                        <div class="col-xs-offset-0  col-sm-2 col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <!--分隔线-->
+        <div class="split-line"></div>
+
+}
+<!--新增按钮-->
+<div class="row">
+    <div class="col-xs-12 btn-footer center">
+        <input type="button" class="btn-search btn-sm" onclick="Confirm()" id="confirmBtn" name="confirmBtn" value="储存" />
+        <input type="button" class="btn-search btn-sm" onclick="history.back()" id="back" name="back" value="返回" />
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/PTC/PTCValidation.js"></script>
+    <!--element switch-->
+    <script type="text/javascript">
+        jQuery(function ($) {
+
+
+            InitFileInput();      //证件照
+
+            InitPhotoFileInput(); //大头贴
+
+            InitLicenseFileInput();
+
+
+
+            InitValidation();
+            $('input[type=radio][name=IsHQCheck]').change(function () {
+                if($("#IsHQCheckRemark").val() !=null && $("#IsHQCheckRemark").val() != '')
+                {
+                    $("#Switch").show();
+                }
+                else
+                {
+                    if (this.value == 2)
+                        $("#Switch").show();
+                    else
+                        $("#Switch").hide();
+                }
+            });
+
+
+            Loadpage();
+        });
+
+    </script>
+    <!--element switch-->
+    <script type="text/javascript">
+
+        function Loadpage() {
+
+            $(".input-group-btn").hide();
+            //删除(删除图片)按钮
+            $("#modifyForm :button").each(function() {
+                if(this.title == "Remove file")
+                    $(this).remove();
+            });
+
+            if ('@Model.ActionType' == '@Ptc.AspnetMvc.Authentication.AuthNodeType.Read') {
+                $("#confirmBtn").hide();;
+                $("input[type=radio][name=IsHQCheck]").prop("disabled", true);
+                $("#IsHQCheckRemark").prop("disabled", true);
+            }
+            if($("#IsHQCheckRemark").val() !=null && $("#IsHQCheckRemark").val() != '')
+                $("#Switch").show();
+            else
+                $("#Switch").hide();
+            //选取退回才显示 退回原因字段
+            //if ($('input[type=radio][name=IsHQCheck] :checked').val() == 2)
+            //    $("#Switch").show();
+            //else
+            //    $("#Switch").hide();
+
+        }
+    </script>
+    <!--confirm-->
+    <script type="text/javascript">
+
+        function Confirm() {
+            if (!$("#modifyForm").valid()) { return; }  //前端验证
+
+            var hqcheckkind = $("#IsHQCheck:checked").val();
+
+            switch ($("#IsHQCheck:checked").val()) {
+                case "0":
+                    hqcheckkind = '待审核';
+                    break;
+                case "1":
+                    hqcheckkind = '通过';
+                    $("#IsHQCheckRemark").val('');
+                    break;
+                case "2":
+                    hqcheckkind = '退回';
+                    break;
+            }
+
+            var obj = {
+                Account: $("#Account").val(),
+                IsHQCheckRemark: $("#IsHQCheckRemark").val(),
+                IsHQCheck: $("#IsHQCheck:checked").val(),
+                ID: $('#modifyForm #ID').val(),
+                CompCd: $('#modifyForm #CompCd').val(),
+                VenderCd: $('#modifyForm #VenderCd').val(),
+            }
+
+
+            window.PTC.alertPop.promise({
+                title: "你选择的是" + hqcheckkind + "，是否送出?",
+                message: "选择确定/取消",
+                data: obj,
+                type: window.PTC.Enum.AlertPopType.question
+            },
+            process,
+            function (data) {
+
+            })
+
+
+
+
+            function process(data) {
+                $.ajax({
+                    url: '@Url.Action("ConfirmTechnician", "CheckTechnician")',
+                    contentType: 'application/json; charset=utf-8',
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    dataType: 'json',
+                    success: function (data) {
+
+                        window.PTC.alertInfo(data.Message)
+
+                        setTimeout(function () {
+                            history.back();
+                        }, 1000);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        window.PTC.alertInfo(thrownError)
+
+                    }
+                });
+            }
+
+
+        }
+
+
+    </script>
+    <!--init fileInput-->
+    <script type="text/javascript">
+
+        var imgstyle = {
+            image: {width: "100%", height: "auto"},
+        }
+        var zooimgstyle = {
+            image: {width: "100%", height: "100%", 'max-width': "100%",'max-height': "100%"},
+        }
+        function InitFileInput()
+        {
+            var modelPath =@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TechniciansPath)) || [];
+            var deleteUrl = '@Url.Action("DeleteImage", "Technician")';
+            var initialPreview = [];
+            var initialPreviewConfig = [];
+            if (modelPath){
+
+                modelPath.forEach(function(val,index,array) {
+                    initialPreview.push(val);
+                    initialPreviewConfig.push({url:deleteUrl+"?Account="+$('#Account').val()+"&VenderCd="+'@Model.VenderCd'+"&CompCd="+'@Model.CompCd'+"&filepath="+val.split('?filePath=')[1]});
+
+                });
+
+
+            };
+
+
+            $("#fileInput").fileinput({
+                initialPreviewAsData: true,
+                overwriteInitial: true,
+                initialPreview: initialPreview,
+                initialPreviewConfig:initialPreviewConfig,
+                allowedFileExtensions: ["GIF", "JPEG", "TIFF", "PCX", "PNG", "JPG"],
+                maxFilePreviewSize: 10240,
+                maxFileSize: 2048,
+                msgSizeTooLarge:'档案 "{name}" ({size} KB) 超过允许 {maxSize} KB. 请重新上传!',
+                maxFileCount:1,
+                msgFilesTooMany:"选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+                deleteUrl: '',
+                browseClass: "btn",
+                uploadClass: "btn btn-file",
+                removeClass: "btn btn-file",
+                showUpload: false,
+                showRemove: false,
+                uploadAsync: false,
+                previewSettings :imgstyle,
+                previewZoomSettings :zooimgstyle,
+            });
+        }
+
+        function InitPhotoFileInput()
+        {
+            var modelPath =@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.StickersPath)) || [];
+            var deleteUrl = '@Url.Action("DeleteImage", "Technician")';
+            var initialPreview = [];
+            var initialPreviewConfig = [];
+            if (modelPath){
+
+                modelPath.forEach(function(val,index,array) {
+                    initialPreview.push(val);
+                    initialPreviewConfig.push({url:deleteUrl+"?Account="+$('#Account').val()+"&VenderCd="+'@Model.VenderCd'+"&CompCd="+'@Model.CompCd'+"&filepath="+val.split('?filePath=')[1]});
+                });
+            };
+
+            $("#PhotofileInput").fileinput({
+                initialPreviewAsData: true,
+                overwriteInitial: true,
+                initialPreview: initialPreview,
+                initialPreviewConfig:initialPreviewConfig,
+                allowedFileExtensions: ["GIF", "JPEG", "TIFF", "PCX", "PNG", "JPG"],
+                maxFilePreviewSize: 10240,
+                maxFileCount:1,
+                maxFileSize: 2048,
+                msgSizeTooLarge:'档案 "{name}" ({size} KB) 超过允许 {maxSize} KB. 请重新上传!',
+                msgFilesTooMany:"选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+                deleteUrl: '',
+                browseClass: "btn",
+                uploadClass: "btn btn-file",
+                removeClass: "btn btn-file",
+                showUpload: false,
+                showRemove: false,
+                uploadAsync: false,
+                previewSettings :imgstyle,
+                previewZoomSettings :zooimgstyle,
+            });
+
+        }
+
+        function InitLicenseFileInput()
+        {
+            var modelPath =@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.LicenselmgPath)) || [];
+            var deleteUrl = '@Url.Action("DeleteImage", "Technician")';
+            var initialPreview = [];
+            var initialPreviewConfig = [];
+            if (modelPath){
+
+                modelPath.forEach(function(val,index,array) {
+                    initialPreview.push(val);
+                    initialPreviewConfig.push({url:deleteUrl+"?Account="+$('#Account').val()+"&VenderCd="+'@Model.VenderCd'+"&CompCd="+'@Model.CompCd'+"&filepath="+val.split('?filePath=')[1]});
+                });
+            };
+
+            $("#LicensefileInput").fileinput({
+                initialPreviewAsData: true,
+                overwriteInitial: true,
+                initialPreview: initialPreview,
+                initialPreviewConfig:initialPreviewConfig,
+                allowedFileExtensions: ["GIF", "JPEG", "TIFF", "PCX", "PNG", "JPG"],
+                maxFilePreviewSize: 8192,
+                maxFileCount:5,
+                maxFileSize: 2048,
+                msgSizeTooLarge:'档案 "{name}" ({size} KB) 超过允许 {maxSize} KB. 请重新上传!',
+                msgFilesTooMany:"选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+                deleteUrl: '',
+                browseClass: "btn",
+                uploadClass: "btn btn-file",
+                removeClass: "btn btn-file",
+                showUpload: false,
+                showRemove: false,
+                uploadAsync: false,
+                previewSettings :imgstyle,
+                previewZoomSettings :zooimgstyle,
+            });
+
+        }
+
+
+
+
+
+    </script>
+
+    <!--init Validation-->
+    <script type="text/javascript">
+
+        function InitValidation() {
+            $.validator.addMethod("reason", function (value, element, params) {
+                if ($("#IsHQCheck:checked").val() != "2")
+                    return true;
+                else {
+                    if (value)
+                        return true;
+                    else
+                        return false;
+                }
+
+            }, "选择退回，必须填写原因");
+            $('#modifyForm').PTCValidation(
+            {
+                rules: {
+                    IsHQCheck: {  required: true },
+                    IsHQCheckRemark: { reason: true, maxlength: 200, },
+                    //IsHQCheck: { required : true }
+                }
+            });
+        }
+
+    </script>
+}

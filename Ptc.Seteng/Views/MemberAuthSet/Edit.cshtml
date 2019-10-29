@@ -1,0 +1,372 @@
+﻿@model Ptc.Seteng.Models.MemberSetViewModel
+
+
+<!--查詢條件-->
+<div class="row">
+    <div class="col-xs-12">
+        @using (Html.BeginForm("SearchMemberAuth", "MemberAuthSet", FormMethod.Post, new { @id = "modifyForm", @name = "modifyForm", @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(x => x.UserID)
+            <div class="row">
+                <div class="col-sm-4 col-lg-4">
+                    <div class="form-group">
+                        <label class="col-sm-2 col-md-2 control-label require text-center" for="UserName">帳號</label>
+                        <div class="col-sm-10 col-md-10">
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "col-sm-8 col-xs-12" , @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-lg-4">
+                    <div class="form-group">
+                        <label class="col-sm-2 col-md-2 control-label require text-center" for="CorpUserName"> 密碼 </label>
+                        <div class="col-sm-10 col-md-10">
+                            @*@Html.TextBoxFor(m => m.PasswordHash, new { @class = "col-sm-8 col-xs-12", style = "width: 100%;", @type = "password", @readonly = "readonly" })*@
+                            @Html.TextBoxFor(m => m.PasswordHash, new { @class = "col-sm-8 col-xs-12", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-lg-4">
+                    <div class="form-group">
+                        <label class="col-sm-2 col-md-2 control-label require text-center" for="CorpUserName"> 姓名 </label>
+                        <div class="col-sm-10 col-md-10">
+                            @Html.TextBoxFor(m => m.CorpUserName, new { @class = "col-sm-8 col-xs-12", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-sm-4 col-lg-4">
+                    <div class="form-group">
+                        <label class="col-sm-2 col-md-2 control-label require text-center" for="RoleName">角色權限</label>
+                        <div class="col-sm-10 col-md-10">
+
+                            @Html.DropDownListFor(m => m.RoleName, new SelectList(Model.RoleNameList, "Value", "Text"), new { style = "width: 100%;" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-lg-4">
+                    <div class="form-group">
+                        <label class="col-sm-2 col-md-2 control-label require text-center" for="PhoneNumber"> 電話 </label>
+                        <div class="col-sm-10 col-md-10">
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "col-sm-8 col-xs-12", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-lg-4">
+                    <div class="form-group">
+                        <label class="col-sm-2 col-md-2 control-label require text-center" for="Email"> Email </label>
+                        <div class="col-sm-10 col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "col-sm-8 col-xs-12", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <span class="input-group-btn center">
+                  
+                    <button id="submitBtn" class="btn btn-info" type="button">
+                        <i class="ace-icon fa fa-check bigger-110"></i>
+                        送出
+                    </button>
+                    <button class="btn" type="button" onclick="window.location = '@Url.Action("Index", "MemberAuthSet")'">
+                        <i class="ace-icon fa fa-undo "></i>
+                        回上頁
+                    </button>
+                </span>
+            </div>
+
+        }
+    </div>
+</div>
+
+
+<!--TreeView-->
+<div id="treeView">
+
+    <div class="row">
+        <!--GroupAuth TreeView-->
+        <div class="col-sm-12 col-xs-12">
+            <div class="widget-box">
+                <div class="widget-header w-header">
+                    <h4 class="widget-title">功能權限</h4>
+
+                    <div class="widget-toolbar">
+                        <a href="#" data-action="collapse">
+                            <i class="ace-icon fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main padding-8">
+                        <div id="GroupAuth"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@section scripts{
+   
+
+    <!--前端輸入項目的驗證-->
+    <script type="text/javascript">
+
+        jQuery(function ($) {
+            
+          
+            if('@(Convert.ToInt32(Model.AuthNodeType ))'=='@(Convert.ToInt32(Ptc.AspnetMvc.Authentication.AuthNodeType.Read))') {
+
+                $('#submitBtn').addClass('hidden');
+            }
+      
+
+            //先記住一開始的頁面資訊
+            setTimeout(function () {
+                defaultInputInfo = $('#modifyForm').serialize();
+            }, 1000);
+
+            //離開頁面提醒
+            $(window).bind('beforeunload', function () {
+
+                if (defaultInputInfo != $('#modifyForm').serialize()) {
+                    return "尚有變更未儲存";
+                }
+            });
+        });
+
+    </script>
+    <!--事件biding-->
+    <script type="text/javascript">
+
+        $('#RoleName').change(function(){
+
+            GetTreeView($(this).val());
+
+        });
+        $('#submitBtn').click(function(){save();});
+
+
+    </script>
+    <!--取得業務範圍,並組合成Tree View-->
+    <script type="text/javascript">
+
+        //功能授權
+        var pageAuthModel = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.PageAuth));
+
+        //功能權限
+        var tree = $('#GroupAuth').treeview(
+              {
+                  data: pageAuthModel,
+                  checkedIcon: "fa fa-check-square",
+                  uncheckedIcon: "fa fa-square-o",
+                  color: "#000000",
+                  backColor: "#FFFFFF",
+                  level:3,
+              });
+    </script>
+    <!--刷新TreeView-->
+    <script type="text/javascript">
+
+        function GetTreeView(roleID){
+            var arr = $('#RoleName :selected').val().split("-");
+            var object = {RoleID : arr[1] , Compcd : '@Model.Compcd'};
+
+            $.ajax({
+                url: '@Url.Action("RefreshTreeView", "MemberAuthSet")',
+                data: object,
+                type: 'POST',
+                dataType: "json",
+                success:
+                    function (data) {
+                
+                            var pageAuth = data.Data.PageAuth;
+
+                            var tree = $('#GroupAuth').treeview(
+                                  {
+                                      data: pageAuth,
+                                      checkedIcon: "fa fa-check-square",
+                                      uncheckedIcon: "fa fa-square-o",
+                                      color: "#000000",
+                                      backColor: "#FFFFFF",
+                                      level:3,
+                                  });
+                      
+
+                    },
+
+            });
+
+
+
+        }
+        $('#RoleName').trigger("change");
+
+    </script>
+    <!--對於TreeView的控制項-->
+    <script type="text/javascript">
+
+
+        function SelectAll(obj) {
+
+
+            //找到node item
+            var handle = $(obj).parent();
+            var currentNode =  $('#GroupAuth').treeview('getNode', handle.closest('li.list-group-item').attr('data-nodeid'));
+
+            var checkNo = 0;
+            var chekx;
+
+            if (handle.length > 0)
+                chekx = handle.find('input:checkbox');
+            else
+                chekx = $(obj).closest('li.dd-item').find('input:checkbox');
+
+            $.each(chekx, function(index, value) {
+                if (value.checked)
+                    checkNo += 1;
+            });
+            //全選OR不選
+            $.each(chekx, function(index, value) {
+                if (value.checked  == (checkNo != 0)) {
+                    value.checked = (checkNo == 0);
+                }
+                switch (value.name) {
+                    case "Create":
+                        currentNode.state.authCreate = value.checked;
+                        break;
+                    case "Delete":
+                        currentNode.state.authDelete = value.checked;
+                        break;
+                    case "Edit":
+                        currentNode.state.authEdit = value.checked;
+                        break;
+                    case "Read":
+                        currentNode.state.authRead = value.checked;
+                        break;
+                    case "Export":
+                        currentNode.state.authExport = value.checked;
+                        break;
+                    case "Report":
+                        currentNode.state.authReport = value.checked;
+                        break;
+                    default:
+                }
+            });
+        };
+
+    </script>
+    <!--對於畫面的控制-->
+    <script type="text/javascript">
+
+        if ('@Model.AuthNodeType' == '@Ptc.AspnetMvc.Authentication.AuthNodeType.Read')
+        {
+            $('input,select').prop('disabled','true');
+            $('#searchBtn').hide();
+        }
+    </script>
+    <!--送出編輯-->
+    <script type="text/javascript">
+
+
+        function save(){
+
+            //↓↓ 前端驗證:瀏覽狀態不允許修改 ↓↓
+            if ('@Model.AuthNodeType' == '@Ptc.AspnetMvc.Authentication.AuthNodeType.Read'){return;}
+
+            //↓↓ 前端驗證:submit後,做最後的判斷 ↓↓
+            if (!$("#modifyForm").valid()) { return; }
+
+
+
+            var rolename = $('#RoleName').val();
+            var checkNode=$('#GroupAuth').treeview('getChecked');
+            var pageauth = [];
+            $.each(checkNode, function(index, value) {
+                //末端節點
+                if(value.nodes==null)
+                {
+                    var groupname = $(value).attr('id');
+                    var authtype = 0;
+
+                    if(value.state.authCreate){
+                        authtype += @((int)Ptc.AspnetMvc.Authentication.AuthNodeType.Create);
+                    }
+                    if(value.state.authDelete){
+                        authtype += @((int)Ptc.AspnetMvc.Authentication.AuthNodeType.Delete);
+                    }
+                    if(value.state.authEdit){
+                        authtype += @((int)Ptc.AspnetMvc.Authentication.AuthNodeType.Edit);
+                    }
+                    if(value.state.authRead){
+                        authtype += @((int)Ptc.AspnetMvc.Authentication.AuthNodeType.Read);
+                    }
+                    if(value.state.authExport){
+                        authtype += @((int)Ptc.AspnetMvc.Authentication.AuthNodeType.Export);
+                    }
+                    if(value.state.authReport){
+                        authtype += @((int)Ptc.AspnetMvc.Authentication.AuthNodeType.Report);
+                    }
+                    if(authtype==0){
+                        authtype = null;
+                    }
+                    if(authtype){
+                        pageauth.push({id:groupname, AuthType:authtype});
+                    }
+                }
+            });
+            var arr = $('#RoleName :selected').val().split("-");
+            var postObj = {
+                RoleId : '@Model.RoleId',
+                Compcd  :'@Model.Compcd',
+                RoleName:arr[1],
+                AuthNodeType:@((int)Model.AuthNodeType),
+                PageAuth:pageauth,
+                UserName : $('#UserName').val(),
+                UserID: $('#UserID').val(),
+            };
+
+            $.ajax({
+                type: "POST",
+                url:'@Url.Action("ModifyMemberAuth", "MemberAuthSet")',
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(postObj),
+                success: function (data) {
+                    
+                    window.PTC.alertSuccess(data.Data.Message)
+                    
+
+                    //↓↓ reload page ↓↓
+                    setTimeout(function () {
+                        defaultInputInfo = $('#modifyForm').serialize();
+                        history.back();
+                    }, 3000);
+
+
+                },
+                failure: function (errMsg) {
+                    window.PTC.alertWarning(errMsg);
+
+                    
+                }
+
+
+            });
+
+        }
+
+
+    </script>
+
+
+}

@@ -1,0 +1,737 @@
+/**************整體設定************/
+
+* {
+    font-size: 16px !important;
+    font-family: Microsoft JhengHei;
+}
+/**********input相關設定***********/
+
+/*輸入條件寬度設定*/
+input[type=text] {
+    width: 100%;
+    color: #393939;
+}
+.form-group input[disabled], .form-group input:disabled {
+     color: #393939 !important;
+    background-color: #eeeeee !important;
+}
+/**************popup**************/
+
+
+.modal-header {
+    background: -webkit-linear-gradient(#96FED1,#00AA88);
+}
+
+/*設定彈跳視窗的span*/
+.popup-title > span {
+    font-family: Microsoft JhengHei;
+    color: gray;
+    font-size: 20px !important;
+}
+
+.popup-title {
+    text-align: center;
+}
+
+/*彈跳視窗表頭格式設定*/
+.table-header {
+    background-color: #979797;
+    font-size: 26px;
+    letter-spacing: 15px;
+}
+
+/*彈跳視窗表頭格式設定*/
+.modal-title {
+    font-size: 20px !important;
+    font-family: Microsoft JhengHei;
+    color: white;
+    font-weight: 900;
+    text-align: center;
+    line-height: 30px;
+    letter-spacing: 20px;
+}
+/*彈跳視窗格式設定*/
+.modal-dialog {
+    border: none;
+    font-size: 15px;
+    font-family: Microsoft JhengHei;
+}
+
+/*彈跳視窗的背景及框線設定*/
+.popup-result-table > tbody > tr > td {
+    border: none;
+    background-color: white;
+}
+/*彈跳視窗去除框線*/
+.popup-result-table {
+    border: none;
+}
+/*置中按鈕*/
+.modal-footer {
+    text-align: center;
+}
+
+
+/**********表格相關設定************/
+.text-autoNewline {
+    word-break: break-word;
+}
+
+/*查詢Table,tbody不要有邊框*/
+table > tbody > tr > td {
+    border: none;
+}
+/*查詢Table,thead不要有邊框*/
+.table.table-bordered > thead > tr > th:first-child {
+    border: none;
+}
+/*表格內的超連結需要底線*/
+table > tbody > tr > td > a {
+    text-decoration: underline;
+}
+/*設定查詢結果Table 相關樣式*/
+.result-table > thead > tr > th {
+    color: black;
+    font-family: Microsoft JhengHei;
+    font-size: 16px;
+}
+/*表頭格式設定*/
+.table-header {
+    background-color: #979797;
+    font-size: 26px;
+    letter-spacing: 15px;
+}
+/*表格內文字輸出設定*/
+.table > tbody > tr > td {
+    border: none;
+    font-size: 17px;
+    font-family: Microsoft JhengHei;
+}
+
+/*********Icon、btn相關設定************/
+.priority-gernel {
+    font-weight: bolder;
+    color: blue;
+}
+
+.priority-warning {
+    font-weight: bolder;
+    color: red;
+}
+
+.btn-case-history {
+    border-color: orange !important;
+    background-color: orange !important;
+    background-image: none !important;
+    border: 5px solid orange;
+}
+
+    .btn-case-history:hover {
+        background-color: #8b9aa3 !important;
+        border-color: #8b9aa3 !important;
+    }
+
+.caseCD {
+    letter-spacing: 10px;
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+    .caseCD > span {
+        font-size: 27px !important;
+    }
+
+.red {
+    color: red;
+}
+
+.btn-file {
+    padding: 0 !important;
+    width: 150px;
+    background-color: #428bca !important;
+    border-color: #428bca !important;
+    border-radius: 5px;
+}
+
+    .btn-file:hover {
+        background-color: #5bc0de !important;
+        border-color: #46b8da !important;
+    }
+
+/*案件球button*/
+.purple-btn {
+    background-color: #7013a8;
+    color: white;
+}
+
+.lightblue-btn {
+    background-color: #2aabf6;
+    color: white;
+}
+
+.block {
+    border: solid 5px white;
+    border-radius: 10px 10px;
+}
+
+.green-btn {
+    color: white;
+    background-color: #28a56c;
+}
+
+/*查詢條件標題的背景色*/
+.btn-title-bgc {
+    background-color: #00AA88 !important;
+}
+
+
+/*返回按鈕底色*/
+.bgc-gray {
+    background-color: gray !important;
+}
+/*表頭按鈕底色*/
+.bgc-orange {
+    background-color: orange !important;
+}
+
+.bgc-red {
+    background-color: red !important;
+}
+
+/*下方的按鈕*/
+.btn-footer {
+    padding-top: 3%;
+    letter-spacing: 20px;
+}
+
+.bgc-green {
+    background-color: #16a085;
+}
+
+.bgc-red1 {
+    background: -webkit-linear-gradient(#AE0000,#FF2D2D);
+}
+
+.bgc-purple1 {
+    background: -webkit-linear-gradient(#D200D2,#FF77FF);
+}
+
+.bgc-blue {
+    background-color: #2980b9;
+}
+
+
+/*搜尋案件類型的按鈕樣式*/
+.btn-title-style {
+    padding: 2px 12px;
+    font-size: 20px;
+    font-family: Microsoft JhengHei;
+    width: 90%;
+    height: 30px;
+    border: none;
+    margin-left: 4%;
+}
+
+/*字樣設定*/
+.cust-font-style {
+    color: white;
+    font-size: 20px;
+    padding-left: 6%;
+}
+/*搜尋案件類型的按鈕樣式*/
+.btn-case-style {
+    padding: 2px 12px;
+    font-size: 20px;
+    width: 95%;
+    height: 50px;
+    border: none;
+}
+/*將背景轉為白色*/
+.no-background-color {
+    background-color: white;
+}
+/*於panel 整體設定*/
+.panel {
+    margin-bottom: 0px;
+}
+/*於pabel 中 按鈕的相關設定*/
+.panel-btn {
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-size: 38px;
+}
+/*逾時案件的背景顏色*/
+.danger {
+    background-color: #AA0000;
+}
+/*催修案件的背景顏色*/
+.reminders {
+    background-color: #00AAAA;
+}
+/*待料案件的背景顏色*/
+.tobeexpected {
+    background-color: #EE7700;
+}
+/*一般案件的背景顏色*/
+.general {
+    background-color: #77FF00;
+}
+/*定期保養按鈕背景顏色*/
+.maintain-case-bgc {
+    background-color: #007799;
+}
+/*叫修案件按鈕背景顏色*/
+.call-case-bgc {
+    background-color: #CCDDFF;
+}
+
+/*月曆查詢的按鈕*/
+.calender-btn {
+    border-radius: 15px;
+}
+
+/************分頁按鈕*************/
+
+/*查詢分頁的樣式*/
+.pagination > li.active > a, .pagination > li.active > a:hover {
+    background: #00AA88;
+}
+
+.pagination > li > a, .pager > li > a {
+    color: #00AA88;
+}
+
+.pagination > li.active > a, .pagination > li.active > a:hover {
+    background: #00AA88;
+}
+
+.pagination > li.disabled > a, .pager > li.disabled > a, .pagination > li.disabled > a:hover, .pager > li.disabled > a:hover {
+    color: #00AA88;
+}
+
+.full-padding {
+    padding-top: 50% !important;
+}
+
+/*****************以下為自行加入的css 2016.08.02***************/
+.btn-arrow-right,
+.btn-arrow-left {
+    position: relative;
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+.btn-arrow-right {
+    padding-left: 36px;
+}
+
+.btn-arrow-left {
+    padding-right: 36px;
+}
+
+    .btn-arrow-right:before,
+    .btn-arrow-right:after,
+    .btn-arrow-left:before,
+    .btn-arrow-left:after { /* make  two squares (before and after), looking similar to the button */
+        content: "";
+        position: absolute;
+        top: 4px;
+        width: 22px;
+        height: 22px;
+        background: inherit; /* use parent background */
+        border: inherit; /* use parent border */
+        border-left-color: transparent; /* hide left border */
+        border-bottom-color: transparent; /* hide bottom border */
+        border-radius: 0px 4px 0px 0px; /* round arrow corner, the shorthand property doesn't accept "inherit" so it is set to 4px */
+        -webkit-border-radius: 0px 4px 0px 0px;
+        -moz-border-radius: 0px 4px 0px 0px;
+    }
+
+.btn-arrow-right:before,
+.btn-arrow-right:after {
+    transform: rotate(43deg); /* rotate right arrow squares 45 deg to point right */
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+}
+
+.btn-arrow-left:before,
+.btn-arrow-left:after {
+    transform: rotate(225deg); /* rotate left arrow squares 225 deg to point left */
+    -webkit-transform: rotate(225deg);
+    -moz-transform: rotate(225deg);
+    -o-transform: rotate(225deg);
+    -ms-transform: rotate(225deg);
+}
+
+.btn-arrow-right:before,
+.btn-arrow-left:before { /* align the "before" square to the left */
+    left: -10px;
+}
+
+.btn-arrow-right:after,
+.btn-arrow-left:after { /* align the "after" square to the right */
+    right: -12px;
+}
+
+.btn-arrow-right:after,
+.btn-arrow-left:before { /* bring arrow pointers to front */
+    z-index: 1;
+}
+
+.btn-arrow-right:before,
+.btn-arrow-left:after { /* hide arrow tails background */
+    background-color: white;
+}
+
+.btn-search {
+    background-color: #00AA88;
+    border-color: #00AA88;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    touch-action: manipulation;
+    cursor: pointer;
+    vertical-align: initial;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: white;
+}
+
+
+
+
+
+
+.content {
+    padding: 1.5em;
+}
+/*錯誤訊息區塊*/
+.help-block {
+    color: red;
+}
+/*必填欄位顏色*/
+.require {
+    color: #743A3A;
+}
+/************SELECT2**************/
+.select2-container {
+    padding: 0px !important;
+}
+
+    .select2-container .select2-choice .select2-arrow b:before {
+        display: none;
+    }
+
+/**************line***************/
+.split-line {
+    border-top-style: solid;
+    border-top-width: 1px;
+    margin-bottom: 3%;
+    border-top-color: #00AA88;
+}
+/**************tooltip************/
+#tooltip {
+    font-family: Microsoft JhengHei;
+}
+
+    #tooltip > article > i {
+        color: blue;
+    }
+
+    #tooltip > article {
+        margin-bottom: 10%;
+    }
+
+    #tooltip > h3 {
+        font-family: Microsoft JhengHei;
+    }
+/***********ComboBox******************/
+
+select#EquipmentKind1 {
+    width: 100%;
+}
+
+select#EquipmentKind2 {
+    width: 100%;
+}
+
+/***** Bootstrap bordered Table ******/
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #ddd !important;
+}
+
+/*****************widgetBox****************/
+.widget-header {
+    text-align: center;
+    font-size: 16px !important;
+    font-family: Microsoft JhengHei;
+    color: white;
+    background-color: #979797 !important;
+    background-image: initial;
+}
+
+.widget-main {
+    background-color: aliceblue;
+}
+
+/*************** alerts ******************/
+.alert {
+    margin: auto;
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    left: 10%;
+    z-index: 100000;
+    position: fixed;
+}
+/*****************頁簽*******************/
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    border-top: 2px solid #00AA88;
+}
+
+/*******************首頁的案件球*********/
+.circle-tile-heading {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto -40px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-radius: 100%;
+    color: #fff;
+    transition: all ease-in-out .3s;
+}
+
+.circle-tile {
+    margin-bottom: 30px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+
+.circle-tile-content {
+    padding-top: 50px;
+}
+
+.circle-tile-description {
+    text-transform: uppercase;
+    font-size: 30px !important;
+    font-weight: 900;
+    color: white;
+}
+
+.text-faded {
+    color: rgba(255,255,255,0.7);
+}
+
+.circle-tile-number {
+    padding: 5px 0 15px;
+    font-size: 26px !important;
+    color: white;
+    font-weight: 700;
+}
+
+.circle-tile-footer {
+    display: block;
+    padding: 5px;
+    color: rgba(255,255,255,0.5);
+    background-color: rgba(0,0,0,0.1);
+    transition: all ease-in-out .3s;
+}
+
+.card {
+    background: #fff;
+    margin-bottom: 30px;
+    border-width: 10px;
+    border-style: solid;
+    border-radius: 20px;
+}
+
+.card-border-color-orange {
+    border-color: orange;
+}
+
+.card-border-color-blue {
+    border-color: #2980b9;
+}
+
+.card-border-color-green {
+    border-color: #16a085;
+}
+
+.card-border-color-red {
+    border-color: red;
+}
+
+.card, .card .card-header {
+    position: relative;
+}
+
+.card, .mini-charts-item {
+    box-shadow: 0 1px 1px rgba(0,0,0,.15);
+}
+
+    .card .card-header {
+        padding: 25px 27px;
+        text-align: center;
+        color: white;
+        font-size: 20px !important;
+        letter-spacing: 6px;
+    }
+
+    .card, .card .card-header {
+        position: relative;
+    }
+
+        .card .card-header h2 {
+            margin: 0;
+            line-height: 100%;
+            font-size: 17px;
+            font-weight: 400;
+        }
+
+
+.card-header > text {
+    color: white;
+    font-weight: 900;
+    letter-spacing: 5px;
+    font-size: 20px;
+}
+
+
+.row {
+    margin-top: 1vh;
+}
+
+.back-to-top {
+    background-color: #00AA88 !important;
+    border-color: #00AA88;
+    cursor: pointer;
+    position: fixed;
+    bottom: 10vh;
+    right: 20px;
+    display: none;
+    background-color: #00AA88;
+    BORDER-RADIUS: 7px;
+}
+
+.loading {
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    opacity: 0.6;
+    position: absolute;
+    background-color: black;
+    top: 0px;
+}
+
+    .loading > div > span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -65px;
+        position: absolute;
+        margin-top: 11vh;
+        color: #00AA88;
+        text-align: center;
+        font-family: Microsoft JhengHei;
+        letter-spacing: 10px;
+        font-weight: bolder;
+    }
+
+    .loading > div {
+        margin-top: 55vh;
+    }
+
+.load-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 100px;
+    height: 100px;
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #00AA88;
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    right: 25vh;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.ptc-add-tag {
+    background-color: #00AA88 !important;
+    color: white !important;
+    cursor: pointer;
+}
+
+.ptc-cancel {
+    font-weight: bolder;
+    position: absolute;
+    right: 1vw;
+    top: 1vh;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.ptc-dismiss, .ptc-dismiss:hover {
+    color: #00AA88 !important;
+    background-color: white !important;
+    border-width: 2px;
+    border-color: #00AA88 !important;
+}
+
+
+.rowTabholdNO, .rowTabholdOK {
+    border-radius: 50%;
+    margin: 5px;
+}
+
+.color-flag {
+    font-size: small !important;
+    font-weight: bold;
+}
+
+    .color-flag button {
+        border: none !important;
+        padding: 12px;
+        margin: 3px;
+    }
+
+.price-flag {
+    color: red;
+}
+
+    .price-flag > span {
+        font-size: large; 
+    }
+
+.grid-system-table label {
+    height: 1.5rem;
+    border-radius: 10px;
+}

@@ -1,0 +1,28 @@
+page-VersionError,
+.error {
+    background: black;
+    width: 100%;
+    .scroll-content{
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1;
+            display: block;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+            will-change: scroll-position; 
+            padding: 16px!important;
+    }
+}
+.center {
+    position: absolute;
+    top:50%;
+    left:50%;
+    height: 100px;
+    margin-top: -50px;
+    margin-left: -100px;
+    width: 200px;
+}

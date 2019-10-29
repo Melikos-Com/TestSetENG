@@ -1,0 +1,294 @@
+﻿@model Ptc.Seteng.Models.TechnicianGroupEditViewModel
+
+@{
+    var title = "檢視";
+    if (Model.ActionType == Ptc.AspnetMvc.Authentication.AuthNodeType.Create)
+    {
+        title = "新增";
+    }
+    if (Model.ActionType == Ptc.AspnetMvc.Authentication.AuthNodeType.Edit)
+    {
+        title = "修改";
+    }
+    if (Model.ActionType == Ptc.AspnetMvc.Authentication.AuthNodeType.Read)
+    {
+        title = "檢視";
+    }
+
+
+
+}
+<link rel="stylesheet" type="text/css" href="~/Content/bootstrap-duallistbox.css">
+<script src="~/Scripts/listbox/duallistbox-jquery.min.js"></script>
+<script src="~/Scripts/listbox/jquery.bootstrap-duallistbox.js"></script>
+
+<div class="row">
+    <div class="col-xs-12">
+        <button class="btn-title-style cust-font-style btn-arrow-right btn-title-bgc">@title</button>
+    </div>
+</div>
+
+@using (Html.BeginForm("Edit", "TechnicianGroup", FormMethod.Post, new { @id = "updateForm", @name = "updateForm", @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(x => x.ActionType)
+
+      <!--群組名稱-->
+    <div class="row">
+        <div class="col-xs-12  col-sm-12 col-lg-12">
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-2 col-md-2 control-label">@Html.DisplayNameFor(x => x.GroupName)</label>
+                <div class="col-xs-12  col-sm-8 col-md-8">
+                    @Html.TextBoxFor(x => x.GroupName, new { @class = "form-control" })
+
+                </div>
+                <div class="col-xs-offset-0  col-sm-2 col-md-2"></div>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="row">
+            <div class="col-xs-12  col-sm-12 col-lg-12">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 control-label">@Html.DisplayNameFor(x => x.IsAutoPush)</label>
+                    <div class="col-xs-12  col-sm-8 col-md-8" style="top: 7px;">
+                        @Html.RadioButtonFor(x => x.IsAutoPush,true) <text>是</text>
+                        @Html.RadioButtonFor(x => x.IsAutoPush,false) <text>否</text>
+                    </div>
+                    <div class="col-xs-offset-0  col-sm-2 col-md-2"></div>
+                </div>
+            </div>
+        </div>*@
+
+    <div class="row" id="groupid" style="display:none;">
+        <form id="listform" action="#" method="post">
+            @Html.DropDownListFor(x => x.Name, Model.VenderZoDualBoxList, new {id="ZoName", @class = "form-control", multiple = "multiple", Name = "duallistbox_list0[]", onchange = "SelectedIndexChanged()" })
+            <div id="DoDoRO">
+                @Html.DropDownListFor(x => x.Name, Model.DoDualBoxList, new { id = "DoName", @class = "form-control", multiple = "multiple", Name = "duallistbox_list2[]" })
+            </div>
+            @Html.DropDownListFor(x => x.Name, Model.AccountDualBoxList, new { @class = "form-control", multiple = "multiple", Name = "duallistbox_list1[]" })
+        </form>
+    </div>
+
+
+}
+<!--按钮区块-->
+<div class="row">
+    <div class="col-xs-12 text-center">
+        <button type="button" class="btn-search btn-sm AuthRead" id="saveBtn" name="saveBtn" onclick="SubmitBtn()" form="updateForm">@title</button>
+        <button type="button" class="btn-search btn-sm AuthRead" id="backBtn" name="backBtn" onclick="javascript:location.replace('@Url.Action("Index", "TechnicianGroup")');">返回</button>
+    </div>
+</div>
+
+
+@section scripts{
+    <!--on page init-->
+    <script type="text/javascript">
+
+        var list2 = [];
+
+        jQuery(function ($) {
+
+            window.PTC.Loading(true);
+            //判断必填字段
+            InitValidation();
+            var list0 = $('select[name="duallistbox_list0[]"]').bootstrapDualListbox();
+            var list1 = $('select[name="duallistbox_list1[]"]').bootstrapDualListbox();
+            list2 = $('select[name="duallistbox_list2[]"]').bootstrapDualListbox();
+
+            if ('@Model.IsDefault' == 'True') {
+                $("#GroupName").prop("disabled", true);
+                $('button[name="movebtn"]').prop("disabled", true);
+                $('#updateForm select').prop("disabled", true);
+            }
+
+            if ('@Model.ActionType' == '@Ptc.AspnetMvc.Authentication.AuthNodeType.Create') {
+                ControlSwitch();
+            }
+
+            if ('@Model.ActionType' == '@Ptc.AspnetMvc.Authentication.AuthNodeType.Read') {
+                $("#GroupName").prop("disabled", true);
+                $('input[name="IsAutoPush"]').prop("disabled", true);
+                $('button[name="movebtn"]').prop("disabled", true);
+                $('#updateForm select').prop("disabled", true);
+                $("#saveBtn").hide();
+            }
+
+            window.PTC.Loading(false);
+            $("#groupid").show();
+        });
+    </script>
+    <!-- 送出查询 -->
+    <script type="text/javascript">
+        function SubmitBtn() {
+            if (!$("#updateForm").valid()) { return; }
+
+            window.PTC.Loading(true);
+
+            var url = '';
+
+            if ('@Model.ActionType' == '@Ptc.AspnetMvc.Authentication.AuthNodeType.Create') {
+                url = '@Url.Action("Create", "TechnicianGroup")';
+            }
+            else {
+                url = '@Url.Action("Edit", "TechnicianGroup")'
+            }
+
+            //組合對象
+            var req = {
+                Seq: '@Model.Seq',
+                CompCd: '@Model.CompCd',
+                VendorCd: '@Model.VendorCd',
+                GroupName: $('#GroupName').val(),
+                IsAutoPush: $('#IsAutoPush:checked').val(),
+                ZO: $('[name="duallistbox_list0[]"]').val(),
+                DO: $('[name="duallistbox_list2[]"]').val(),
+                Accounts: $('[name="duallistbox_list1[]"]').val()
+            }
+            $.ajax({
+                url: url,
+                data: JSON.stringify(req),
+                processData: false,
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                type: 'POST',
+                success: function (data) {
+
+                    var result = data.Data
+
+                    if (result.IsSuccess) {
+                        window.PTC.alertInfo(result.Message)
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
+
+                        window.PTC.Loading(false);
+                        return;
+                    }
+                    window.PTC.alertInfo(result.Message)
+
+                    window.PTC.Loading(false);
+
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    window.PTC.alertInfo(thrownError)
+                }
+
+            });
+
+        }
+    </script>
+    <!--Control switch -->
+    <script type="text/javascript">
+
+        function ControlSwitch() {
+
+            $("#IsAutoPush").prop("checked", false);
+
+        }
+    </script>
+    <!--init Validation-->
+    <script type="text/javascript">
+        function InitValidation() {
+            $.validator.addMethod("noSpace", function (value, element) {
+                return value.indexOf(" ") < 0 && value != "";
+            }, "*此欄位為必填");
+
+
+            $('#updateForm').PTCValidation(
+            {
+                rules: {
+                    GroupName: { required: true, maxlength: 20, noSpace: true, },
+                }
+            });
+        }
+    </script>
+    <script>
+        //畫面上區域被選擇的值
+        var ZoneList = [];
+        //畫面上區課被選擇的值
+        var DoList = [];
+
+    </script>
+    <script>
+        function SelectedIndexChanged() {
+            var url = '@Url.Action("SelectDo", "TechnicianGroup")'
+
+            /*
+            把傳回來的資料，放到duallistbox_list2[]
+            把duallistbox_list2[] Bind 成特殊的下拉框
+            */
+
+            //組合對象
+            var req = {
+                CompCd: '@Model.CompCd',
+                ZO: $('[name="duallistbox_list0[]"]').val()
+            }
+
+            ZoneList = $('[name="duallistbox_list0[]"]').val();
+            DoList = $('[name="duallistbox_list2[]"]').val();
+
+            debugger;
+            //Bind前先清空
+            var dualBox = $('select[name="duallistbox_list2[]"]').bootstrapDualListbox({
+                moveOnSelect: true
+            });
+
+            dualBox.empty();
+            dualBox.bootstrapDualListbox('refresh', true);
+
+            var newDoList = [];
+            $.ajax({
+                url: url,
+                data: JSON.stringify(req),
+                processData: false,
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                type: 'POST',
+                success: function (returndata) {
+                    var data = returndata.Data;
+                    debugger;
+                    if (data.IsSuccess) {
+                        debugger;
+                        if (data.ReturnData != null) {
+                            debugger;
+                            if (data.ReturnData.length > 0) {
+                                $.each(data.ReturnData, function () {
+                                    var loop = this;
+                                    if ($.inArray(loop.DoCd, DoList) >= 0) {
+                                        dualBox.append($("<option selected></option>")
+                                                        .attr("value", loop.DoCd)
+                                                        .attr("selected", "selected")
+                                                        .data(loop)
+                                                        .text(loop.DoName));
+                                        newDoList.push(loop.Value);
+                                    } else {
+                                        dualBox.append($("<option></option>")
+                                                        .attr("value", loop.DoCd)
+                                                        .data(loop)
+                                                        .text(loop.DoName));
+                                    }
+                                });
+
+                            }
+                        }
+                        DoList = newDoList;
+                        dualBox.bootstrapDualListbox('refresh', true);
+                    } else {
+                        debugger;
+                        dualBox.empty();
+                        dualBox.bootstrapDualListbox('refresh', true);
+                    }
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    window.PTC.alertInfo(thrownError)
+                }
+
+            });
+
+        }
+    </script>
+
+}
+

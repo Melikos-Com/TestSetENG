@@ -1,0 +1,551 @@
+﻿@model Ptc.Seteng.Models.NotifyAssignedViewModel
+@{
+
+}
+<div style="display:none">
+    @using (Html.BeginForm("Getcallog", "NotifyAssigned", FormMethod.Post, new { @id = "callogForm", @name = "callogForm", @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+    {
+        <button type="submit" id="callogSearch" name="callogSearch" data-loading-text="處理中..."></button>
+    }
+    @using (Html.BeginForm("GetTechnician", "NotifyAssigned", FormMethod.Post, new { @id = "TechnicianForm", @name = "TechnicianForm", @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+    {
+        <button type="submit" id="TechnicianSearch" name="TechnicianSearch"></button>
+    }
+    @using (Html.BeginForm("GetGroup", "NotifyAssigned", FormMethod.Post, new { @id = "GroupForm", @name = "GroupForm", @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+    {
+        <button type="submit" id="GroupSearch" name="GroupSearch"></button>
+    }
+    @using (Html.BeginForm("GetTechnician", "NotifyAssigned", FormMethod.Post, new { @id = "TechnicianForm2", @name = "TechnicianForm2", @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+    {
+        <button type="submit" id="TechnicianSearch2" name="TechnicianSearch2"></button>
+    }
+</div>
+<div class="row">
+    <div id="grid-table">
+        <!--table header-->
+        <div class="table-header">
+            <span>&nbsp;<button class="btn-search btn-sm AuthRead" style="float:right;" onclick="NotifyAppoint();">指派</button></span>
+            <span>&nbsp;<button class="btn-search btn-sm AuthRead" style="float:right; background-color:#FF0000" onclick="Notify();">通知</button></span>
+        </div>
+        <!--end table header-->
+        <!--result table-->
+        <table class="table table-bordered table-striped table-bordered dt-responsive nowrap" id="CallogTable">
+            <thead>
+                <tr role="row">
+                    <th class="center" role="columnheader">
+                        <span><input type="checkbox" name="CallogCheckAll" onclick="CallogSelectAll(this.checked)"></span>
+                    </th>
+                    <th class="center" role="columnheader">案件編號</th>
+                    <th class="center" role="columnheader">區</th>
+                    <th class="center" role="columnheader">課</th>
+                    <th class="center" role="columnheader">店名</th>
+                    <th class="center" role="columnheader">故障設備</th>
+                    <th class="center" role="columnheader">故障原因</th>
+                    <th class="center" role="columnheader">立案時間</th>
+                    <th class="center" role="columnheader">應完成時間</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <!--end result table-->
+    </div>
+</div>
+@*通知視窗*@
+<div class="modal fade" id="NotifyPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <input type="hidden" name="NotifySn" id="NotifySn" />
+    <input type="hidden" name="divbutton" id="divbutton" />
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">案件通知</h3>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6 btn btn-default" onclick="ShowTechnicianTable(1)">
+                    技師
+                </div>
+                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6 btn btn-default" onclick="ShowGroupTable(2)">
+                    群組
+                </div>
+                <br />
+                <div id="Technician" style="width:100%;height:400px;overflow-y:auto;">
+                    <table class="table table-bordered table-striped table-bordered dt-responsive nowrap" id="TechnicianTable">
+                        <thead>
+                            <tr role="row">
+                                <th class="center" role="columnheader">
+                                    <span><input type="checkbox" name="TechnicianCheckAll" onclick="TechnicianSelectAll(this.checked)"></span>
+                                </th>
+                                <th class="center" role="columnheader">姓名</th>
+                                <th class="center" role="columnheader">帳號</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div id="Group" style="display:none;">
+                    <table class="table table-bordered table-striped table-bordered dt-responsive nowrap" id="GroupTable">
+                        <thead>
+                            <tr role="row">
+                                <th class="center" role="columnheader"></th>
+                                <th class="center" role="columnheader">群組</th>
+                                <th class="center" role="columnheader">編號</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="SendNotify()">通知</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*指派視窗*@
+<div class="modal fade" id="NotifyAppointPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <input type="hidden" name="NotifyAppointSn" id="NotifyAppointSn" />
+    <input type="hidden" name="divbutton" id="divbutton" />
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">案件指派</h3>
+            </div>
+            <div class="modal-body">
+
+                <div id="Technician" style="width:100%;height:400px;overflow-y:auto;">
+                    <table class="table table-bordered table-striped table-bordered dt-responsive nowrap" id="TechnicianTable2">
+                        <thead>
+                            <tr role="row">
+                                <th class="center" role="columnheader"></th>
+                                <th class="center" role="columnheader">姓名</th>
+                                <th class="center" role="columnheader">帳號</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="SendAppointNotify()">指派</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/PTC/PTCFloatTableFooter.js"></script>
+    <script src="~/Scripts/PTC/PTCDatatables.js"></script>
+    <script type="text/javascript">
+        jQuery(function ($) {
+
+            CaseDataTable();
+
+            $('#callogSearch').click();
+
+            TechnicianDataTable();
+
+            $('#TechnicianSearch').click();
+
+            //指派
+            TechnicianDataTable2();
+            $('#TechnicianSearch2').click();
+
+            GroupDataTable();
+
+            $('#GroupSearch').click();
+
+            hide();
+        });
+
+        //調整技師table和群組table的css
+        function hide() {
+            $('#TechnicianTable_wrapper,#TechnicianTable2_wrapper').css('overflow-x', 'unset'); //TechnicianTable_wrapper->動態產生在技師table的上層，由於在table上加了兩個div，因為溢味而無法呈現，在此將css重新設定
+            $('#GroupTable_wrapper').css('overflow-x', 'unset');   //GroupTable_wrapper->動態產生在群組table的上層，由於在table上加了兩個div，因為溢味而無法呈現，在此將css重新設定
+            $('#TechnicianTable_length,#TechnicianTable2_length').css('display', 'none');  //顯示xx個項目的id->隱藏(技師table)
+            $('#TechnicianTable_paginate,#TechnicianTable2_paginate').css('display', 'none'); //顯示分頁id->隱藏(技師table)
+            $('#TechnicianTable_info,#TechnicianTable2_info').css('display', 'none');     //顯示筆數id->隱藏(技師table)
+            $('#GroupTable_length').css('display', 'none');       //顯示xx個項目的id->隱藏(群組table)
+            $('#GroupTable_paginate').css('display', 'none');     //顯示分頁id->隱藏(群組table)
+            $('#GroupTable_info').css('display', 'none');         //顯示筆數id->隱藏(群組table)
+        };
+
+        //全選或取消全選(案件table)
+        function CallogSelectAll(checked) {
+            $('input[name=CallogCheck]').each(function () {
+                $(this).prop('checked', checked);
+            });
+            $('input[name^=CallogCheck]').each(function () {
+                $(this).attr("value", checked);
+            });
+        };
+
+        //判斷全選框取消打勾(案件table)
+        function CallogSelect(checked) {
+            if (checked == false) {
+                $('input[name=CallogCheckAll]').prop('checked', checked)
+            }
+        };
+
+        //全選或取消全選(技師table)
+        function TechnicianSelectAll(checked) {
+            $('input[name=TechnicianCheck]').each(function () {
+                $(this).prop('checked', checked);
+            });
+            $('input[name^=TechnicianCheck]').each(function () {
+                $(this).attr("value", checked);
+            });
+        };
+
+        //判斷全選框取消打勾(技師table)
+        function TechnicianSelect(checked) {
+            if (checked == false) {
+                $('input[name=TechnicianCheckAll]').prop('checked', checked)
+            }
+        };
+
+        //打開通知的Popup
+        function Notify() {
+            var Checkbox = document.getElementsByName("CallogCheck"); //取得CheckBox
+            var table = document.getElementById("CallogTable"); //取得案件table
+            var NotifySn = [];
+            for (var i = 0; i <= Checkbox.length - 1; i++) {
+                if (Checkbox[i].checked) {
+                    var Sn = Checkbox[i].value.replace("'", "").replace("'", "");
+                    NotifySn.push(Sn);
+                }
+            };
+            if (NotifySn == '') {
+                $('#NotifyPopup').modal('hide');
+                window.PTC.alertInfo('未選擇通知案件!');
+                setTimeout(function () {
+                    $(".alert").remove();
+                    swal.closeModal(true);
+                }, 3000);
+            }
+            else {
+                $('#NotifySn').val(NotifySn);
+                ShowTechnicianTable(1); //技師->1、群組->2
+                $('input[name=Groupradio]').each(function () {
+                    $(this).prop('checked', false);
+                });
+                $('input[name=TechnicianCheck]').each(function () {
+                    $(this).prop('checked', false);
+                });
+                $('input[name=TechnicianCheckAll]').prop('checked', false)
+                $('#NotifyPopup').modal('show');
+            }
+        };
+
+        //Popup->顯示技師
+        function ShowTechnicianTable(obj) {
+            $('#Technician').css('display', 'block');
+            $('#Group').css('display', 'none');
+            $('input[name=Groupradio]').each(function () {
+                $(this).prop('checked', false);
+            });
+            $('#divbutton').val(obj);
+        };
+
+        //Popup->顯示群組
+        function ShowGroupTable(obj) {
+            $('#Technician').css('display', 'none');
+            $('#Group').css('display', 'block');
+            $('input[name=TechnicianCheck]').each(function () {
+                $(this).prop('checked', false);
+            });
+            $('input[name=TechnicianCheckAll]').prop('checked', false)
+            $('#divbutton').val(obj);
+        };
+
+        //送出通知
+        function SendNotify() {
+            var item
+            var table
+            var NotifySn = $('#NotifySn').val(); //要通知的Sn
+            if ($('#divbutton').val() == 1)
+            {
+                item = document.getElementsByName("TechnicianCheck"); //取得CheckBox
+                table = document.getElementById("TechnicianTable"); //取得技師table
+                var NotifyTechnician = [];
+                for (var i = 0; i <= item.length - 1; i++) {
+                    if (item[i].checked) {
+                        var j = i + 1;  //第0行為title，所以加一  //第0行為title，所以加一
+                        NotifyTechnician.push(table.rows[j].cells[2].innerText);
+                    }
+                };
+                window.PTC.Loading(true);
+                $.ajax({
+                    url: '@Url.Action("TechnicianNotify", "NotifyAssigned")',
+                    data: { 'Technician': NotifyTechnician, 'Sn': NotifySn },
+                    type: 'POST',
+                    success: function (data) {
+                        var result = data.Data;
+                        if (result.IsSuccess)
+                        {
+                            $('#NotifyPopup').modal('hide');
+                            $('input[name=CallogCheckAll]').prop('checked', false)
+                            $('input[name=TechnicianCheckAll]').prop('checked', false)
+                            $('#callogSearch').click();
+                            window.PTC.alertInfo(result.Message)
+                            setTimeout(function () {
+                                $(".alert").remove();
+                                swal.closeModal(true);
+                            }, 3000);
+                            window.PTC.Loading(false);
+                        }
+                        else
+                        {
+                            window.PTC.alertInfo(result.Message)
+                            setTimeout(function () {
+                                $(".alert").remove();
+                                swal.closeModal(true);
+                            }, 3000);
+                            window.PTC.Loading(false);
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        window.PTC.alertInfo(thrownError)
+                        setTimeout(function () {
+                            $(".alert").remove();
+                            swal.closeModal(true);
+                        }, 3000);
+                        window.PTC.Loading(false);
+                    }
+                });
+            }
+            else
+            {
+                var seq = '';
+                item = document.getElementsByName("Groupradio"); //取得radio
+                table = document.getElementById("GroupTable"); //取得群組table
+                for (var i = 0; i <= item.length - 1; i++) {
+                    if (item[i].checked) {
+                        var j = i + 1;  //第0行為title，所以加一  //第0行為title，所以加一
+                        seq = table.rows[j].cells[2].innerText;
+                        break;
+                    }
+                };
+                window.PTC.Loading(true);
+                $.ajax({
+                    url: '@Url.Action("GroupNotify", "NotifyAssigned")',
+                    data: { 'Groupseq': seq, 'Sn': NotifySn },
+                    type: 'POST',
+                    success: function (data) {
+                        var result = data.Data;
+                        if (result.IsSuccess) {
+                            $('#NotifyPopup').modal('hide');
+                            $('input[name=CallogCheckAll]').prop('checked', false)
+                            $('input[name=TechnicianCheckAll]').prop('checked', false)
+                            $('#callogSearch').click();
+                            window.PTC.alertInfo(result.Message)
+                            setTimeout(function () {
+                                $(".alert").remove();
+                                swal.closeModal(true);
+                            }, 3000);
+                            window.PTC.Loading(false);
+                        }
+                        else {
+                            window.PTC.alertInfo(result.Message)
+                            setTimeout(function () {
+                                $(".alert").remove();
+                                swal.closeModal(true);
+                            }, 3000);
+                            window.PTC.Loading(false);
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        window.PTC.alertInfo(thrownError)
+                        setTimeout(function () {
+                            $(".alert").remove();
+                            swal.closeModal(true);
+                        }, 3000);
+                        window.PTC.Loading(false);
+                    }
+                });
+            }
+
+        };
+
+
+        //打開指派的Popup
+        function NotifyAppoint() {
+            var Checkbox = document.getElementsByName("CallogCheck"); //取得CheckBox
+            var table = document.getElementById("CallogTable"); //取得案件table
+            var NotifySn = [];
+            for (var i = 0; i <= Checkbox.length - 1; i++) {
+                if (Checkbox[i].checked) {
+                    var Sn = Checkbox[i].value.replace("'", "").replace("'", "");
+                    NotifySn.push(Sn);
+                }
+            };
+            if (NotifySn == '') {
+                $('#NotifyAppointPopup').modal('hide');
+                window.PTC.alertInfo('未選擇指派案件!');
+                setTimeout(function () {
+                    $(".alert").remove();
+                    swal.closeModal(true);
+                }, 3000);
+            }
+            else {
+                $('#NotifyAppointSn').val(NotifySn);
+                ShowTechnicianTable2(); //技師->1
+                $('input[name=TechnicianCheck2]').each(function () {
+                    $(this).prop('checked', false);
+                });
+                $('input[name=TechnicianCheckAll]').prop('checked', false)
+                $('#NotifyAppointPopup').modal('show');
+            }
+        };
+
+
+        //指派
+        function SendAppointNotify() {
+            var item
+            var table
+            var NotifySn = $('#NotifyAppointSn').val(); //要通知的Sn
+
+                item = document.getElementsByName("TechnicianCheck2"); //取得CheckBox
+                table = document.getElementById("TechnicianTable2"); //取得技師table
+                var NotifyTechnician = [];
+                for (var i = 0; i <= item.length - 1; i++) {
+                    if (item[i].checked) {
+                        var j = i + 1;  //第0行為title，所以加一  //第0行為title，所以加一
+                        NotifyTechnician.push(table.rows[j].cells[2].innerText);
+                    }
+                };
+                window.PTC.Loading(true);
+                $.ajax({
+                    url: '@Url.Action("TechnicianNotifyForAppoint", "NotifyAssigned")',
+                    data: { 'Technician': NotifyTechnician, 'Sn': NotifySn },
+                    type: 'POST',
+                    success: function (data) {
+                        var result = data.Data;
+                        if (result.IsSuccess) {
+                            $('#NotifyAppointPopup').modal('hide');
+                            $('#callogSearch').click();
+                            window.PTC.alertInfo(result.Message)
+                            setTimeout(function () {
+                                $(".alert").remove();
+                                swal.closeModal(true);
+                            }, 3000);
+                            window.PTC.Loading(false);
+                        }
+                        else {
+                            window.PTC.alertInfo(result.Message)
+                            setTimeout(function () {
+                                $(".alert").remove();
+                                swal.closeModal(true);
+                            }, 3000);
+                            window.PTC.Loading(false);
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        window.PTC.alertInfo(thrownError)
+                        setTimeout(function () {
+                            $(".alert").remove();
+                            swal.closeModal(true);
+                        }, 3000);
+                        window.PTC.Loading(false);
+                    }
+                });
+        };
+
+        //Popup->顯示技師
+        function ShowTechnicianTable2() {
+            $('#Technician').css('display', 'block');
+        };
+    </script>
+    <script type="text/javascript">
+        //案件table
+        function CaseDataTable() {
+            var columns = [
+                {
+                    targets: 0,
+                    className: 'all',
+                    searchable: false,
+                    orderable: false,
+                    render: function (data, type, full, meta) {
+                        var checkbox = '<span><input type="checkbox" name="CallogCheck" onclick="CallogSelect(this.checked)" value="' + "'" + data + "'" + '"/></span>';
+                        return checkbox;
+                    }
+                },
+                { targets: 1, name: "Sn", id: "Sn" },
+                { targets: 2, name: "Zo_Name", id: "Zo_Name" },
+                { targets: 3, name: "Do_Name", id: "Do_Name" },
+                { targets: 4, name: "Store_Name", id: "Store_Name", className: 'min-tablet-l' },
+                { targets: 5, name: "Asset_Name", id: "Asset_Name", className: 'min-tablet-l' },
+                { targets: 6, name: "Damage_Desc", id: "Damage_Desc", className: 'min-tablet-l' },
+                { targets: 7, name: "Fi_Date", id: "Fi_Date", className: 'desktop' },
+                { targets: 8, name: "Fd_Date", id: "Fd_Date", className: 'desktop' }
+            ];
+            $('#CallogTable').PTCDataTable({
+                colmDefs: columns,
+                form: '#callogForm'
+            });
+        };
+        //技師table
+        function TechnicianDataTable() {
+            var columns = [
+                {
+                    targets: 0,
+                    className: 'text-center',
+                    searchable: false,
+                    orderable: false,
+                    render: function () {
+                        var checkbox = '<span><input type="checkbox" name="TechnicianCheck" onclick="TechnicianSelect(this.checked)"/></span>';
+                        return checkbox;
+                    }
+                },
+                { targets: 1, name: "Name", id: "Name", className: 'text-center', searchable: false, orderable: false },
+                { targets: 2, name: "Account", id: "Account", className: 'text-center', searchable: false, orderable: false },
+            ];
+            $('#TechnicianTable').PTCDataTable({
+                colmDefs: columns,
+                form: '#TechnicianForm'
+            });
+        };
+        //群組table
+        function GroupDataTable() {
+            var columns = [
+                {
+                    targets: 0,
+                    className: 'text-center',
+                    searchable: false,
+                    orderable: false,
+                    render: function () {
+                        var radiobutton = '<span><input type="radio" name="Groupradio" /></span>';
+                        return radiobutton;
+                    }
+                },
+                { targets: 1, name: "GroupName", id: "GroupName", className: 'text-center', searchable: false, orderable: false },
+                { targets: 2, name: "seq", id: "seq", className: 'text-center', searchable: false, orderable: false },
+            ];
+            $('#GroupTable').PTCDataTable({
+                colmDefs: columns,
+                form: '#GroupForm'
+            });
+        };
+        //指派技師table
+        function TechnicianDataTable2() {
+            var columns = [
+                {
+                    targets: 0,
+                    className: 'text-center',
+                    searchable: false,
+                    orderable: false,
+                    render: function () {
+                        var radiobutton = '<span><input type="radio" name="TechnicianCheck2" /></span>';
+                        return radiobutton;
+                    }
+                },
+                { targets: 1, name: "Name", id: "Name", className: 'text-center', searchable: false, orderable: false },
+                { targets: 2, name: "Account", id: "Account", className: 'text-center', searchable: false, orderable: false },
+            ];
+            $('#TechnicianTable2').PTCDataTable({
+                colmDefs: columns,
+                form: '#TechnicianForm2'
+            });
+        };
+    </script>
+}

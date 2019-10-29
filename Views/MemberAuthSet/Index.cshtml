@@ -1,0 +1,251 @@
+﻿@model Ptc.Spcc.CCEng.Models.MemberSetSearchViewModel
+
+<!--查詢條件-->
+<div class="row">
+    <div class="col-xs-12">
+        @using (Html.BeginForm("SearchMemberAuth", "MemberAuthSet", FormMethod.Post, new { @id = "searchForm", @name = "searchForm", @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+        {
+             <!--RWD condition ctrl-->
+            <div type="button" class="visible-xs visible-sm hidden-md hidden-lg  btn btn-default ptc-dismiss">隱藏篩選條件</div>
+
+            <!--end RWD condition ctrl -->
+             <!--dynamic tabs-->
+            <div class="row ptc-conditions">
+
+                <!--clone block-->
+                <div clsss="ptc-content-clone" hidden>
+                    <button type="button" class="ptc-cancel" data-toggle="tooltip btn btn-secondary" data-placement="bottom" title="移除條件">x</button>
+
+                    <div class="container-fluid">
+
+                  
+                            <div class="col-sm-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-md-2 control-label require text-center" for="UserName">帳號</label>
+                                    <div class="col-sm-10 col-md-10">
+                                        @Html.TextBoxFor(m => m.UserName, new { @class = "col-sm-8 col-xs-12" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+  
+
+                            <div class="col-sm-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-md-2 control-label require text-center" for="CorpUserName"> 姓名 </label>
+                                    <div class="col-sm-10 col-md-10">
+                                        @Html.TextBoxFor(m => m.CorpUserName, new { @class = "col-sm-8 col-xs-12" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-md-2 control-label require text-center" for="RoleId">角色權限</label>
+                                    <div class="col-sm-10 col-md-10">
+                                        <select id="RoleId" name="RoleId" style="width: 100%">
+                                            <option value="Admin">系统管理者</option>
+                                            <option value="TL">TeamLeader</option>
+                                            <option value="FM">区域</option>
+                                            <option value="CM">新开店批价CM人員</option>
+                                            <option value="Store">门市</option>
+                                            <option value="Vender">厂商</option>
+                                        </select>
+                                        @*@Html.EnumDropDownListFor(m => m.rt , new { @class = "form-control"})*@
+                                    </div>
+                                </div>
+                            </div>
+                       
+                           
+                        </div>
+
+                </div>
+                <!--end clone block-->
+                <!--tabs block-->
+                <ul class="ptc-tabs nav nav-tabs"></ul>
+                <!--end tabs block-->
+                <!--content block-->
+                <div class="ptc-content tab-content"></div>
+                <!--end content block-->
+
+            </div>
+         <!--end dynamic tabs-->
+     
+
+            <div class="row">
+                <span class="input-group-btn center">
+                    <button type="submit" class="btn btn-success btn-sm" id="searchBtn" name="searchBtn" data-loading-text="處理中...">
+                        <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+                        查詢
+                    </button>
+                </span>
+            </div>
+
+        }
+    </div>
+</div>
+
+<!--查詢結果-->
+<div class="row" style="margin-top:20px;">
+    <div id="grid-table">
+        <div class="table-header-Gray center">
+            <span>使用者列表</span>
+            @*//<span class="pull-right" style="display:flex">
+            //    <button class="btn btn-sm btn-search" type="button" onclick="window.location = '@Url.Action("Create", "MemberAuthSet")'">新增</button>
+            //</span>*@
+        </div>
+        <table id="resultTable" class="table table-bordered">
+            <thead>
+                <tr role="row">
+                    <th class="center" role="columnheader">公司</th>
+                    <th class="center" role="columnheader">帳號</th>
+                    <th class="center" role="columnheader">姓名</th>
+                    <th class="center" role="columnheader">權限</th>
+                    <th class="center" role="columnheader"></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+@*** Javascirpt & Jquery ****@
+@section scripts{
+
+
+    <script src="~/assets/js/bootbox.js"></script>
+       <!--tabs-->
+<script type="text/javascript">
+
+        $('.ptc-tabs').PTCDynamicTabs({ initUI: this.InitUI });
+        function InitUI(index) {
+        }
+
+</script>
+    <!--初始化Datatable-->
+    <script type="text/javascript">
+        jQuery(function ($) {
+
+
+            /*建立GirdView所需的欄位資訊*/
+            var ColumnDefs = [
+            /*
+            * targets:		欄位(左至右由0開始, 右至左由-1開始)
+            * width:		寬度設定 (px, em, ... etc.)
+            * className:	td或th的class (參考: https://datatables.net/extensions/responsive/classes)
+            * searchable:	可否被搜尋
+            * orderable:	可否排序   預設是true 預先排序是由第一個設定true的欄位
+            * render:		呈現來自server side資料的handler
+            */
+             { targets: 0,  name: 'CompCd', className: 'text-center', },
+             { targets: 1,  name: 'UserID', className: 'text-center', },
+             { targets: 2,  name: 'UserName', className: 'text-center' },
+             { targets: 3,  name: 'RoleName', className: 'text-center', orderable: false },
+             {
+                 targets: 4,
+                 width: '25%',
+                 className: 'text-center',
+                 searchable: false,
+                 orderable: false,
+                 render: function (data, type, full, meta) {
+                     var compcd = full[0];
+                     if (full[0] == null)
+                     {
+                         compcd = "";
+                     }
+                     var detailLink = '@Url.Action("Search", "MemberAuthSet")' + '?UserId=' + full[1] + "&Compcd=" + compcd;
+                     var editLink = '@Url.Action("Edit", "MemberAuthSet")' + '?UserId=' + full[1] + "&Compcd=" + compcd;
+
+
+                     return '<div class="hidden-sm hidden-xs btn-group">' +
+                            '<a class="btn btn-xs btn-success" title="明細" href="' + detailLink + '">' +
+                            '<i class="ace-icon fa fa-search bigger-120">明細</i>' +
+                            '</a>' +
+                            '<div class="hidden-sm hidden-xs btn-group">' +
+                            '<a class="btn btn-xs btn-info" title="編輯" href="' + editLink + '">' +
+                            '<i class="ace-icon fa fa-pencil bigger-120">編輯</i>' +
+                            '</a>';
+                            //'<div class="hidden-sm hidden-xs btn-group">' +
+                            //'<a class="btn btn-xs btn-danger" title="刪除" onclick="Delete(' + "'" + data + "'" + ')">' +
+                            //'<i class="ace-icon fa fa-trash-o bigger-120">刪除</i>' +
+                            //'</a>';
+                 }
+             }
+            ];
+
+            //binding table name
+            $('#resultTable').PTCDataTable({
+                colmDefs: ColumnDefs,
+                //送出搜尋條件的form
+                form: "#searchForm",
+  
+            });
+
+        });
+
+    </script>
+
+
+
+    <!--刪除-->
+    <script type="text/javascript">
+
+        function Delete(UserID) {
+
+            //debugger;
+            if (UserID) {
+
+                bootbox.confirm({
+                    message: "確認刪除該角色權限資料?",
+                    buttons: {
+                        confirm: {
+                            label: "確認",
+                            className: "btn-primary btn-sm",
+                        },
+                        cancel: {
+                            label: "取消",
+                            className: "btn-sm",
+                        },
+                    },
+                    callback: function (result) {
+                        if (result) {
+                            //Do Something...
+                            var UssrIDArray = [];
+                            UssrIDArray.push(UserID);
+
+                            var postObj = UssrIDArray;
+
+                            jQuery.ajax({
+                                type: "POST",
+                                url: '@Url.Action("DeleteMemberAuth", "MemberAuthSet")',
+                                dataType: "json",
+                                contentType: "application/json; charset=utf-8",
+                                data: JSON.stringify(postObj),
+                                success: function (data) {
+
+
+                                    if (data.isSuccess)
+                                        window.location = '@Url.Action("Index", "MemberAuthSet")'; //執行完導至Index頁
+                                    else {
+                                        window.PTC.alertWarning(data.Message)
+                                        
+                                    }
+                                },
+                                failure: function (errMsg) {
+                                    window.PTC.alertWarning(errMsg)
+                                    
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+
+
+        }
+    </script>
+
+
+
+}

@@ -1,0 +1,271 @@
+﻿@model Ptc.Seteng.Models.TechnicianGroupViewModel
+<style>
+    table.table-bordered.dataTable tbody th, table.table-bordered.dataTable tbody td {
+        white-space: normal;
+    }
+</style>
+<div class="row">
+    <div class="col-xs-12">
+        @using (Html.BeginForm("GetList", "TechnicianGroup", FormMethod.Post, new { @id = "searchForm", @name = "searchForm", @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+        {
+        <!--RWD condition ctrl-->
+            <div type="button" class="visible-xs visible-sm hidden-md hidden-lg  btn btn-default ptc-dismiss">隱藏條件</div>
+         <!--end RWD condition ctrl -->
+
+         <!--dynamic tabs-->
+            <div class="row ptc-conditions">
+                <!--clone block-->
+                <div clsss="ptc-content-clone" hidden>
+                    <button type="button" class="ptc-cancel" data-toggle="tooltip btn btn-secondary" data-placement="bottom" title="移除條件">x</button>
+                    <div class="container-fluid">
+                        <div class="row">
+                            @Html.HiddenFor(x => x.CompCd)
+                            @Html.HiddenFor(x => x.VendorCd)
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                <!--公司-->
+                                @TechnicianHelper.TextBoxFor(Html, m => m.CompName, new { @disabled = "disabled" }, new { @class = "col-xs-12 col-sm-2 col-md-4 col-lg-4 control-label" })
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                <!--厂商-->
+                                @TechnicianHelper.TextBoxFor(Html, m => m.VendorName, new { @disabled = "disabled" }, new { @class = "col-xs-12 col-sm-2 col-md-4 col-lg-4 control-label" })
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                <!--群組名稱-->
+                                @TechnicianHelper.TextBoxFor(Html, m => m.GroupName, null, new { @class = "col-xs-12 col-sm-2 col-md-4 col-lg-4 control-label remove" })
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--end clone block-->
+                <!--tabs block-->
+                <ul class="ptc-tabs nav nav-tabs"></ul>
+                <!--end tabs block-->
+                <!--content block-->
+                <div class="ptc-content tab-content"></div>
+                <!--end content block-->
+
+            </div>
+         <!--end dynamic tabs-->
+
+         <!--btn block-->
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <button type="submit" class="btn-search btn-sm AuthRead" id="searchBtn" name="searchBtn" data-loading-text="處理中..." disabled>查詢</button>
+                </div>
+            </div>
+         <!--end btn block-->
+        }
+    </div>
+</div>
+
+<div class="row color-flag" style="padding:10px 0;">
+</div>
+
+<div class="row">
+    <div id="grid-table">
+
+        <!--table header-->
+        <div class="table-header">
+            <span>&nbsp;<a class="btn btn-sm btn-warning" href="javascript:Add()" style="float:right;">新增</a></span>
+        </div>
+        <!--end table header-->
+        <!--result table-->
+        <table class="table table-bordered table-striped table-bordered dt-responsive nowrap" id="resultTable" style="table-layout:fixed;">
+            <thead>
+                <tr role="row">
+                    <th class="center" role="columnheader"></th>
+                    <th class="center" role="columnheader" style="white-space: normal;">群組名稱</th>
+                    <th class="center" role="columnheader" style="white-space: normal;">負責區域</th>
+                    <th class="center" role="columnheader" style="white-space: normal;">負責課別</th>
+                    <th class="center" role="columnheader">編輯</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <!--end result table-->
+
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/PTC/PTCTabview.js"></script>
+<script type="text/javascript">
+        jQuery(function ($) {
+
+            PTCDynamicTabs();
+
+            DataTable();
+            $("#searchBtn").prop("disabled", false);
+        });
+</script>
+    <!--跳转页面动作-->
+    <script type="text/javascript">
+
+        //新增畫面
+        function Add() {
+            DirectToUrl('@Url.Action("CreateView", "TechnicianGroup")',
+                        {
+                            CompCd: '@Model.CompCd',
+                            VendorCd: '@Model.VendorCd'
+                        });
+        }
+
+        //浏览畫面
+        function Read(full) {
+            debugger;
+            var arr = full.split(",")
+            var model = {
+                CompCd: arr[4],
+                VendorCd: arr[5],
+                Seq: arr[6],
+            };
+
+            DirectToUrl('@Url.Action("ReadView", "TechnicianGroup")', model);
+        }
+
+        //修改畫面
+        function Edit(full) {
+
+            var arr = full.split(",")
+            var model = {
+                CompCd: arr[4],
+                VendorCd: arr[5],
+                Seq: arr[6],
+            };
+
+            DirectToUrl('@Url.Action("EditView", "TechnicianGroup")', model);
+        }
+
+        function Delete(full) {
+            var arr = full.split(",")
+
+            var model = {
+                CompCd: arr[4],
+                VendorCd: arr[5],
+                Seq: arr[6],
+            };
+
+
+            window.PTC.alertPop.promise({
+                title: "是否刪除?",
+                message: "選擇確定/取消",
+                data: model,
+                type: window.PTC.Enum.AlertPopType.question
+            }, process, function (data) { })
+
+            function process(data) {
+                $.ajax({
+                    url: '@Url.Action("Delete", "TechnicianGroup")',
+                    contentType: 'application/json; charset=utf-8',
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    dataType: 'json',
+                    success: function (data) {
+                        var result = data.Data
+                        window.PTC.alertInfo(result.Message)
+
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        window.PTC.alertInfo(thrownError)
+
+                    }
+                });
+            }
+        }
+
+
+
+    </script>
+    <script type="text/javascript">
+
+            function TRmethod(trData, trElem) {
+                if (trData.length > 0 && trData[0].GroupName) {
+                    if (trData[0].GroupName == '@Model.VendorName') {
+                        $(trElem).css('background-color', 'yellow');
+                    }
+                }
+
+            }
+
+    </script>
+    <!--tabs-->
+    <script type="text/javascript">
+
+        function PTCDynamicTabs() {
+            $('.ptc-tabs').PTCDynamicTabs({ initUI: this.InitUI });
+        }
+
+        function InitUI(index) {
+        }
+
+    </script>
+
+    <!--dataTable-->
+    <script type="text/javascript">
+        function DataTable() {
+            var columns = [
+        { targets: 0, name: "details-control", id: "details-control", className: 'max-tablet-p text-center' },
+        { targets: 1, name: "GroupName", id: "GroupName", className: 'min-tablet-l text-center' },
+        { targets: 2, name: "ResponsibleZo", id: "ResponsibleZo", className: 'text-center' },
+        { targets: 3, name: "ResponsibleDo", id: "ResponsibleDo", className: 'text-center' },
+        {
+            targets: 4,
+            classname: 'text-center',
+            searchable: false,
+            orderable: false,
+            render: function (data, type, full, meta) {
+
+                var message = '<button type="button" onclick="Read(' + "'" + full + "'" + ')" role="button" class="btn btn-xs btn-success rowtabholdok' +
+                               '"><i class="ace-icon fa fa-search bigger-120"></i></button>' +
+                               '<button type="button" onclick="Edit(' + "'" + full + "'" + ')" role="button" class="btn btn-xs btn-info rowtabholdno' +
+                               '" ><i class="ace-icon fa fa-pencil bigger-120"></i></button>';
+                var del = '<button type="button" onclick="Delete(' + "'" + full + "'" + ')" role="button" class="btn btn-xs btn-danger rowtabholdno' +
+                              '" ><i class="ace-icon fa fa-trash-o bigger-120"></i></button>';
+                //var disable = '<button type="button" id="disablebtn" role="button" class="btn btn-xs btn-danger rowtabholdno' + '" disabled><i class="ace-icon fa fa-trash-o bigger-120"></i></button>';
+
+
+                switch (full[7]) {
+                    case 'True':
+                        return message;
+                        //return message + disable;
+                        break;
+
+                    default:
+                        return message + del;
+                        break;
+
+                }
+            }
+        }
+            ];
+
+            $('#resultTable').PTCDataTable({
+                colmDefs: columns,
+                form: "#searchForm",
+                trMethod: this.TRmethod,
+                refill: function (criteria) {
+                    $(this.form).ReductionDynamicTabs({
+                        array: criteria,
+                        refill: function (data, index) {
+
+                            var no = index + 1;
+                            if (data.GroupName) {
+                                $("#c" + no + " #GroupName").val(data.GroupName);
+                            }
+                        }
+                    });
+
+
+                }
+            });
+        }
+       
+        
+    </script>
+
+}
+

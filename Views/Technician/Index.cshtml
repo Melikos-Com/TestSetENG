@@ -1,0 +1,345 @@
+﻿@model Ptc.Spcc.CCEng.Models.TechnicianViewModel
+
+
+
+
+
+@{
+    var IsHQCheck = new List<KeyValuePair<String, Object>>
+    {
+        new KeyValuePair<string, Object>("送审中", 0),
+        new KeyValuePair<string, Object>("通过", 1),
+        new KeyValuePair<string, Object>("未通过", 2),
+    };
+    var Enable = new List<KeyValuePair<String, Object>>
+    {
+        new KeyValuePair<string, Object>("正常", true),
+        new KeyValuePair<string, Object>("停用", false),
+    };
+
+    var attr = new { @class = "col-xs-12 col-sm-2 col-md-4 control-label", @style = "text-align:left" };
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        @using (Html.BeginForm("GetList", "Technician", FormMethod.Post, new { @id = "searchForm", @name = "searchForm", @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+        {
+
+         <!--RWD condition ctrl-->
+            <div type="button" class="visible-xs visible-sm hidden-md hidden-lg  btn btn-default ptc-dismiss">隐藏筛选条件</div>
+         <!--end RWD condition ctrl -->
+
+         <!--dynamic tabs-->
+            <div class="row ptc-conditions">
+
+                <!--clone block-->
+                <div clsss="ptc-content-clone" hidden>
+                    <button type="button" class="ptc-cancel" data-toggle="tooltip btn btn-secondary" data-placement="bottom" title="移除条件">x</button>
+
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            @Html.HiddenFor(x => x.CompCd)
+                            @Html.HiddenFor(x => x.VenderCd)
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <!--公司-->
+                                @TechnicianHelper.TextBoxFor(Html, m => m.CompName, new { @readonly = "readonly" }, attr)
+                                <!--厂商-->
+                                @TechnicianHelper.TextBoxFor(Html, m => m.VendorName, new { @readonly = "readonly" }, attr)
+
+
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <!--技师名称-->
+                                @TechnicianHelper.TextBoxFor(Html, m => m.Name, null, attr)
+
+                                <!--账号-->
+                                @TechnicianHelper.TextBoxFor(Html, m => m.Account, null, attr)
+
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <!--总部审核-->
+                                @TechnicianHelper.CheckBox(Html, "IsHQCheck", "总部审核", IsHQCheck, attr)
+                                <!--账号启用-->
+                                @TechnicianHelper.CheckBox(Html, "Enable", "账号启用", Enable, attr)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end clone block-->
+                <!--tabs block-->
+                <ul class="ptc-tabs nav nav-tabs"></ul>
+                <!--end tabs block-->
+                <!--content block-->
+                <div class="ptc-content tab-content"></div>
+                <!--end content block-->
+
+            </div>
+         <!--end dynamic tabs-->
+
+         <!--btn block-->
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <button type="submit" class="btn-search btn-sm AuthRead" id="searchBtn" name="searchBtn" data-loading-text="处理中...">查询</button>
+                </div>
+            </div>
+         <!--end btn block-->
+
+        }
+
+    </div>
+</div>
+
+<div class="row">
+    <div id="grid-table">
+
+        <!--table header-->
+        <div class="table-header">
+            <span>&nbsp;</span>
+            <span class="pull-right" style="display:flex">
+                <a class="btn btn-sm btn-warning" href="javascript:Add()">新增</a>
+            </span>
+        </div>
+        <!--end table header-->
+        <!--result table-->
+        <table class="table table-bordered table-striped table-bordered dt-responsive nowrap" id="resultTable">
+            <thead>
+                <tr role="row">
+                    <th class="center" role="columnheader">账号</th>
+                    <th class="center" role="columnheader">技师名称</th>
+                    <th class="center" role="columnheader">总部审核</th>
+                    <th class="center" role="columnheader">账号启用</th>
+                    <th class="center" role="columnheader">编辑</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <!--end result table-->
+
+    </div>
+</div>
+
+@section scripts{
+
+    <!--跳转页面动作-->
+    <script type="text/javascript">
+
+        //往新增画面
+        function Add() {
+            DirectToUrl('@Url.Action("Add", "Technician")');
+        }
+
+        //往修改画面
+        function Modify(full) {
+
+            var arr = full.split(",")
+            var model = {
+                CompCd: arr[5],
+                VenderCd: arr[6],
+                Account: arr[7],
+            };
+
+            DirectToUrl('@Url.Action("Modify", "Technician")', model);
+        }
+
+        //往檢視画面
+        function Read(full) {
+
+            var arr = full.split(",")
+            var model = {
+                CompCd: arr[5],
+                VenderCd: arr[6],
+                Account: arr[7],
+            };
+
+            DirectToUrl('@Url.Action("Read", "Technician")', model);
+        }
+
+        //删除技师信息
+        function Delete(full) {
+
+            var arr = full.split(",")
+
+            var model = {
+                CompCd: arr[5],
+                VenderCd: arr[6],
+                Account: arr[7],
+            };
+
+
+            window.PTC.alertPop.promise({
+                title: "是否删除?",
+                message: "选择确定/取消",
+                data: model,
+                type: window.PTC.Enum.AlertPopType.question
+            },
+            process,
+            function (data) { })
+
+            function process(data) {
+                $.ajax({
+                    url: '@Url.Action("Delete", "Technician")',
+                    contentType: 'application/json; charset=utf-8',
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    dataType: 'json',
+                    success: function (data) {
+                        var result = data.Data
+                        window.PTC.alertInfo(result.Message)
+
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        window.PTC.alertInfo(thrownError)
+
+                    }
+                });
+            }
+
+
+        }
+
+
+    </script>
+
+    <!--checkBox-->
+    <script type="text/javascript">
+
+
+        function InitCheckBox(index) {
+
+
+            $("#c"+index+" #IsHQCheck").on('change', function () {
+                $("#c"+index+"  #IsHQCheck").not(this).prop('checked', false);
+            });
+            $("#c"+index+" #Enable").on('change', function () {
+                $("#c"+index+"  #Enable").not(this).prop('checked', false);
+            });
+        }
+
+    </script>
+    <!--tabs-->
+    <script type="text/javascript">
+
+        $('.ptc-tabs').PTCDynamicTabs({ initUI: this.InitUI });
+
+        function InitUI(index) {
+
+            InitCheckBox(index);
+        }
+    </script>
+    <script type="text/javascript">
+
+        function TRmethod(trData, trElem) {
+            if (trData.length > 0 && trData[0].IsHQCheck) {
+                if (trData[0].IsHQCheck == "未通过") {
+                    $(trElem).css('background-color', 'yellow');
+                }
+            }
+
+        }
+        function Backfill(key, index) {
+            $(index).each(function () {
+                if (this.value == key)
+                    $(this).prop('checked', true);
+            })
+        };
+    </script>
+    <!--dataTable-->
+    <script type="text/javascript">
+
+        var columns = [
+
+         { targets: 0, name: "Account", id: "Account", className: 'min-mobile-l text-center' },
+         { targets: 1, name: "Name", id: "Name", className: ' text-center' },
+         {
+             targets: 2, name: "IsHQCheck", id: "IsHQCheck", className: 'min-mobile-l text-center',
+             render: function (data, type, full, meta) {
+
+             var HQCheckkind = data;
+             switch(data) {
+                 case '@((int)HQCheckKind.WaitCheck)':
+                     HQCheckkind = "送审中";
+                     break;
+                 case '@((int)HQCheckKind.Retreat)':
+                     HQCheckkind = "未通过";
+                     break;
+                 case '@((int)HQCheckKind.Passed)':
+                     HQCheckkind = "通过";
+                     break
+  
+             }
+
+
+                 return HQCheckkind;
+
+        }
+         },
+         { targets: 3, name: "Enable", id: "Enable", className: 'min-mobile-l text-center' },
+
+         {
+             targets: 4,
+             classname: 'text-center',
+             searchable: false,
+             orderable: false,
+             render: function (data, type, full, meta) {
+
+                 var read = '<button type="button" onclick="Read('+"'"+full+"'"+')" role="button" class="btn btn-xs btn-success rowtabholdok' +
+                            '"><i class="ace-icon fa fa-search bigger-120"></i></button>';
+                 var update = '<button type="button" onclick="Modify('+"'"+full+"'"+')" role="button" class="btn btn-xs btn-info rowtabholdno' +
+                                '"><i class="ace-icon fa fa-pencil bigger-120"></i></button>';
+                 var disable = '<button type="button"  role="button" class="btn btn-xs btn-info rowtabholdno' +
+                                '" disabled><i class="ace-icon fa fa-pencil bigger-120"></i></button>';
+                 switch (full[2]) {                             //IsHQCheck 送审中 移除编辑按钮
+                     case '@((int)HQCheckKind.WaitCheck)':
+                         return read + disable;
+                         break;
+
+                     default :
+                         return read + update;
+                        break;
+
+                 }
+
+
+             }
+         },
+
+        ];
+
+        $('#resultTable').PTCDataTable({
+            colmDefs: columns,
+            form: "#searchForm",
+            trMethod: this.TRmethod,
+            refill: function (criteria) {
+
+                $(this.form).ReductionDynamicTabs({
+                    array: criteria,
+                    refill: function (data, index) {
+
+                        var no = index + 1;
+                        if (data.Name)                                                    //姓名
+                            $("#c" + no + " #Name").val(data.Name);
+
+                        if (data.Account)                                                 //账号
+                            $("#c" + no + " #Account").val(data.Account);
+
+                        if (data.Enable)                                                  //账号启用
+                            Backfill(data.Enable, $("#c" + no + " #Enable"));
+
+                        if (data.IsHQCheck)                                               //总部认证
+                            Backfill(data.IsHQCheck, $("#c" + no + " #IsHQCheck"));
+
+
+                    }
+                });
+            }
+        });
+
+
+    </script>
+
+
+}

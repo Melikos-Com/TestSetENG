@@ -1,0 +1,19 @@
+<!--標題-->
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>簽名</ion-title>
+    </ion-navbar>
+</ion-header>
+<!--end 標題-->
+<!--內文-->
+<ion-content padding disable-scroll>
+    <div id="forPad">
+        <signature-pad id="signaturepad"  (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
+    </div>
+</ion-content>
+<!-- 標底 -->
+<ion-footer no-shadow text-center>
+    <button ion-button (click)="closeModal()" color="optionPrimary">清空</button>
+    <button ion-button (click)="saveModal()" color="optionPrimary">儲存</button>
+</ion-footer>
+<!-- end 標底-->

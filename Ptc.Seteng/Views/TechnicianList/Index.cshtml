@@ -1,0 +1,285 @@
+﻿@model Ptc.Seteng.Models.TechnicianListViewModel
+@{
+    var IsHQCheck = new List<KeyValuePair<String, Object>>
+    {
+        new KeyValuePair<string, Object>("待审核", 0),
+        new KeyValuePair<string, Object>("通过", 1),
+        new KeyValuePair<string, Object>("退回", 2),
+    };
+}
+<div class="row">
+    <div class="col-xs-12">
+        @using (Html.BeginForm("GetList", "TechnicianList", FormMethod.Post, new { @id = "searchForm", @name = "searchForm", @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+        {
+
+         <!--RWD condition ctrl-->
+            <div type="button" class="visible-xs visible-sm hidden-md hidden-lg  btn btn-default ptc-dismiss">隐藏筛选条件</div>
+         <!--end RWD condition ctrl -->
+
+         <!--dynamic tabs-->
+            <div class="row ptc-conditions">
+                <!--clone block-->
+                <div clsss="ptc-content-clone" hidden>
+                    <button type="button" class="ptc-cancel" data-toggle="tooltip btn btn-secondary" data-placement="bottom" title="移除条件">x</button>
+
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                <!--公司代号-->
+                                @TechnicianHelper.DropDownListFor(Html, m => m.CompCd, new List<SelectListItem>(), new { @disabled = "disabled" }, new { @class = "col-xs-12 col-sm-2 col-md-4 col-lg-4 control-label" })
+                                <!--厂商编号-->
+                                @TechnicianHelper.DropDownListFor(Html, m => m.VenderCd, new List<SelectListItem>(), null, new { @class = "col-xs-12 col-sm-2 col-md-4 col-lg-4 control-label" })
+
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                <!--技師姓名-->
+                                @TechnicianHelper.TextBoxFor(Html, m => m.Name, null, new { @class = "col-xs-12 col-sm-2 col-md-4 col-lg-4 control-label" })
+                                <!--账号-->
+                                @TechnicianHelper.TextBoxFor(Html, m => m.Account, null, new { @class = "col-xs-12 col-sm-2 col-md-4 col-lg-4 control-label" })
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                <!--总部审核-->
+                                @TechnicianHelper.CheckBox(Html, "IsHQCheck", "总部审核", IsHQCheck, new { @class = "col-xs-12 col-sm-2 col-md-4 col-lg-4 control-label" })
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!--end clone block-->
+                <!--tabs block-->
+                <ul class="ptc-tabs nav nav-tabs"></ul>
+                <!--end tabs block-->
+                <!--content block-->
+                <div class="ptc-content tab-content"></div>
+                <!--end content block-->
+
+            </div>
+         <!--end dynamic tabs-->
+
+         <!--btn block-->
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <button type="submit" class="btn-search btn-sm AuthRead" id="searchBtn" name="searchBtn" data-loading-text="处理中..." disabled>查询</button>
+                </div>
+            </div>
+         <!--end btn block-->
+
+        }
+
+    </div>
+</div>
+
+<div class="row">
+    <div id="grid-table">
+
+        <!--table header-->
+        <div class="table-header">
+            <span>&nbsp;</span>
+        </div>
+        <!--end table header-->
+        <!--result table-->
+        <table class="table table-bordered table-striped table-bordered dt-responsive nowrap" id="resultTable">
+            <thead>
+                <tr role="row">
+                    <th class="center" role="columnheader"></th>
+                    <th class="center" role="columnheader">厂商名稱</th>
+                    <th class="center" role="columnheader">账号</th>
+                    <th class="center" role="columnheader">技師姓名</th>
+                    <th class="center" role="columnheader">审核状态</th>
+                    <th class="center" role="columnheader">查看</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <!--end result table-->
+
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/PTC/PTCFloatTableFooter.js"></script>
+    <script src="~/Scripts/PTC/PTCDatatables.js"></script>
+
+    <script type="text/javascript">
+
+
+        jQuery(function ($) {
+
+            PTCDynamicTabs();
+
+            DataTable();
+            $("#searchBtn").prop("disabled", false);
+        });
+    </script>
+    <!--methods-->
+    <script type="text/javascript">
+
+        //导向明细
+        function Detail(data, type) {
+
+            var obj = {
+                mode: type,
+                Account: data.split(',')[0],
+                CompCd: data.split(',')[1],
+                VenderCd: data.split(',')[2],
+            }
+
+            DirectToUrl('@Url.Action("Detail", "TechnicianList")', obj);
+
+        }
+
+        //明细-按钮触发
+        function TDetail(data, type) {
+
+            this.Detail(data, type);
+        }
+
+        function TRmethod(trData, trElem) {
+
+            if (trData.length > 0 && trData[0].CaseCancelType) {
+                //判断底色
+                switch (trData[0].CaseCancelType) {
+                    case window.PTC.Enum.CaseCancelType.General.toString():
+                        $(trElem).css('background-color', '#f9f9f9');
+                        break;
+                    case window.PTC.Enum.CaseCancelType.CC.toString():
+                        $(trElem).css('background-color', 'yellow');
+                        break;
+                    case window.PTC.Enum.CaseCancelType.Store.toString():
+                        $(trElem).css('background-color', '#98F898');
+                        break;
+                    default:
+
+                        break;
+                }
+            }
+
+        }
+
+    </script>
+    <!--select2-->
+    <script type="text/javascript">
+
+        function InitSelect2(index) {
+
+
+            window.PTC.Select2.CV({ name: "#c" + index + "  #CompCd", url: '@Url.Action("Get", "Tcmpdat")' },
+                                  { name: "#c" + index + "  #VenderCd", url: '@Url.Action("Get", "Tvender")' });
+
+
+
+            $("#c" + index + "  #CompCd").InitSelect2Data({
+
+                url: '@Url.Action("Get", "Tcmpdat")',
+                data: {
+                    CompCd: '@Model.CompCd'
+                }
+            });
+
+
+            //暂時
+            $("#c" + index + "  #VenderCd").change(function () {
+                $("#c" + index + "  #CompCd").prop("disabled", true);
+            });
+        }
+
+    </script>
+    <!--checkBox-->
+    <script type="text/javascript">
+        function InitCheckBox(index) {
+
+            $("#c" + index + " #IsHQCheck").on('change', function () {
+                $("#c" + index + "  #IsHQCheck").not(this).prop('checked', false);
+            });
+
+        }
+        function Backfill(key, index) {
+            $(index).each(function () {
+                if (this.value == key)
+                    $(this).prop('checked', true);
+            })
+        };
+    </script>
+    <!--tabs-->
+    <script type="text/javascript">
+        function PTCDynamicTabs() {
+            $('.ptc-tabs').PTCDynamicTabs({ initUI: this.InitUI });
+        }
+
+        function InitUI(index) {
+
+            InitSelect2(index);
+            InitCheckBox(index);
+
+        }
+
+    </script>
+    <!--dataTable-->
+    <script type="text/javascript">
+        function DataTable() {
+            var columns = [
+       { targets: 0, name: "details-control", id: "details-control", className: 'max-tablet-p text-center' },
+       { targets: 1, name: "Vender_Cd", id: "VenderName", className: 'min-tablet-p text-center' },
+       { targets: 2, name: "Account", id: "Account", className: 'min-tablet-l text-center' },
+       { targets: 3, name: "Name", id: "Name", className: ' text-center' },
+       { targets: 4, name: "IsHQCheck", id: "IsHQCheck", className: 'min-tablet-l text-center' },
+       {
+           targets: 5,
+           className: 'text-center',
+           searchable: false,
+           orderable: false,
+           render: function (data, type, full, meta) {
+
+               return '<button  type="button" onclick="TDetail(' + "'" + data + "'" + ',' +@((int)Ptc.AspnetMvc.Authentication.AuthNodeType.Read) +')" role="button" class="btn btn-xs btn-success rowTabholdOK' +
+                      '"><i class="ace-icon fa fa-search bigger-120"></i></button>';
+           }
+       },
+
+            ];
+
+            $('#resultTable').PTCDataTable({
+                colmDefs: columns,
+                form: "#searchForm",
+                refill: function (criteria) {
+                    $(this.form).ReductionDynamicTabs({
+                        array: criteria,
+                        refill: function (data, index) {
+
+                            var no = index + 1;
+                            if (data.Name)                                                    //姓名
+                                $("#c" + no + " #Name").val(data.Name);
+
+                            if (data.Account)                                                 //账号
+                                $("#c" + no + " #Account").val(data.Account);
+
+                            if (data.IsHQCheck)                                               //总部认证
+                                Backfill(data.IsHQCheck, $("#c" + no + " #IsHQCheck"));
+
+                            if (data.CompCd) {
+                                $("#c" + no + " #CompCd").InitSelect2Data({
+                                    url: '@Url.Action("Get", "Tcmpdat")',
+                                    data: { CompCd: data.CompCd }
+
+                                })
+                            }
+
+                            if (data.VenderCd) {
+                                $("#c" + no + " #VenderCd").InitSelect2Data({
+                                    url: '@Url.Action("Get", "Tvender")',
+                                    data: { VenderCd: data.VenderCd }
+
+                                })
+                            }
+
+                        }
+                    });
+                }
+            });
+        };
+
+
+    </script>
+
+}

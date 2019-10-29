@@ -1,0 +1,81 @@
+﻿<!-- 標題 -->
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>確認通知</ion-title>
+    </ion-navbar>
+</ion-header>
+<!--內文-->
+<ion-content  padding disable-scroll class="common-bg">
+    <!--所選擇的群組-->
+     
+    <ion-card class="purchase">  
+        <div class="title" color="primary">群組</div>
+        <ion-card-content>
+                        <!--標題-->
+                        <ion-item  > 
+                            <ion-label>
+                                <ion-row class="item-stats " > 
+                                    <ion-col  text-center>組名</ion-col> 
+                                </ion-row>
+                            </ion-label>
+                        </ion-item>
+                        <!--end 標題-->
+            <!--清單-->
+            <ion-item *ngFor="let group of groups ;let i = index">
+                <ion-label>
+                    <ion-row class="item-stats">
+                        <ion-col>
+                            {{group.GroupName}}
+                        </ion-col> 
+                    </ion-row>
+                </ion-label>
+            </ion-item>
+            <!--end 清單-->
+        </ion-card-content>
+
+    </ion-card>
+    <!--所選擇的技師-->
+    <ion-card class="purchase">
+ 
+        <div class="title"  color="primary">技師</div>
+        <ion-card-content>
+            <ion-list class="list-full-border" no-margin>
+                <!--標題-->
+                <ion-item>
+                    <ion-label>
+                        <ion-row> 
+                            <ion-col  text-center>技師帳號</ion-col>
+                            <ion-col  text-center>技師姓名</ion-col>
+                        </ion-row>
+                    </ion-label>
+                </ion-item>
+                <!--end 標題-->
+                <!--清單-->
+                <ion-item *ngFor="let technician of technicians ;let i = index">
+                    <ion-label>
+                        <ion-row>
+                            <ion-col>
+                                {{technician.Account}}
+                            </ion-col>
+                            <ion-col>
+                                {{technician.Name}}
+                            </ion-col>
+                        </ion-row>
+                    </ion-label>
+                </ion-item>
+                <!--end 清單-->
+            </ion-list>
+            <!--end 查詢結果-->
+        </ion-card-content>
+
+    </ion-card>
+
+
+</ion-content>
+<!--end 內文-->
+<!-- footer -->
+<ion-footer no-shadow text-center>
+    <button ion-button (click)="closeModal()" color="buttonNo">取消</button>
+    <button ion-button (click)="confirm()" color="buttonSubmit">確定</button>
+</ion-footer>
+<!-- end footer -->

@@ -1,0 +1,22 @@
+﻿<!-- 標題 -->
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>檢視圖片</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<!-- 內文 -->
+<ion-content class="common-bg">
+    <ion-slides pager class="border-bottom" zoom="true" >
+        <ion-slide *ngFor="let img of listImg;" class="ion-slide-noHeight">
+            <img src="{{ img }}"   onError="this.src='../../assets/img/404.jpg'" alt="">
+        </ion-slide>
+    </ion-slides>
+</ion-content>
+<!-- end 內容-->
+
+<!-- 標底 -->
+<ion-footer no-shadow text-center>
+    <button ion-button (click)="closeModal()" color="buttonNo">關閉</button>
+</ion-footer>
+<!-- end 標底-->

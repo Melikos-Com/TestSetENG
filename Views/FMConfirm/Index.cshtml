@@ -1,0 +1,624 @@
+﻿@model Ptc.Spcc.CCEng.Models.FMConfirmViewModel
+
+<div class="row">
+    <div class="col-xs-12">
+        @using (Html.BeginForm("GetList", "FMConfirm", FormMethod.Post, new { @id = "searchForm", @name = "searchForm", @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+        {
+
+         <!--RWD condition ctrl-->
+        <div type="button" class="visible-xs visible-sm hidden-md hidden-lg  btn btn-default ptc-dismiss">隱藏篩選條件</div>
+         <!--end RWD condition ctrl -->
+
+         <!--dynamic tabs-->
+        <div class="row ptc-conditions">
+            <!--clone block-->
+            <div clsss="ptc-content-clone" hidden>
+                <button type="button" class="ptc-cancel" data-toggle="tooltip btn btn-secondary" data-placement="bottom" title="移除條件">x</button>
+
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4">
+                            <!--公司-->
+                            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.CompCd)</label>
+                                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                        <select id="CompCd" name="CompCd" class="js-data-example-ajax form-control" data-header="Select a condiment"></select>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--區域-->
+                            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.ZoCd)</label>
+                                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                        <select id="ZoCd" name="ZoCd" class="js-data-example-ajax form-control" data-header="Select a condiment"></select>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--門市-->
+                            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.StoreCd)</label>
+                                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                        <select id="StoreCd" name="StoreCd" class="js-data-example-ajax form-control" data-header="Select a condiment"></select>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--廠商-->
+                            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.VenderCd)</label>
+                                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                        <select id="VenderCd" name="VenderCd" class="js-data-example-ajax form-control" data-header="Select a condiment"></select>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <!--案件編號-->
+                            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.Sn)</label>
+                                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                        @Html.TextBoxFor(x => x.Sn, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <!--叫修日期(起)-->
+                            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.RcvDateStart)</label>
+
+                                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+
+                                        <div class="input-group">
+                                            <input class="form-control date-picker mailbox-input-text wide-mailbox-input" id="RcvDateStart" name="RcvDateStart" type="text" value="@DateTime.Now.AddMonths(-2).ToString("yyyy/MM/dd")" placeholder="叫修日期(起)" />
+                                            <span class="input-group-addon" onclick="$('#RcvDateStart').focus()">
+                                                <i class="fa fa-calendar bigger-110"></i>
+                                            </span>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--叫修日期(迄)-->
+                            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.RcvDateEnd)</label>
+                                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                        <div class="input-group">
+                                            <input class="form-control date-picker mailbox-input-text wide-mailbox-input" id="RcvDateEnd" name="RcvDateEnd" type="text" value="@DateTime.Now.ToString("yyyy/MM/dd")" placeholder="叫修日期(迄)" />
+                                            <span class="input-group-addon" onclick="$('#RcvDateEnd').focus()">
+                                                <i class="fa fa-calendar bigger-110"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--完修日期(起)-->
+                            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.FcDateStart)</label>
+
+                                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                        <div class="input-group">
+                                            <input class="form-control date-picker mailbox-input-text wide-mailbox-input" id="FcDateStart" name="FcDateStart" type="text" value="@DateTime.Now.AddMonths(-2).ToString("yyyy/MM/dd")" placeholder="完修日期(起)" />
+                                            <span class="input-group-addon" onclick="$('#FcDateStart').focus()">
+                                                <i class="fa fa-calendar bigger-110"></i>
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <!--完修日期(迄)-->
+                            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.FcDateEnd)</label>
+                                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+
+                                        <div class="input-group">
+                                            <input class="form-control date-picker mailbox-input-text wide-mailbox-input" id="FcDateEnd" name="FcDateEnd" type="text" value="@DateTime.Now.ToString("yyyy/MM/dd")" placeholder="完修日期(迄)" />
+                                            <span class="input-group-addon" onclick="$('#FcDateEnd').focus()">
+                                                <i class="fa fa-calendar bigger-110"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <!--案件類型-->
+                            <div class="col-sm-12  col-xs-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.CallKind)</label>
+                                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                        <select id="CallKind" name="CallKind" class="js-data-example-ajax form-control" data-header="Select a condiment">
+                                            <option value="">全部</option>
+                                            <option value="0">叫修</option>
+                                            <option value="1">保養</option>
+                                            <option value="2">購料</option>
+                                            <option value="3">巡檢</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--誤叫修狀態-->
+                            <div class="col-sm-12  col-xs-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.CancelCaseType)</label>
+                                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                        <select id="CancelCaseType" name="CancelCaseType" class="js-data-example-ajax form-control" data-header="Select a condiment">
+                                            <option value="">全部</option>
+                                            <option value="0">一般案件</option>
+                                            <option value="1">CC誤叫修</option>
+                                            <option value="2">門市誤叫修</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!--重複叫修-->
+                            <div class="col-sm-12  col-xs-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.IsRepeat)</label>
+                                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                        <label class="radio-inline"><input type="checkbox" name="IsRepeat" id="IsRepeat" class="ch-yes" value="Y">是</label>
+                                        <label class="radio-inline"><input type="checkbox" name="IsRepeat" id="IsRepeat" class="ch-no" value="N">否</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!--end clone block-->
+            <!--tabs block-->
+            <ul class="ptc-tabs nav nav-tabs"></ul>
+            <!--end tabs block-->
+            <!--content block-->
+            <div class="ptc-content tab-content"></div>
+            <!--end content block-->
+
+        </div>
+         <!--end dynamic tabs-->
+
+         <!--btn block-->
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <button type="submit" class="btn-search btn-sm AuthRead" id="searchBtn" name="searchBtn" data-loading-text="處理中...">查詢</button>
+            </div>
+        </div>
+         <!--end btn block-->
+
+        }
+
+    </div>
+</div>
+
+<div class="row price-flag"> </div>
+
+<div class="row color-flag">
+    <button class="btn" style="background-color:#f9f9f9!important;"></button>一般案件
+    <button class="btn" style="background-color:yellow!important;"></button>CC誤叫修案件
+    <button class="btn" style="background-color:#98F898!important;"></button>門市誤叫修案件
+</div>
+
+<div class="row">
+    <div id="grid-table">
+
+        <!--table header-->
+        <div class="table-header">
+            <span>&nbsp;</span>
+            <span class="pull-right" style="display:flex">
+                <a class="btn btn-sm btn-warning" href="javascript:TbatchConfirm()">批次審核</a>
+            </span>
+        </div>
+        <!--end table header-->
+        <!--result table-->
+        <table class="table table-bordered table-striped table-bordered dt-responsive nowrap" id="resultTable">
+            <thead>
+                <tr role="row">
+                    <th class="center" role="columnheader"></th>
+                    <th class="center" role="columnheader" hidden></th>
+                    <th class="center" role="columnheader"><span>全選 @Html.CheckBox("checkAll")</span></th>
+                    <th class="center" role="columnheader">叫修編號</th>
+                    <th class="center" role="columnheader">維修廠商</th>
+                    <th class="center" role="columnheader">門市名稱</th>
+                    <th class="center" role="columnheader">設備名稱</th>
+                    <th class="center" role="columnheader">故障名稱</th>
+                    <th class="center" role="columnheader">人工費用</th>
+                    <th class="center" role="columnheader">材料費用</th>
+                    <th class="center" role="columnheader">總費用</th>
+                    <th class="center" role="columnheader">審核罰款</th>
+                    <th class="center" role="columnheader">案件類型</th>
+                    <th class="center" role="columnheader">明細/審核</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <!--end result table-->
+
+    </div>
+</div>
+
+@section scripts{
+
+    <!--methods-->
+    <script type="text/javascript">
+
+        //確認審核
+        function Confirm(data) {
+
+            window.PTC.alertPop.promise({
+                title: "是否審核?",
+                message: "選擇確定/取消",
+                data: data,
+                type: window.PTC.Enum.AlertPopType.question
+            },
+            process,
+            function (data) { })
+
+            function process(data) {
+                $.ajax({
+                    url: '@Url.Action("BatchConfirm", "FMConfirm")',
+                    contentType: 'application/json; charset=utf-8',
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    dataType: 'json',
+                    success: function (data) {
+
+                        window.PTC.alertInfo(data.Message)
+
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        window.PTC.alertInfo(thrownError)
+
+
+                    }
+                });
+            }
+
+        }
+
+        //導向明細
+        function Detail(data) {
+
+            var obj = {
+                Sn: data[0].Sn,
+                type: '@Ptc.Spcc.CCEng.FeatureType.FM'
+            }
+
+            DirectToUrl('@Url.Action("Detail", "Callog")', obj);
+
+        }
+
+        //批次審核-按鈕觸發
+        function TbatchConfirm() {
+
+            var data = [];
+
+            $('#resultTable').find('input[name="cbx"]:checked')
+                             .each(function () {
+
+                                 data.push({ Sn: $(this).val() });
+
+                             });
+
+            if (data.length == 0) {
+                window.PTC.alertPop.normal({
+                    title: '請勾選資料',
+                    type: window.PTC.Enum.AlertPopType.warning
+                });
+                return;
+            }
+
+            this.Confirm(data);
+
+        }
+
+        //審核-按鈕觸發
+        function TConfirm(Sn) {
+            var data = [{ Sn: Sn, CompCd: $('#CompCd').val() }]
+
+            this.Confirm(data);
+        }
+
+        //明細-按鈕觸發
+        function TDetail(Sn) {
+            var data = [{ Sn: Sn, type: '@Ptc.Spcc.CCEng.FeatureType.FM' }]
+
+            this.Detail(data);
+        }
+
+        function TRmethod(trData, trElem) {
+
+            if (trData.length > 0 && trData[0].CaseCancelType) {
+                //判斷底色
+                switch (trData[0].CaseCancelType) {
+                    case window.PTC.Enum.CaseCancelType.General.toString():
+                        $(trElem).css('background-color', '#f9f9f9');
+                        break;
+                    case window.PTC.Enum.CaseCancelType.CC.toString():
+                        $(trElem).css('background-color', 'yellow');
+                        break;
+                    case window.PTC.Enum.CaseCancelType.Store.toString():
+                        $(trElem).css('background-color', '#98F898');
+                        break;
+                    default:
+
+                        break;
+                }
+            }
+
+        }
+
+    </script>
+    <!--validation-->
+    <script type="text/javascript">
+        $('#searchForm').PTCValidation({});
+
+        function InitValidation(index) {
+            $(`#c${index} #FcDateStart`).rules("add", {
+                date: 0,
+
+            });
+            $(`#c${index} #FcDateEnd`).rules("add", {
+                date: 0,
+            });
+            $(`#c${index} #RcvDateStart`).rules("add", {
+                required: true,
+                date: 0,
+
+            });
+            $(`#c${index} #RcvDateEnd`).rules("add", {
+                required: true,
+                date: 0,
+            });
+        }
+
+        function IsValid() {
+
+            var isValid = true;
+            var validator = $('#searchForm').validate();
+            $('#searchForm').find("input").each(function () {
+                if (!validator.element(this)) {
+                    $('a[href=#' + $(this).closest('.tab-pane:not(.active)').attr('id') + ']').tab('show');
+                    isValid = false;
+
+                }
+            });
+            return isValid;
+        }
+
+    </script>
+
+    <!--dateTimePicker-->
+    <script type="text/javascript">
+
+        function InitDateTimePicker(index) {
+
+            $(`#c${index}  #RcvDateStart , #c${index} #FcDateStart`).datetimepicker({
+                language: 'fr',
+                format: "YYYY/MM/DD",
+                pickTime: false,
+                changeMonth: true,
+                changeYear: true,
+                todayHighlight: 'true',
+                autoclose: true
+            });
+            $(`#c${index}  #RcvDateEnd , #c${index} #FcDateEnd`).datetimepicker({
+                language: 'fr',
+                minDate: new Date(),
+                format: "YYYY/MM/DD",
+                pickTime: false,
+                changeMonth: true,
+                changeYear: true,
+                todayHighlight: 'true',
+                autoclose: true
+            });
+
+            $(`#c${index}  #RcvDateStart`).on("dp.change", function (e) {
+                $(`#c${index}  #RcvDateEnd`).data("DateTimePicker").setMinDate(e.date);
+            });
+            $(`#c${index}  #RcvDateEnd`).on("dp.change", function (e) {
+                $(`#c${index}  #RcvDateStart`).data("DateTimePicker").setMaxDate(e.date);
+            });
+
+            $(`#c${index}  #FcDateStart`).on("dp.change", function (e) {
+                $(`#c${index}  #FcDateEnd`).data("DateTimePicker").setMinDate(e.date);
+            });
+            $(`#c${index}  #FcDateEnd`).on("dp.change", function (e) {
+                $(`#c${index}  #FcDateStart`).data("DateTimePicker").setMaxDate(e.date);
+            });
+
+            $('.dropdown-menu').hide();
+        }
+
+    </script>
+    <!--select2-->
+    <script type="text/javascript">
+
+        function InitSelect2(index) {
+
+            window.PTC.Select2.AllArea({ name: `#c${index}  #CompCd`, url: '@Url.Action("Get", "Tcmpdat")' },
+                                    { name: `#c${index}  #ZoCd`, url: '@Url.Action("Get", "Tzocode")' },
+                                    { name: `#c${index}  #StoreCd`, url: '@Url.Action("Get", "Tstrmst")' })
+
+            window.PTC.Select2.Vender(`#c${index}  #VenderCd`, '@Url.Action("Get", "Tvender")',
+                                      function () {
+                                          return { CompCd: $(`#c${index}  #CompCd`).val() }
+                                      });
+        }
+
+    </script>
+    <!--checkBox-->
+    <script type="text/javascript">
+
+        function InitCheckBox(index) {
+
+            $(`#c${index} #IsRepeat`).on('change', function () {
+                $(`#c${index}  #IsRepeat`).not(this).prop('checked', false);
+            });
+
+        }
+
+    </script>
+    <!--tabs-->
+    <script type="text/javascript">
+
+            $('.ptc-tabs').PTCDynamicTabs({ initUI: this.InitUI });
+
+            function InitUI(index) {
+
+                InitDateTimePicker(index);
+                InitSelect2(index);
+                InitCheckBox(index);
+                InitValidation(index);
+            }
+
+    </script>
+    <!--dataTable-->
+    <script type="text/javascript">
+
+        var columns = [
+         {
+             targets: 0,
+             className: 'min-mobile-l  hidden-md hidden-lg',
+             searchable: false,
+             orderable: false,
+             name: "Comp_Cd",
+             id: "CompCd",
+             render: function (data, type, full, meta) {
+                 return `<span hidden>${data}</span>`;
+             }
+
+         },
+         {
+             targets: 1,
+             className: 'hidden',
+             searchable: false,
+             orderable: false,
+             name: "Case_Cancel_Type",
+             id: "CaseCancelType",
+             render: function (data, type, full, meta) {
+                 return `<span hidden>${data}</span>`;
+             }
+
+         },
+         {
+             targets: 2, className: 'min-mobile-l text-center', name: 'checkbox',
+             searchable: false,
+             orderable: false,
+             render: function (data, type, full, meta) {
+                 return `<input name="cbx" type="checkbox" value="${data}"/>`;
+             }
+         },
+         { targets: 3, name: "Sn", id: "Sn", className: 'min-mobile-l text-center' },
+         { targets: 4, name: "Vender_Cd", id: "VenderName", className: ' text-center' },
+         { targets: 5, name: "Store_Name", id: "StoreName", className: 'min-mobile-l text-center' },
+         { targets: 6, name: "Asset_Name", id: "AssetName", className: 'text-center' },
+         { targets: 7, name: "Damage_Desc", id: "DamageDesc", className: 'text-center' },
+         { targets: 8, name: "Artificial_Cost_fact", id: "ArtificialCostfact", className: 'text-center' },
+         { targets: 9, name: "Vnd_Total_Cost", id: "VndTotalCost", className: 'text-center' },
+         { targets: 10, name: "All_Cost", id: "AllCost", className: 'text-center' },
+         { targets: 11, name: "Cfm_OvTime_Fine", id: "CfmOvTimeFine", className: 'text-center' },
+         { targets: 12, name: "Call_Kind", id: "CallKind", className: 'text-center' },
+         {
+             targets: 13,
+             className: 'text-center',
+             searchable: false,
+             orderable: false,
+             render: function (data, type, full, meta) {
+                 return `<button  type="button" onclick="TDetail(${data})" role="button" class="btn btn-xs btn-success rowTabholdOK` +
+                        `"><i class="ace-icon fa fa-search bigger-120"></i></button>` +
+                        `<button type="button" onclick="TConfirm(${data})" role="button" class="btn btn-xs btn-info rowTabholdNO` +
+                        `" ><i class="ace-icon fa fa-check bigger-120"></i></button>`;
+             }
+         }
+        ];
+
+        $('#resultTable').PTCDataTable({
+            colmDefs: columns,
+            form: "#searchForm",
+            rowTabholdOKText: '前往明細',
+            rowTabholdOK: this.Detail,
+            rowTabholdNOText: '審核案件',
+            rowTabholdNO: this.Confirm,
+            validate: this.IsValid,
+            trMethod: this.TRmethod,
+            refill: function (criteria) {
+                $(this.form).ReductionDynamicTabs({
+                    array: criteria,
+                    refill: function (data, index) {
+                        $(`#c${index + 1} #Sn`).val(data.Sn);
+                        $(`#c${index + 1} #RcvDateStart`).val(data.RcvDateStart);
+                        $(`#c${index + 1} #RcvDateEnd`).val(data.RcvDateEnd);
+                        $(`#c${index + 1} #FcDateStart`).val(data.FcDateStart);
+                        $(`#c${index + 1} #FcDateEnd`).val(data.FcDateEnd);
+                        if (data.IsRepeat == "Y") { $(`#c${index + 1} input[type="checkbox"][class="ch-yes"]`).prop('checked', true) }
+                        if (data.IsRepeat == "N") { $(`#c${index + 1} input[type="checkbox"][class="ch-no"]`).prop('checked', true) }
+                        $(`#c${index + 1} #CallKind`).val(data.CallKind).change();
+
+                        if (data.CompCd) {
+                            $(`#c${index + 1} #CompCd`).InitSelect2Data({
+                                url: '@Url.Action("Get", "Tcmpdat")',
+                                data: { CompCd: data.CompCd }
+
+                            })
+                        }
+
+                        if (data.ZoCd) {
+                            $(`#c${index + 1} #ZoCd`).InitSelect2Data({
+                                url: '@Url.Action("Get", "Tzocode")',
+                                data: { ZoCd: data.ZoCd }
+
+                            })
+                        }
+
+                        if (data.StoreCd) {
+                            $(`#c${index + 1} #StoreCd`).InitSelect2Data({
+                                url: '@Url.Action("Get", "Tstrmst")',
+                                data: { StoreCd: data.StoreCd }
+
+                            })
+                        }
+
+                        if (data.VenderCd) {
+                            $(`#c${index + 1} #VenderCd`).InitSelect2Data({
+                                url: '@Url.Action("Get", "Tvender")',
+                                data: { VenderCd: data.VenderCd }
+
+                            })
+
+                        }
+                        if (data.CallKind) {
+                            $(`#c${index + 1} #CallKind`).InitSelect2Data({
+                                url: '@Url.Action("Get", "CallKind")',
+                                data: { CallKind: data.CallKind }
+                            })
+                        }
+
+                    }
+                });
+            }
+        });
+
+    </script>
+    
+}

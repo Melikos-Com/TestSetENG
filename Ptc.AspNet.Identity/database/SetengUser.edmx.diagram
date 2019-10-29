@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6488427bd9264a1183d90691ea65e24c" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="SetengUserModel.C__RefactorLog" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SetengUserModel.Holiday" Width="1.5" PointX="2.75" PointY="6.75" />
+        <EntityTypeShape EntityType="SetengUserModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="10.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TAcceptedLog" Width="1.5" PointX="3" PointY="13.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TAJCREP" Width="1.5" PointX="13.75" PointY="5.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TAJCYCL" Width="1.5" PointX="10.75" PointY="6.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TAJKIND" Width="1.5" PointX="5.75" PointY="13.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TAPPVER" Width="1.5" PointX="15.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TAREANM" Width="1.5" PointX="15.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TASSETS" Width="1.5" PointX="15.75" PointY="6.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TASTIMG" Width="1.5" PointX="15.75" PointY="13.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TASTKND" Width="1.5" PointX="15.75" PointY="16.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TAUTONO" Width="1.5" PointX="17.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TBFFDTL" Width="1.5" PointX="0.75" PointY="17.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TBFFMST" Width="1.5" PointX="17.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TBFSPCM" Width="1.5" PointX="5.75" PointY="17.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TBFYOUD" Width="1.5" PointX="17.75" PointY="9.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TBFYOUM" Width="1.5" PointX="17.75" PointY="12.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TBULIMG" Width="1.5" PointX="17.75" PointY="16.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TBULTIN" Width="1.5" PointX="10.75" PointY="18.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TBUPART" Width="1.5" PointX="12.75" PointY="18.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TCALERR" Width="1.5" PointX="19.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TCALEXT" Width="1.5" PointX="19.75" PointY="4.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TCALIMG" Width="1.5" PointX="19.75" PointY="8.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TCALINV" Width="1.5" PointX="19.75" PointY="11.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TCALLER" Width="1.5" PointX="19.75" PointY="16.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TCallLogRecord" Width="1.5" PointX="3" PointY="10.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TCALLOG" Width="1.5" PointX="0.75" PointY="2.625" />
+        <EntityTypeShape EntityType="SetengUserModel.TCallogCourse" Width="1.5" PointX="3" PointY="3.5" />
+        <EntityTypeShape EntityType="SetengUserModel.TCALSTA" Width="1.5" PointX="19.75" PointY="19.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TCFMTN" Width="1.5" PointX="14.75" PointY="20.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TCFMTNL" Width="1.5" PointX="16.75" PointY="20.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TCFRANK" Width="1.5" PointX="21.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TCMPDAT" Width="1.5" PointX="21.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TCTLINV" Width="1.5" PointX="5.75" PointY="21.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TDAMAGE" Width="1.5" PointX="7.75" PointY="21.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TDAMMTN" Width="1.5" PointX="21.75" PointY="9.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TDAYCTL" Width="1.5" PointX="21.75" PointY="13.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TDZCREP" Width="1.5" PointX="9.75" PointY="22.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TDZKIND" Width="1.5" PointX="23.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TDZPQTY" Width="1.5" PointX="0.75" PointY="23.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TDZUPRC" Width="1.5" PointX="2.75" PointY="23.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TELECDE" Width="1.5" PointX="23.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TELEPAR" Width="1.5" PointX="23.75" PointY="6.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TENGMST" Width="1.5" PointX="23.75" PointY="11.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TENGSTK" Width="1.5" PointX="11.75" PointY="23.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TEXPFIL" Width="1.5" PointX="23.75" PointY="15.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TFINISH" Width="1.5" PointX="16.75" PointY="23.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TINVDTL" Width="1.5" PointX="18.75" PointY="23.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TINVMST" Width="1.5" PointX="23.75" PointY="19.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TKNDHST" Width="1.5" PointX="4.75" PointY="24.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TLAYHST" Width="1.5" PointX="6.75" PointY="24.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TLAYKND" Width="1.5" PointX="23.75" PointY="24.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TLAYOUTIMG" Width="1.5" PointX="25.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TLVCREP" Width="1.5" PointX="11" PointY="1" />
+        <EntityTypeShape EntityType="SetengUserModel.TLVKIND" Width="1.5" PointX="8.75" PointY="1.375" />
+        <EntityTypeShape EntityType="SetengUserModel.TLVRHST" Width="1.5" PointX="13.25" PointY="2.125" />
+        <EntityTypeShape EntityType="SetengUserModel.TLYIMGM" Width="1.5" PointX="25.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TPAPERS" Width="1.5" PointX="25.75" PointY="9.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TPGMAUT" Width="1.5" PointX="25.75" PointY="13.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TPGMEXE" Width="1.5" PointX="25.75" PointY="17.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TPGMMST" Width="1.5" PointX="20.75" PointY="25.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TPGMUSR" Width="1.5" PointX="25.75" PointY="21.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TPRJACT" Width="1.5" PointX="25.75" PointY="24.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TPRJDTL" Width="1.5" PointX="8.75" PointY="26.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TPRJMST" Width="1.5" PointX="27.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TPRVMST" Width="1.5" PointX="0.75" PointY="27.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TRECLOG" Width="1.5" PointX="27.75" PointY="5.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TREFDAT" Width="1.5" PointX="27.75" PointY="9.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TREFDAT_Test" Width="1.5" PointX="10.75" PointY="27.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TRSTDTA" Width="1.5" PointX="27.75" PointY="12.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TRSTNAM" Width="1.5" PointX="27.75" PointY="15.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSBFYOU" Width="1.5" PointX="27.75" PointY="18.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSENDMAILVND" Width="1.5" PointX="27.75" PointY="21.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSTAIPD" Width="1.5" PointX="2.75" PointY="28.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSTAIPM" Width="1.5" PointX="4.75" PointY="28.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSTASTM" Width="1.5" PointX="22.75" PointY="28.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSTRAST" Width="1.5" PointX="8.75" PointY="16" />
+        <EntityTypeShape EntityType="SetengUserModel.TSTRHST" Width="1.5" PointX="24.75" PointY="28.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSTRKND" Width="1.5" PointX="26.75" PointY="28.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSTRLAY" Width="1.5" PointX="28.75" PointY="28.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSTRMEM" Width="1.5" PointX="29.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSTRMOD" Width="1.5" PointX="29.75" PointY="4.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSTRMST" Width="1.5" PointX="29.75" PointY="10.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSTRMZO" Width="1.5" PointX="12.75" PointY="29.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSTRPWR" Width="1.5" PointX="14.75" PointY="29.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSTRPWR_Wait_LOG" Width="1.5" PointX="29.75" PointY="18.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSTRTMP" Width="1.5" PointX="29.75" PointY="22.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSTSAMD" Width="1.5" PointX="16.75" PointY="30.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSTSAMM" Width="1.5" PointX="18.75" PointY="30.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSTVNDM" Width="1.5" PointX="30.75" PointY="27.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSYSDAT" Width="1.5" PointX="31.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSYSLOG" Width="1.5" PointX="31.75" PointY="4.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSYSROL" Width="1.5" PointX="8.75" PointY="11.125" />
+        <EntityTypeShape EntityType="SetengUserModel.TTechnicianGroup" Width="1.5" PointX="6" PointY="2.625" />
+        <EntityTypeShape EntityType="SetengUserModel.TTechnicianGroupClaims" Width="1.5" PointX="8.25" PointY="6.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TTNSCALH" Width="1.5" PointX="6.75" PointY="31.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TTNSCALT" Width="1.5" PointX="31.75" PointY="8.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TTNSCFFH" Width="1.5" PointX="8.75" PointY="31.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TTNSCFFT" Width="1.5" PointX="31.75" PointY="17.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TTNSCFMH" Width="1.5" PointX="32.75" PointY="24.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TTNSCFMT" Width="1.5" PointX="26.75" PointY="32.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TTNSCLFH" Width="1.5" PointX="28.75" PointY="32.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TTNSCLFT" Width="1.5" PointX="30.75" PointY="32.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TUpFile" Width="1.5" PointX="32.75" PointY="32.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TUSERHC" Width="1.5" PointX="33.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TUSRDTL" Width="1.5" PointX="13.25" PointY="11.5" />
+        <EntityTypeShape EntityType="SetengUserModel.TUSREXT" Width="1.5" PointX="0.75" PointY="33.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TUSRMST" Width="1.5" PointX="11" PointY="10.5" />
+        <EntityTypeShape EntityType="SetengUserModel.TUSRVENRELATION" Width="1.5" PointX="13.25" PointY="15.375" />
+        <EntityTypeShape EntityType="SetengUserModel.TVBULTIN" Width="1.5" PointX="2.75" PointY="33.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TVBULTIN_ReadRecord" Width="1.5" PointX="33.75" PointY="4.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TVENDER" Width="1.5" PointX="3.75" PointY="17.25" />
+        <EntityTypeShape EntityType="SetengUserModel.TVenderTechnician" Width="1.5" PointX="6" PointY="6.125" />
+        <EntityTypeShape EntityType="SetengUserModel.TVNDAST" Width="1.5" PointX="33.75" PointY="7.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TVNDCNT" Width="1.5" PointX="33.75" PointY="10.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TVNDCON" Width="1.5" PointX="33.75" PointY="14.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TVNDENG" Width="1.5" PointX="16.75" PointY="33.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TVNDMEM" Width="1.5" PointX="33.75" PointY="18.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TVNDPOP" Width="1.5" PointX="18.75" PointY="33.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TVNDSHOW" Width="1.5" PointX="10.75" PointY="34.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TVNDTMP" Width="1.5" PointX="20.75" PointY="34.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TVNDUSR" Width="1.5" PointX="34.75" PointY="22.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TVNDUSRD" Width="1.5" PointX="34.75" PointY="27.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TVNDZO" Width="1.5" PointX="34.75" PointY="31.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TVNOTICE" Width="1.5" PointX="34.75" PointY="34.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TVNTCRD" Width="1.5" PointX="35.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TVOUCH" Width="1.5" PointX="35.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TVOUCTL" Width="1.5" PointX="35.75" PointY="9.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TVPRICE" Width="1.5" PointX="35.75" PointY="13.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TVZOAST" Width="1.5" PointX="35.75" PointY="18.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TWRKKND" Width="1.5" PointX="12.75" PointY="36.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TWSHCYC" Width="1.5" PointX="36.75" PointY="22.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TZOCODE" Width="1.5" PointX="36.75" PointY="25.75" />
+        <EntityTypeShape EntityType="SetengUserModel.Migration_Default_TCMPDAT" Width="1.5" PointX="36.75" PointY="29.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TAJCREP_LOG" Width="1.5" PointX="36.75" PointY="32.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TAJCYCL_LOG" Width="1.5" PointX="37.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TAPPLOG" Width="1.5" PointX="37.75" PointY="4.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TASSETS_LOG" Width="1.5" PointX="37.75" PointY="7.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TBULTIN_LOG" Width="1.5" PointX="37.75" PointY="14.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TCALINV_LOG" Width="1.5" PointX="18.75" PointY="37.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TCALLOG_LOG" Width="1.5" PointX="20.75" PointY="37.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TCMPDAT_LOG" Width="1.5" PointX="22.75" PointY="37.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TDAMMTN_LOG" Width="1.5" PointX="37.75" PointY="18.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TDZCREP_LOG" Width="1.5" PointX="36.75" PointY="37.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TENGMST_LOG" Width="1.5" PointX="0.75" PointY="38.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TFINISH_LOG" Width="1.5" PointX="2.75" PointY="38.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TPGMAUT_20171013BackUp" Width="1.5" PointX="8.75" PointY="38.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TPGMAUT_20171025BackUp" Width="1.5" PointX="14.75" PointY="38.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSENDMAIL" Width="1.5" PointX="38.75" PointY="22.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSTRKND_LOG" Width="1.5" PointX="38.75" PointY="25.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSTRMOD_LOG" Width="1.5" PointX="38.75" PointY="28.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TSYSDAT_LOG" Width="1.5" PointX="28.75" PointY="38.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TTNSCALT__Test" Width="1.5" PointX="30.75" PointY="38.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TVPRICE_LOG" Width="1.5" PointX="38.75" PointY="34.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TVUPART" Width="1.5" PointX="39.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SetengUserModel.TWRKKND_LOG" Width="1.5" PointX="39.75" PointY="5.75" />
+        <AssociationConnector Association="SetengUserModel.FK_TAcceptedLog_TCALLOG" />
+        <AssociationConnector Association="SetengUserModel.FK_TCallLogRecord_TCALLOG" />
+        <AssociationConnector Association="SetengUserModel.FK_TCallogCourse_TCALLOG" />
+        <AssociationConnector Association="SetengUserModel.FK_TLVCREP_TLVKIND" />
+        <AssociationConnector Association="SetengUserModel.FK_TLVCREP_TSTRAST" />
+        <AssociationConnector Association="SetengUserModel.FK_TLVRHST_TLVCREP" />
+        <AssociationConnector Association="SetengUserModel.FK_TLVKIND_TLVKIND" />
+        <AssociationConnector Association="SetengUserModel.FK_TUSRMST_TSYSROL" />
+        <AssociationConnector Association="SetengUserModel.FK_TTechnicianGroup_TVENDER" />
+        <AssociationConnector Association="SetengUserModel.FK_TTechnicianGroupClaims_TTechnicianGroup" />
+        <AssociationConnector Association="SetengUserModel.FK_TTechnicianGroupClaims_TVenderTechnician" />
+        <AssociationConnector Association="SetengUserModel.FK_TUSRDTL_TUSRMST" />
+        <AssociationConnector Association="SetengUserModel.FK_TUSRVENRELATION_TUSRMST1" />
+        <AssociationConnector Association="SetengUserModel.FK_TUSRVENRELATION_TVENDER1" />
+        <AssociationConnector Association="SetengUserModel.FK_TVenderTechnician_TVENDER" />
+        <AssociationConnector Association="SetengUserModel.TCallLogClaims" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

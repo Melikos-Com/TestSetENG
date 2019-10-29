@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4241d3ab0a4c479c911f3a2bbac008a8" Name="Diagram1">
+        <EntityTypeShape EntityType="SETENGModel.C__RefactorLog" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.Holiday" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.sysdiagrams" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TAcceptedLog" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TAJCREP" Width="1.5" PointX="15.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TAJCYCL" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TAJKIND" Width="1.5" PointX="15.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TAPPLOG" Width="1.5" PointX="8.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TAPPVER" Width="1.5" PointX="0.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TAREANM" Width="1.5" PointX="17.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TASSETS" Width="1.5" PointX="17.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TASTIMG" Width="1.5" PointX="18.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TASTKND" Width="1.5" PointX="18.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TAUTONO" Width="1.5" PointX="17.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TBFFDTL" Width="1.5" PointX="0.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TBFFMST" Width="1.5" PointX="19.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TBFSPCM" Width="1.5" PointX="14.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TBFYOUD" Width="1.5" PointX="19.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TBFYOUM" Width="1.5" PointX="19.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TBULIMG" Width="1.5" PointX="20.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TBULTIN" Width="1.5" PointX="5.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TBUPART" Width="1.5" PointX="7.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TCALERR" Width="1.5" PointX="9.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TCALEXT" Width="1.5" PointX="11.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TCALIMG" Width="1.5" PointX="20.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TCALINV" Width="1.5" PointX="19.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TCALLER" Width="1.5" PointX="21.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TCallLogDateRecord" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TCallLogRecord" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TCALLOG" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TCallogCourse" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TCALSTA" Width="1.5" PointX="21.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TCFMTN" Width="1.5" PointX="21.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TCFMTNL" Width="1.5" PointX="16.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TCFRANK" Width="1.5" PointX="22.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TCMPDAT" Width="1.5" PointX="23.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TCTLINV" Width="1.5" PointX="23.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TDAMAGE" Width="1.5" PointX="23.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TDAMMTN" Width="1.5" PointX="13.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TDAYCTL" Width="1.5" PointX="23.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TDeviceSchedule" Width="1.5" PointX="13.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TDeviceScheduleDetail" Width="1.5" PointX="16" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TDZCREP" Width="1.5" PointX="2.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TDZKIND" Width="1.5" PointX="24.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TDZPQTY" Width="1.5" PointX="10.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TDZUPRC" Width="1.5" PointX="15.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TELECDE" Width="1.5" PointX="25.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TELEPAR" Width="1.5" PointX="25.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TENGMST" Width="1.5" PointX="25.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TENGSTK" Width="1.5" PointX="25.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TETCCAN" Width="1.5" PointX="17.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TETCDTL" Width="1.5" PointX="15" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TETCINV" Width="1.5" PointX="12.75" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TETCLOG" Width="1.5" PointX="25.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TETCVND" Width="1.5" PointX="19.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TEXPFIL" Width="1.5" PointX="25.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TFCSAST" Width="1.5" PointX="8" PointY="26.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TFINISH" Width="1.5" PointX="26.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TINVDTL" Width="1.5" PointX="25.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TINVMST" Width="1.5" PointX="27.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TKNDHST" Width="1.5" PointX="27.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TLAYHST" Width="1.5" PointX="12.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TLAYKND" Width="1.5" PointX="14.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TLAYOUTIMG" Width="1.5" PointX="27.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TLVCREP" Width="1.5" PointX="8" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TLVKIND" Width="1.5" PointX="5.75" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TLVRHST" Width="1.5" PointX="10.25" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TLYIMGM" Width="1.5" PointX="27.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TPAPERS" Width="1.5" PointX="27.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TPGMAUT" Width="1.5" PointX="27.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TPGMEXE" Width="1.5" PointX="0.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TPGMMST" Width="1.5" PointX="2.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TPGMUSR" Width="1.5" PointX="28.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TPRJACT" Width="1.5" PointX="21.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TPRJDTL" Width="1.5" PointX="29.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TPRJMST" Width="1.5" PointX="7.75" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TPRVMST" Width="1.5" PointX="9.75" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TRECLOG" Width="1.5" PointX="29.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TREFDAT" Width="1.5" PointX="29.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TREFDAT_Test" Width="1.5" PointX="29.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TRSTDTA" Width="1.5" PointX="16.75" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TRSTNAM" Width="1.5" PointX="29.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSBFYOU" Width="1.5" PointX="18.75" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSENDMAILVND" Width="1.5" PointX="29.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSTAIPD" Width="1.5" PointX="27.75" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSTAIPM" Width="1.5" PointX="29.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSTASTM" Width="1.5" PointX="4.75" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSTRAST" Width="1.5" PointX="5.75" PointY="25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSTRHST" Width="1.5" PointX="31.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSTRKND" Width="1.5" PointX="31.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSTRLAY" Width="1.5" PointX="11.75" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSTRMEM" Width="1.5" PointX="31.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSTRMOD" Width="1.5" PointX="13.75" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSTRMST" Width="1.5" PointX="31.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSTRMZO" Width="1.5" PointX="20.75" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSTRPWR" Width="1.5" PointX="22.75" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSTRPWR_Wait_LOG" Width="1.5" PointX="31.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSTRTMP" Width="1.5" PointX="31.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSTSAMD" Width="1.5" PointX="0.75" PointY="32.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSTSAMM" Width="1.5" PointX="15.75" PointY="32.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSTVNDM" Width="1.5" PointX="17.75" PointY="32.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSYSDAT" Width="1.5" PointX="33.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSYSLOG" Width="1.5" PointX="33.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSYSROL" Width="1.5" PointX="8.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TTechnicianGroup" Width="1.5" PointX="6" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TTechnicianGroupClaims" Width="1.5" PointX="8.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TTNSCALH" Width="1.5" PointX="33.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TTNSCALT" Width="1.5" PointX="33.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TTNSCFFH" Width="1.5" PointX="24.75" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TTNSCFFT" Width="1.5" PointX="33.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TTNSCFMH" Width="1.5" PointX="29.75" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TTNSCFMT" Width="1.5" PointX="31.75" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TTNSCLFH" Width="1.5" PointX="33.75" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TTNSCLFT" Width="1.5" PointX="26.75" PointY="34.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TUSERHC" Width="1.5" PointX="0.75" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TUSRDTL" Width="1.5" PointX="13.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TUSREXT" Width="1.5" PointX="35.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TUSRMST" Width="1.5" PointX="11" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TUSRVENRELATION" Width="1.5" PointX="13.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVBULTIN" Width="1.5" PointX="6.75" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVBULTIN_ReadRecord" Width="1.5" PointX="35.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVENDER" Width="1.5" PointX="3.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVenderTechnician" Width="1.5" PointX="6" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVNDAST" Width="1.5" PointX="8.75" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVNDCNT" Width="1.5" PointX="35.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVNDCON" Width="1.5" PointX="10.75" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVNDENG" Width="1.5" PointX="35.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVNDMEM" Width="1.5" PointX="35.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVNDPOP" Width="1.5" PointX="35.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVNDSHOW" Width="1.5" PointX="5.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVNDTMP" Width="1.5" PointX="35.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVNDUSR" Width="1.5" PointX="35.75" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVNDUSRD" Width="1.5" PointX="35.75" PointY="34.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVNDZO" Width="1.5" PointX="2.75" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVNOTICE" Width="1.5" PointX="19.75" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVNTCRD" Width="1.5" PointX="37.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVOUCH" Width="1.5" PointX="37.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVOUCTL" Width="1.5" PointX="37.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVPRICE" Width="1.5" PointX="12.75" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVUPART" Width="1.5" PointX="37.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVZOAST" Width="1.5" PointX="14.75" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TWRKKND" Width="1.5" PointX="16.75" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TWSHCYC" Width="1.5" PointX="37.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TZOCODE" Width="1.5" PointX="37.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.Migration_Default_TCMPDAT" Width="1.5" PointX="37.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TAJCREP_LOG" Width="1.5" PointX="37.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TAJCYCL_LOG" Width="1.5" PointX="37.75" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TASSETS_LOG" Width="1.5" PointX="37.75" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TBULTIN_LOG" Width="1.5" PointX="21.75" PointY="38.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TCALINV_LOG" Width="1.5" PointX="39.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TCALLOG_LOG" Width="1.5" PointX="0.75" PointY="39.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TCMPDAT_LOG" Width="1.5" PointX="2.75" PointY="39.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TDAMMTN_LOG" Width="1.5" PointX="39.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TDZCREP_LOG" Width="1.5" PointX="8.75" PointY="39.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TENGMST_LOG" Width="1.5" PointX="39.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TFINISH_LOG" Width="1.5" PointX="39.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSENDMAIL" Width="1.5" PointX="39.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSTRKND_LOG" Width="1.5" PointX="39.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSTRMOD_LOG" Width="1.5" PointX="39.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TSYSDAT_LOG" Width="1.5" PointX="39.75" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TTNSCALT__Test" Width="1.5" PointX="33.75" PointY="39.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TVPRICE_LOG" Width="1.5" PointX="39.75" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.TWRKKND_LOG" Width="1.5" PointX="4.75" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.VSTRPWR" Width="1.5" PointX="16.75" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.VW_MobileCallogList" Width="1.5" PointX="23.75" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.VW_MobileCallogNoFinish" Width="1.5" PointX="25.75" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.VW_MobileCallogSearch" Width="1.5" PointX="41.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.VW_NeedPushAgain" Width="1.5" PointX="41.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.VW_NewTVENDER" Width="1.5" PointX="41.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.VW_PGM" Width="1.5" PointX="18.75" PointY="41.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SETENGModel.VW_W33M020" Width="1.5" PointX="41.75" PointY="23.75" IsExpanded="true" />
+        <AssociationConnector Association="SETENGModel.FK_TAcceptedLog_TCALLOG" ManuallyRouted="false" />
+        <AssociationConnector Association="SETENGModel.FK_TCallLogDateRecord_TCALLOG" ManuallyRouted="false" />
+        <AssociationConnector Association="SETENGModel.FK_TCallLogRecord_TCALLOG" ManuallyRouted="false" />
+        <AssociationConnector Association="SETENGModel.FK_TCallogCourse_TCALLOG" ManuallyRouted="false" />
+        <AssociationConnector Association="SETENGModel.FK_TDeviceScheduleDetail_TDeviceSchedule" ManuallyRouted="false" />
+        <AssociationConnector Association="SETENGModel.FK_TETCDTL_TETCINV" ManuallyRouted="false" />
+        <AssociationConnector Association="SETENGModel.FK_TFCSAST_TSTRAST1" ManuallyRouted="false" />
+        <AssociationConnector Association="SETENGModel.FK_TLVCREP_TLVKIND" ManuallyRouted="false" />
+        <AssociationConnector Association="SETENGModel.FK_TLVCREP_TSTRAST" ManuallyRouted="false" />
+        <AssociationConnector Association="SETENGModel.FK_TLVRHST_TLVCREP" ManuallyRouted="false" />
+        <AssociationConnector Association="SETENGModel.FK_TLVKIND_TLVKIND" ManuallyRouted="false" />
+        <AssociationConnector Association="SETENGModel.FK_TUSRMST_TSYSROL" ManuallyRouted="false" />
+        <AssociationConnector Association="SETENGModel.FK_TTechnicianGroup_TVENDER" ManuallyRouted="false" />
+        <AssociationConnector Association="SETENGModel.FK_TTechnicianGroupClaims_TTechnicianGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="SETENGModel.FK_TTechnicianGroupClaims_TVenderTechnician" ManuallyRouted="false" />
+        <AssociationConnector Association="SETENGModel.FK_TUSRDTL_TUSRMST" ManuallyRouted="false" />
+        <AssociationConnector Association="SETENGModel.FK_TUSRVENRELATION_TUSRMST1" ManuallyRouted="false" />
+        <AssociationConnector Association="SETENGModel.FK_TUSRVENRELATION_TVENDER1" ManuallyRouted="false" />
+        <AssociationConnector Association="SETENGModel.FK_TVenderTechnician_TVENDER" ManuallyRouted="false" />
+        <AssociationConnector Association="SETENGModel.TCallLogClaims" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SETENGModel.TUpFile" Width="1.5" PointX="28.375" PointY="41.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

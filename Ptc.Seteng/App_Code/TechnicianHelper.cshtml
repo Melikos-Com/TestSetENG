@@ -1,0 +1,172 @@
+﻿
+@using System.Linq.Expressions
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+
+<!--TextBoxFor -->
+@functions
+    {
+    public static HelperResult TextBoxFor<TModel, TItem>
+        (
+        HtmlHelper<TModel> html,
+        Expression<Func<TModel, TItem>> expr,
+        object mainhtml = null,
+        object labelhtml = null
+        )
+    {
+        var attr = System.Web.Mvc.HtmlHelper.AnonymousObjectToHtmlAttributes(mainhtml);
+        var labelattr = System.Web.Mvc.HtmlHelper.AnonymousObjectToHtmlAttributes(labelhtml);
+
+
+
+        if (!attr.ContainsKey("style"))
+            attr.Add("style", "width: 100%");
+
+
+        return FormGroup(html.LabelFor(expr, labelhtml), html.TextBoxFor(expr,attr));
+    }
+}
+<!--PasswordFor -->
+@functions
+    {
+    public static HelperResult PasswordFor<TModel, TItem>
+        (
+        HtmlHelper<TModel> html,
+        Expression<Func<TModel, TItem>> expr,
+        object mainhtml = null,
+        object labelhtml = null
+        )
+    {
+        var attr = System.Web.Mvc.HtmlHelper.AnonymousObjectToHtmlAttributes(mainhtml);
+        var labelattr = System.Web.Mvc.HtmlHelper.AnonymousObjectToHtmlAttributes(labelhtml);
+
+        return FormGroup(html.LabelFor(expr, labelhtml), html.PasswordFor(expr, attr));
+    }
+}
+<!--DropDownListFor -->
+@functions
+    {
+    public static HelperResult DropDownListFor<TModel, TItem>
+        (
+        HtmlHelper<TModel> html,
+        Expression<Func<TModel, TItem>> expr,
+        IEnumerable<System.Web.Mvc.SelectListItem> list ,
+        object mainhtml = null,
+        object labelhtml = null
+        )
+    {
+
+        var attr = System.Web.Mvc.HtmlHelper.AnonymousObjectToHtmlAttributes(mainhtml);
+        var labelattr = System.Web.Mvc.HtmlHelper.AnonymousObjectToHtmlAttributes(labelhtml);
+
+
+        return FormGroup(html.LabelFor(expr, labelhtml), html.DropDownListFor(expr, list, attr));
+    }
+}
+<!--RadioButtonFor -->
+@functions
+    {
+    public static HelperResult RadioButtonFor<TModel, TItem>
+        (
+        HtmlHelper<TModel> html,
+        Expression<Func<TModel, TItem>> expr,
+        object mainhtml = null,
+        object labelhtml = null,
+        string yesBtn = "是",
+        string noBtn = "否"
+        )
+    {
+
+        var attr = System.Web.Mvc.HtmlHelper.AnonymousObjectToHtmlAttributes(mainhtml);
+        var labelattr = System.Web.Mvc.HtmlHelper.AnonymousObjectToHtmlAttributes(labelhtml);
+
+        return RadioFormGroup(html.LabelFor(expr, labelattr), html.RadioButtonFor(expr, true, attr), html.RadioButtonFor(expr, false, attr) , yesBtn , noBtn);
+    }
+}
+<!--CheckBoxFor -->
+@functions
+    {
+    public static HelperResult CheckBox
+        (
+        System.Web.Mvc.HtmlHelper html,
+        string id,
+        string title,
+        List<KeyValuePair<String, Object>> inputtitle,
+        object attr = null
+        )
+    {
+
+       
+        var labelattr = System.Web.Mvc.HtmlHelper.AnonymousObjectToHtmlAttributes(attr);
+
+        return CheckBoxFormGroup(html.Label(title, attr), id, inputtitle);
+    }
+}
+
+<!--TextBoxFor 
+    PasswordFor 
+    DropDownListFor-->
+@helper FormGroup(MvcHtmlString label, MvcHtmlString field)
+{
+    
+        <div class="col-xs-12  col-sm-12 col-md-12 col-lg-12">
+            <div class="form-group">
+                @label
+                <div class="col-xs-12  col-sm-8 col-md-8 col-lg-8 ">
+                    @field
+                </div>
+                <div class="col-xs-offset-0  col-sm-2 col-md-2"></div>
+            </div>
+        </div>
+   
+}
+<!--RadioButtonFor -->
+@helper RadioFormGroup(MvcHtmlString label, MvcHtmlString fieldtrue, MvcHtmlString fieldfalse, string yesBtn = "是", string noBtn = "否")
+{
+    
+        <div class="col-xs-12  col-sm-12 col-lg-12">
+            <div class="form-group">
+                @label
+                <div class="col-xs-12  col-sm-8 col-md-8">
+                    @fieldtrue @yesBtn
+                    @fieldfalse @noBtn
+                </div>
+                <div class="col-xs-offset-0  col-sm-2 col-md-2"></div>
+            </div>
+        </div>
+   
+}
+
+@helper CheckBoxFormGroup(MvcHtmlString label, string fieldtrue , List<KeyValuePair<String, Object>> title)
+{
+    <div class="col-sm-12  col-xs-12 col-md-12 col-lg-12">
+        <div class="form-group">
+            @label
+            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+           
+                @foreach (var item in title)
+                {
+                    if (item.Value is bool)
+                    {
+                        if ((bool)item.Value)
+                        {
+                            <label class="radio-inline" style="padding-left:0px"><input type="checkbox" name="@fieldtrue" id="@fieldtrue" class="ch-no" value=true>@item.Key </label>
+                        }
+                        else
+                        {
+                            <label class="radio-inline" style="padding-left:0px"><input type="checkbox" name="@fieldtrue" id="@fieldtrue" class="ch-no" value=false>@item.Key </label>
+                        }
+
+                    }
+                    else
+                    {
+                        <label class="radio-inline" style="padding-left:0px"><input type="checkbox" name="@fieldtrue" id="@fieldtrue" class="ch-no" value=@item.Value>@item.Key </label>
+                    }
+
+                }
+          
+            </div>
+        </div>
+    </div>
+
+}

@@ -1,0 +1,21 @@
+﻿<!-- 標題 -->
+<ion-header>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>案件内容</ion-title>
+    </ion-navbar>
+</ion-header>
+<!-- end標題 -->
+
+<!-- 內文 -->
+    <!-- 明細頁面 -->
+   
+        <ptc-detail *ngIf="!IsSISOVender" [viewType]="'venderConfirm'"></ptc-detail>
+
+        <ptc-detail-barcode *ngIf="IsSISOVender" [viewType]="'venderConfirm'"></ptc-detail-barcode>
+
+    <!-- 明細頁面 -->
+<!-- end內文 -->
+

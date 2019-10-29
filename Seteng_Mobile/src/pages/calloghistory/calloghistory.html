@@ -1,0 +1,41 @@
+<!--標題-->
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>案件歷程</ion-title>
+    </ion-navbar>
+</ion-header>
+<!--end 標題-->
+<!--內文-->
+<ion-content padding disable-scroll>
+    <div class="card light-bg info" margin-top >
+        <ion-grid>
+            <ion-row class="item-stats" style="background-color:#33cd5f;color:#FFF;text-align:center;padding:5px 0;">
+                <ion-col col-4 item-left>
+                    <span>指派人</span>
+                </ion-col>
+                <ion-col col-4 item-right>
+                    <span>受理人</span>
+                </ion-col>
+                <ion-col col-4 item-right>
+                    <span>受理時間</span>
+                </ion-col>
+            </ion-row>
+            <ion-row class="item-stats" *ngFor="let spItem of items">
+                <ion-col col-4 item-left>
+                    <span>{{spItem.Assignor}}</span>
+                </ion-col>
+                <ion-col col-4 item-right>
+                    <span>{{spItem.Admissibility}}</span>
+                </ion-col>
+                <ion-col col-4 item-right>
+                    <span>{{spItem.Datetime}}</span>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-content>
+<!-- 標底 -->
+<ion-footer no-shadow text-center>
+        <button ion-button (click)="closeModal()" color="buttonNo">關閉</button>
+    </ion-footer>
+<!-- end 標底-->

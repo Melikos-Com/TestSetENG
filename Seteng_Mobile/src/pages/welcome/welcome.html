@@ -1,0 +1,46 @@
+﻿<ion-content padding class="welcome"  disable-scroll>
+    <!--標題-->
+    <div class="title">
+        <img class="logo" src="./assets/img/images02.png">
+        <div i18n>工程保修系統</div>
+    </div> 
+    <!--內文-->
+    <div class="content" padding>
+        <div padding-left padding-right>
+            <form [formGroup]="form">
+                <ion-list class="list-form">
+                    <ion-item>
+                        <ion-input type="text" placeholder="請輸入帳號" formControlName="Account" [(ngModel)]="user.Account"></ion-input>
+                    </ion-item>
+                    <div *ngIf="form.controls['Account'].errors?.required && form.controls['Account'].dirty" class="alert alert-danger" color="danger">
+                    <p class="rem1">必要輸入帳號</p>
+                    </div>
+                    <div *ngIf="form.controls['Account'].errors?.maxlength && form.controls['Account'].dirty" class="alert alert-danger" color="danger">
+                    <p class="rem1">最多只能輸入20碼</p>
+                    </div>
+                    <ion-item>
+                        <ion-input type="password" placeholder="請輸入密碼" formControlName="Password" [(ngModel)]="user.Password"></ion-input>
+                    </ion-item>
+                    <div *ngIf="form.controls['Password'].errors?.required && form.controls['Password'].dirty" class="alert alert-danger" color="danger">
+                    <p class="rem1">必要輸入密碼</p>
+                    </div>
+                     <div *ngIf="form.controls['Password'].errors?.maxlength && form.controls['Password'].dirty" class="alert alert-danger">
+                    <p class="rem1">最多只能輸入20碼</p>
+                    </div>
+                </ion-list>
+            </form>
+            <ion-grid no-padding>
+                <ion-row>
+                    <ion-col no-padding>
+                        <button ion-button block color="buttonSubmit" (click)="login($event)" style="background:#b0b0b0; color:white">登入</button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+        </div>
+    </div>
+    <!--標底-->
+    <div class="footer" padding>
+        <div>版本 : {{version}}</div>
+    </div>
+</ion-content>

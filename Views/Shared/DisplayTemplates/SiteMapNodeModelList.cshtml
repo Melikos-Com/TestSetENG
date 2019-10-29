@@ -1,0 +1,22 @@
+﻿@model MvcSiteMapProvider.Web.Html.Models.SiteMapNodeModelList
+@using System.Web.Mvc.Html
+@using MvcSiteMapProvider.Web.Html.Models
+
+@*母節點用來初始化子節點的地方*@
+@foreach (var node in Model)
+{
+    //如果該節點為存在CurrentPath中則加入OPEN的CSS
+    string Iclass = node.IsInCurrentPath ? "open" : "";
+    <li class="@Iclass">
+        @Html.DisplayFor(m => node)
+        @if (node.Children.Any())
+        {
+            //如果該節點為存在CurrentPath中則加入block:none的CSS
+            Iclass = node.IsInCurrentPath ? "block" : "none";
+            <ul class="submenu" style="display:@Iclass">
+                @*這邊會呼叫SiteMapNodeModelList.cshtml*@
+                @Html.DisplayFor(m => node.Children)
+            </ul>
+        }
+    </li>
+}

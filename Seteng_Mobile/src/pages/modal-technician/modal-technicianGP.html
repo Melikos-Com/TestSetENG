@@ -1,0 +1,153 @@
+﻿<!-- 標題 -->
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>確定通知-選擇對象</ion-title>
+    </ion-navbar>
+</ion-header>
+<!-- end 標題 -->
+<!-- 內文 -->
+<ion-content class="common-bg">
+
+    <!--通知方式-->
+    <div class="card light-bg" margin-top padding>
+        <div padding>
+            <ion-segment [(ngModel)]="type">
+                <ion-segment-button value="0">
+                    群組
+                </ion-segment-button>
+                <ion-segment-button value="1">
+                    技師
+                </ion-segment-button>
+            </ion-segment>
+        </div>
+
+        <!--查詢內容-->
+        <div [ngSwitch]="type">
+            <!-- 查詢結果 -->
+            <ion-list class="list-full-border" no-margin>
+                <!--群組的-->
+                <div *ngSwitchCase="0">
+                    <!-- 關鍵字查詢 -->
+                    <div class="card">
+                        <ion-item class="no-border">
+                            <ion-label>關鍵字查詢</ion-label>
+                            <ion-input type="text" placeholder="請輸入關鍵字" (change)="filterGP($event)" [(ngModel)]="keywordGP"></ion-input>
+
+                        </ion-item>
+                    </div>
+                    <!-- end關鍵字查詢 -->
+                    <!--查詢結果-->
+                    <ion-list class="list-full-border" no-margin>
+                        <!--標題-->
+                        <ion-item>
+                            <ion-label>
+                                <ion-row align-center>
+                                    <ion-col col-2 text-center>
+                                        <ion-checkbox color="favorite" (click)="allCheckGP()"></ion-checkbox>
+                                    </ion-col>
+                                    <ion-col col-7 text-center padding>組名</ion-col>
+                                    <ion-col col-3 text-center padding>人數</ion-col>
+                                </ion-row>
+                            </ion-label>
+                        </ion-item>
+                        <!--end 標題-->
+
+                        <!--清單-->
+                        <ion-item *ngFor="let group of groups ;let i = index">
+                            <ion-label>
+                                <ion-row text-center>
+                                    <ion-col col-2 text-center>
+                                        <ion-checkbox [(ngModel)]="group.IsCheck" color="favorite" [checked]="selectedAllGP"></ion-checkbox>
+                                    </ion-col>
+                                    <ion-col col-7 text-center padding>
+                                        {{group.GroupName}}
+                                    </ion-col>
+                                    <ion-col col-3 text-center padding>
+                                        {{group.Count}}
+                                    </ion-col>
+                                </ion-row>
+                            </ion-label>
+                        </ion-item>
+                        <!--end 清單-->
+                    </ion-list>
+                    <!--end 查詢結果-->
+                    <!-- 續載區塊 -->
+                    <!-- <ion-infinite-scroll (ionInfinite)="continuousLoadingGP($event)" threshold="-10%">
+                        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+                        </ion-infinite-scroll-content>
+                    </ion-infinite-scroll> -->
+                    <!-- end續載區塊 -->
+                </div>
+                <!-- end 群組的-->
+
+                <!--技師的-->
+                <div *ngSwitchCase="1">
+
+                    <!-- 關鍵字查詢 -->
+                    <div class="card">
+                        <ion-item class="no-border">
+                            <ion-label>關鍵字查詢</ion-label>
+                            <ion-input type="text" placeholder="請輸入關鍵字" (change)="filterTH($event)" [(ngModel)]="keywordTH"></ion-input>
+                        </ion-item>
+
+                    </div>
+                    <!-- end關鍵字查詢 -->
+                    <!--查詢結果-->
+                    <ion-list class="list-full-border" no-margin>
+                        <!--標題-->
+                        <ion-item>
+                            <ion-label>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-checkbox color="favorite" (click)="allCheckTH()"></ion-checkbox>
+                                    </ion-col>
+                                    <ion-col>技師帳號</ion-col>
+                                    <ion-col>技師姓名</ion-col>
+                                </ion-row>
+                            </ion-label>
+                        </ion-item>
+                        <!--end 標題-->
+                        <!--清單-->
+                        <ion-item *ngFor="let technician of technicians ;let i = index">
+                            <ion-label>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-checkbox [(ngModel)]="technician.IsCheck" color="favorite" [checked]="selectedAllTH"></ion-checkbox>
+                                    </ion-col>
+                                    <ion-col>
+                                        {{technician.Account}}
+                                    </ion-col>
+                                    <ion-col>
+                                        {{technician.Name}}
+                                    </ion-col>
+                                </ion-row>
+                            </ion-label>
+                        </ion-item>
+                        <!--end 清單-->
+                    </ion-list>
+                    <!--end 查詢結果-->
+                    <!-- 續載區塊 -->
+                    <!-- <ion-infinite-scroll (ionInfinite)="continuousLoadingTH($event)" threshold="-10%">
+                        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+                        </ion-infinite-scroll-content>
+                    </ion-infinite-scroll> -->
+                    <!-- end續載區塊 -->
+                </div>
+                <!-- end 技師的-->
+
+            </ion-list>
+
+
+        </div>
+    </div>
+
+
+</ion-content>
+<!-- end 內文-->
+
+<!-- footer -->
+<ion-footer no-shadow text-center>
+    <button ion-button (click)="closeModal()" color="buttonNo">取消</button>
+    <button ion-button (click)="confirm()" color="buttonSubmit">確定</button>
+</ion-footer>
+<!-- end footer -->

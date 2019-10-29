@@ -1,0 +1,21 @@
+﻿<!--標題-->
+<ion-header>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon  name="menu"></ion-icon>
+        </button>
+        <ion-title>主頁</ion-title>
+    </ion-navbar>
+</ion-header>
+<!--內文-->
+<ion-content class="home">
+    <ion-list style="margin: 0px!important;">
+        <button  ion-item *ngFor="let page of mainMenus" (click)="openPage(page)" [style.min-height]="itemHeigh" [style.background]="page.background">
+          <div>
+        {{ page.title }}
+          <ion-badge  ><div>{{page.count}}</div></ion-badge>
+ 
+         </div>
+      </button>
+    </ion-list>
+</ion-content>

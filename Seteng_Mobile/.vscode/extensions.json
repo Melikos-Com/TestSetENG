@@ -1,0 +1,18 @@
+{
+    "recommendations": [
+        "Angular.ng-template",
+        "ksubedi.net-core-project-manager",
+        "ms-vscode.csharp",
+        "jchannon.csharpextensions",
+        "k--kato.docomment",
+        "formulahendry.code-runner",
+        "msjsdiag.debugger-for-chrome",
+        "cmstead.jsrefactor",
+        "christian-kohler.path-intellisense",
+        "eg2.tslint",
+        "lihui.vs-color-picker",
+        "robertohuertasm.vscode-icons",
+        "pprice.better-merge",
+        "eamodio.gitlens"
+    ]
+}

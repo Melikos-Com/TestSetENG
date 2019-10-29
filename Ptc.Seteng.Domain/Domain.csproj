@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8EAC01EF-0489-47FF-87B8-0C4040AC3891}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ptc.Seteng</RootNamespace>
+    <AssemblyName>Ptc.Seteng.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BaiduPush, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BaiduPush.1.0.0.1\lib\net20\BaiduPush.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="cn.jpush.api, Version=3.2.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\cn.jpush.api.3.2.7.0\lib\net40\cn.jpush.api.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=1.1.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.1.1.3\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.1.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.1.3\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class\common\EngineeringContect.cs" />
+    <Compile Include="Class\enum\HQCheckKind.cs" />
+    <Compile Include="Class\enum\ImgType.cs" />
+    <Compile Include="Class\enum\NewStoreOrderType.cs" />
+    <Compile Include="Class\enum\RecordType.cs" />
+    <Compile Include="Class\enum\RoleType.cs" />
+    <Compile Include="Class\enum\Source.cs" />
+    <Compile Include="Class\enum\TimePoint.cs" />
+    <Compile Include="Class\MailRequest.cs" />
+    <Compile Include="Class\MobileCallogSearch.cs" />
+    <Compile Include="Class\TCALINV.cs" />
+    <Compile Include="Class\TCallLogDateRecord.cs" />
+    <Compile Include="Class\TCallogCourse.cs" />
+    <Compile Include="Class\Tdammtn.cs" />
+    <Compile Include="Class\Tfinish.cs" />
+    <Compile Include="Class\Trefdat.cs" />
+    <Compile Include="Class\Tsysdat.cs" />
+    <Compile Include="Class\TUSRVENRELATION.cs" />
+    <Compile Include="Class\Tvndzo.cs" />
+    <Compile Include="Class\Twrkknd.cs" />
+    <Compile Include="Class\UI\FileType.cs" />
+    <Compile Include="Class\enum\PushType.cs" />
+    <Compile Include="Class\IPushRequest.cs" />
+    <Compile Include="Class\JPushRequest.cs" />
+    <Compile Include="Class\TacceptedLog.cs" />
+    <Compile Include="Class\TcallogRecord.cs" />
+    <Compile Include="Class\TtechnicianGroupClaims.cs" />
+    <Compile Include="Class\common\Address.cs" />
+    <Compile Include="Class\common\BaiduLocation.cs" />
+    <Compile Include="Class\common\Contact.cs" />
+    <Compile Include="Class\common\DataSpan.cs" />
+    <Compile Include="Class\common\Maintain.cs" />
+    <Compile Include="Class\common\Phone.cs" />
+    <Compile Include="Class\enum\AssetKind.cs" />
+    <Compile Include="Class\enum\AstType.cs" />
+    <Compile Include="Class\enum\CallKind.cs" />
+    <Compile Include="Class\enum\CallLevel.cs" />
+    <Compile Include="Class\enum\DeviceType.cs" />
+    <Compile Include="Class\enum\NewStoreSts.cs" />
+    <Compile Include="Class\enum\CloseSts.cs" />
+    <Compile Include="Class\enum\CaseCancelType.cs" />
+    <Compile Include="Class\enum\CompanyOperationType.cs" />
+    <Compile Include="Class\enum\PenaltyType.cs" />
+    <Compile Include="Class\enum\StoreOperationType.cs" />
+    <Compile Include="Class\enum\StoreType.cs" />
+    <Compile Include="Class\enum\ToiletType.cs" />
+    <Compile Include="Class\help\DateAttribute.cs" />
+    <Compile Include="Class\help\EnumHelper.cs" />
+    <Compile Include="Class\help\SearchableAttribute.cs" />
+    <Compile Include="Class\Tassets.cs" />
+    <Compile Include="Class\JsonResult.cs" />
+    <Compile Include="Class\Tastknd.cs" />
+    <Compile Include="Class\Tcalimg.cs" />
+    <Compile Include="Class\Tcallog.cs" />
+    <Compile Include="Class\Tcmpdat.cs" />
+    <Compile Include="Class\Tdamage.cs" />
+    <Compile Include="Class\Tstrast.cs" />
+    <Compile Include="Class\Tstrmst.cs" />
+    <Compile Include="Class\Tsysrol.cs" />
+    <Compile Include="Class\TtechnicianGroup.cs" />
+    <Compile Include="Class\Tusrdtl.cs" />
+    <Compile Include="Class\Tusrmst.cs" />
+    <Compile Include="Class\Tvender.cs" />
+    <Compile Include="Class\TvenderTechnician.cs" />
+    <Compile Include="Class\Tvprice.cs" />
+    <Compile Include="Class\Tvupart.cs" />
+    <Compile Include="Class\Tzocode.cs" />
+    <Compile Include="Class\UI\FeatureType.cs" />
+    <Compile Include="Factory\ICallogFactory.cs" />
+    <Compile Include="Factory\IFileFactory.cs" />
+    <Compile Include="Factory\IMailFactory.cs" />
+    <Compile Include="Factory\IPushFactory.cs" />
+    <Compile Include="Factory\IPartFactory.cs" />
+    <Compile Include="Factory\IUserFactory.cs" />
+    <Compile Include="Factory\IVendorFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider\ITcallogProvider.cs" />
+    <Compile Include="Provider\ITechnicianProvider.cs" />
+    <Compile Include="Provider\ITnstdtlProvider.cs" />
+    <Compile Include="Repository\IBaseRepository.cs" />
+    <Compile Include="Repository\IImgRepository.cs" />
+    <Compile Include="Repository\IMailRepository.cs" />
+    <Compile Include="Repository\IPushRepository.cs" />
+    <Compile Include="Service\ICallogService.cs" />
+    <Compile Include="Service\ITechnicianService.cs" />
+    <Compile Include="Service\IClientUserService.cs" />
+    <Compile Include="Service\IVendorService.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Ptc.AspnetMvc.Authentication\Ptc.AspnetMvc.Authentication.csproj">
+      <Project>{7c480dea-7569-47f8-8720-2b29b89c5684}</Project>
+      <Name>Ptc.AspnetMvc.Authentication</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

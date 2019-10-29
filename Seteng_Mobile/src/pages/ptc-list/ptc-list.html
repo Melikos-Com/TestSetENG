@@ -1,0 +1,12 @@
+﻿<!--查詢結果外框-->
+<ion-list no-margin class="list-full-border list-products">
+
+     <!--查詢結果成員-->
+     <ptc-item *ngFor="let item of items$ | async"
+                [item]="item" 
+                [class]=""
+                (click)='viewDetail(item)'>   
+     </ptc-item>
+
+</ion-list>
+

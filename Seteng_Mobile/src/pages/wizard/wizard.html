@@ -1,0 +1,14 @@
+﻿<ul class="progress-indicator">
+
+    <li [ngClass]="item.class" *ngFor="let item of items$ | async;let i = index;">
+        <p *ngIf="item.name !='銷案確認'">
+                <span class="bubble"><img src="./assets/img/dash.png" alt="" style="margin-left: 60px; height:110%"></span>
+        </p>
+        <p *ngIf="item.name =='銷案確認'">
+                <span class="bubble"></span>
+        </p>
+        <i class="fa fa-check-circle"></i>
+        <span style="font-size:1.2rem">{{item.name}}</span>
+    </li>
+
+</ul>

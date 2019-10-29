@@ -1,0 +1,122 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/v2/theming/
+@import "ionic.globals";
+
+// Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files.
+// To view all the possible Ionic variables, see:
+// http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
+
+$text-color: #000;
+$background-color: #fff;
+$buttonYes: #33cd5f;
+
+// Named Color Variables
+// --------------------------------------------------
+// Named colors makes it easy to reuse colors on various components.
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+
+$colors: (
+  primary: #007aff,
+  secondary: #33cd5f,
+  danger: #953735,
+  light: #FFFFFF,
+  dark: #000000,
+  favorite: #69BB7B,
+  facebook: #3B5999,
+  googleplus: #DD4C39,
+  bgColor: #EBEBEC,
+  gray: #999,
+  orange: orange,
+  buttonYes:#007aff,
+  buttonNo: red,
+  buttonSubmit:#33cd5f,
+  optionPrimary:  #007aff,
+  optionSecondary:  #33cd5f,
+  optionTertiary:  #4a452a,
+  
+);
+
+// App Theme
+// --------------------------------------------------
+// Ionic apps can have different themes applied, which can
+// then be future customized. This import comes last
+// so that the above variables are used and Ionic's
+// default are overridden.
+
+@import "ionic.theme.default"; 
+$alert-md-background-color:  white;
+
+.hyperlink{
+color: blue!important;
+text-decoration: underline;
+}
+
+.alert-title{ 
+  text-align: center;
+  color:black;
+}
+@mixin  alert-button(){
+  color:white!important;
+  border-radius: 5px; 
+}
+
+.alert-button{
+  background-color: #33cd5f!important; 
+  @include alert-button;
+}; 
+.alert-button:nth-of-type(1)
+{
+  background-color: red!important; 
+  @include alert-button;
+}
+
+.alertbuttonNo
+{
+  background-color: red!important;
+  color:white!important;
+}
+.alertbuttonYes
+{ 
+  background-color: #007aff!important;
+  color:white!important;
+} 
+.alertbuttonSubmit
+{
+  background-color: #33cd5f!important; 
+  color:white!important;
+}
+
+/*暫時訊息樣式*/
+.detail-toast-success{
+
+.toast-message{
+  background-color: #0BB195!important;  
+   text-align: center;
+ 
+}
+  
+}
+.detail-toast-fail{
+  .toast-message{
+     background-color: #FF0066!important;
+     text-align: center;
+   
+  }
+
+}
+
+
+
+// Ionicons
+// --------------------------------------------------
+// The premium icon font for Ionic. For more info, please see:
+// http://ionicframework.com/docs/v2/ionicons/
+
+$ionicons-font-path: "../assets/fonts";
+@import "ionic.ionicons";

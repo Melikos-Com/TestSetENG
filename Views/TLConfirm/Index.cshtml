@@ -1,0 +1,262 @@
+﻿@model Ptc.Spcc.CCEng.Models.TLConfirmViewModel
+
+<div class="row">
+    <div class="col-xs-12">
+        @using (Html.BeginForm("GetList", "TLConfirm", FormMethod.Post, new { @id = "searchForm", @name = "searchForm", @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+        {
+
+         <!--RWD condition ctrl-->
+            <div type="button" class="visible-xs visible-sm hidden-md hidden-lg  btn btn-default ptc-dismiss">隱藏篩選條件</div>
+         <!--end RWD condition ctrl -->
+
+         <!--dynamic tabs-->
+            <div class="row ptc-conditions">
+
+                <!--clone block-->
+                <div clsss="ptc-content-clone" hidden>
+                    <button type="button" class="ptc-cancel" data-toggle="tooltip btn btn-secondary" data-placement="bottom" title="移除條件">x</button>
+
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12  col-md-4 col-lg-4 ">
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.CompCd)</label>
+                                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                        <select id="CompCd" name="CompCd" class="js-data-example-ajax form-control" data-header="Select a condiment"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-xs-12  col-md-4 col-lg-4 ">
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.ZoCd)</label>
+                                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                        <select id="ZoCd" name="ZoCd" class="js-data-example-ajax form-control" data-header="Select a condiment"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-xs-12  col-md-4 col-lg-4 ">
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.StoreCd)</label>
+                                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                        <select id="StoreCd" name="StoreCd" class="js-data-example-ajax form-control" data-header="Select a condiment"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--end clone block-->
+                <!--tabs block-->
+                <ul class="ptc-tabs nav nav-tabs"></ul>
+                <!--end tabs block-->
+                <!--content block-->
+                <div class="ptc-content tab-content"></div>
+                <!--end content block-->
+
+            </div>
+         <!--end dynamic tabs-->
+
+         <!--btn block-->
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <button type="submit" class="btn-search btn-sm AuthRead" id="searchBtn" name="searchBtn" data-loading-text="處理中...">查詢</button>
+                </div>
+            </div>
+         <!--end btn block-->
+
+        }
+
+    </div>
+</div>
+
+<div class="row price-flag"> </div>
+
+<div class="row">
+    <div id="grid-table">
+
+        <!--table header-->
+        <div class="table-header">
+            <span>&nbsp;</span>
+            <a class="pull-right  btn btn-sm btn-warning" id="dt-exportXml">導出</a>
+        </div>
+        <!--end table header-->
+        <!--result table-->
+        <table class="table table-bordered table-striped table-bordered dt-responsive nowrap" id="resultTable">
+            <thead>
+                <tr role="row">
+                    <th class="center" role="columnheader">叫修編號</th>
+                    <th class="center" role="columnheader">維修廠商</th>
+                    <th class="center" role="columnheader">門市名稱</th>
+                    <th class="center" role="columnheader">設備名稱</th>
+                    <th class="center" role="columnheader">故障名稱</th>
+                    <th class="center" role="columnheader">人工費用</th>
+                    <th class="center" role="columnheader">材料費用</th>
+                    <th class="center" role="columnheader">總費用</th>
+                    <th class="center" role="columnheader">審核罰款</th>
+                    <th class="center" role="columnheader">案件類型</th>
+                    <th class="center" role="columnheader">明細/審核</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <!--end result table-->
+
+    </div>
+</div>
+
+@section scripts{
+
+    <!--methods-->
+    <script type="text/javascript">
+
+        //導向明細
+        function Detail(data) {
+
+            var obj = {
+                Sn: data[0].Sn,
+                type: '@Ptc.Spcc.CCEng.FeatureType.TL'
+            };
+
+            DirectToUrl('@Url.Action("Detail", "Callog")', obj);
+
+        }
+
+        //明細-按鈕觸發
+        function TDetail(Sn) {
+            var data = [{ Sn: Sn, type: '@Ptc.Spcc.CCEng.FeatureType.TL' }]
+
+            this.Detail(data);
+        }
+
+
+
+
+
+    </script>
+    <!--validation-->
+    <script type="text/javascript">
+        $('#searchForm').PTCValidation({});
+
+        function InitValidation(index) {
+
+        }
+
+        function IsValid() {
+
+            var isValid = true;
+            var validator = $('#searchForm').validate();
+            $('#searchForm').find("input").each(function () {
+                if (!validator.element(this)) {
+                    $('a[href=#' + $(this).closest('.tab-pane:not(.active)').attr('id') + ']').tab('show');
+                    isValid = false;
+
+                }
+            });
+            return isValid;
+        }
+
+    </script>
+    <!--select2-->
+    <script type="text/javascript">
+
+        function InitSelect2(index) {
+
+            window.PTC.Select2.AllArea({ name: `#c${index}  #CompCd`, url: '@Url.Action("Get", "Tcmpdat")' },
+                                    { name: `#c${index}  #ZoCd`, url: '@Url.Action("Get", "Tzocode")' },
+                                    { name: `#c${index}  #StoreCd`, url: '@Url.Action("Get", "Tstrmst")' })
+
+
+        }
+
+    </script>
+    <!--tabs-->
+    <script type="text/javascript">
+
+            $('.ptc-tabs').PTCDynamicTabs({ initUI: this.InitUI });
+
+            function InitUI(index) {
+
+                InitSelect2(index);
+
+                InitValidation(index);
+            }
+
+    </script>
+    <!--dataTable-->
+    <script type="text/javascript">
+
+        var columns = [
+
+         { targets: 0, name: "Sn", id: "Sn", className: 'min-mobile-l text-center' },
+         { targets: 1, name: "Vender_Cd", id: "VenderName", className: ' text-center' },
+         { targets: 2, name: "Store_Name", id: "StoreName", className: 'min-mobile-l text-center' },
+         { targets: 3, name: "Asset_Name", id: "AssetName", className: 'text-center' },
+         { targets: 4, name: "Damage_Desc", id: "DamageDesc", className: 'text-center' },
+         { targets: 5, name: "Artificial_Cost_fact", id: "ArtificialCostfact", className: 'text-center' },
+         { targets: 6, name: "Vnd_Total_Cost", id: "VndTotalCost", className: 'text-center' },
+         { targets: 7, name: "All_Cost", id: "AllCost", className: 'text-center' },
+         { targets: 8, name: "Cfm_OvTime_Fine", id: "CfmOvTimeFine", className: 'text-center' },
+         { targets: 9, name: "Call_Kind", id: "CallKind", className: 'text-center' },
+         {
+             targets: 10,
+             className: 'text-center',
+             searchable: false,
+             orderable: false,
+             render: function (data, type, full, meta) {
+                 return `<button  type="button" onclick="TDetail(${data})" role="button" class="btn btn-xs btn-success rowTabholdOK` +
+                        `"><i class="ace-icon fa fa-search bigger-120"></i></button>`;
+
+             }
+         }
+        ];
+
+        $('#resultTable').PTCDataTable({
+            colmDefs: columns,
+            form: "#searchForm",
+            rowTabholdOKText: '前往明細',
+            rowTabholdOK: this.Detail,
+            validate: this.IsValid,
+            CreateXMLDataUrl: '@Url.Action("CreateXMLData", "TLConfirm")',
+            CreateXMLFileUrl: '@Url.Action("ExportXMLFile", "TLConfirm")',
+            trMethod: this.TRmethod,
+            refill: function (criteria) {
+                $(this.form).ReductionDynamicTabs({
+                    array: criteria,
+                    refill: function (data, index) {
+
+                        if (data.CompCd) {
+                            $(`#c${index + 1} #CompCd`).InitSelect2Data({
+                                url: '@Url.Action("Get", "Tcmpdat")',
+                                data: { CompCd: data.CompCd }
+
+                            })
+                        }
+
+                        if (data.ZoCd) {
+                            $(`#c${index + 1} #ZoCd`).InitSelect2Data({
+                                url: '@Url.Action("Get", "Tzocode")',
+                                data: { ZoCd: data.ZoCd }
+
+                            })
+                        }
+
+                        if (data.StoreCd) {
+                            $(`#c${index + 1} #StoreCd`).InitSelect2Data({
+                                url: '@Url.Action("Get", "Tstrmst")',
+                                data: { StoreCd: data.StoreCd }
+
+                            })
+                        }
+
+
+
+                    }
+                });
+            }
+        });
+
+    </script>
+
+}

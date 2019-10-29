@@ -1,0 +1,136 @@
+﻿ptc-detail {
+    ion-footer {
+        bottom: inherit;
+    } 
+    
+   
+   
+    button.detail-submit {
+        border-radius: 5px;
+        max-width: 50vw;
+        margin: auto;
+    }
+    .text-sm {
+        font-size: 1.2rem;
+    }
+    .info {
+        .col {
+            border-style: solid;
+            border-width: 2px;
+            border-color: #ffffff;
+            background-color: #f4f6f6;
+        }
+    }
+    .informalMaterial-href {
+        float: right;
+        color: blue;
+        text-decoration: underline;
+    }
+    .noCardHeight {
+        min-height: 0!important;
+    }
+    .card {
+        min-height: 70vh;
+        max-height: 70vh;
+        overflow-y: scroll;
+        .title {
+            background-color: #007aff;
+            text-align: center;
+            color: white;
+            font-size: 1.6rem;
+            padding: 10px;
+        }
+        div {
+            min-height: 18.4px;
+        }
+        ion-icon {
+            font-size: 25px;
+        }
+    }
+    .cardSearch {
+        .title {
+            background-color: color($colors, optionPrimary);
+            text-align: center;
+            color: white;
+            font-size: 1.6rem;
+            padding: 10px;
+        }
+        div {
+            min-height: 18.4px;
+        }
+        ion-icon {
+            font-size: 25px;
+        }
+    }
+    .input-qty {
+        display: inline-flex;
+        span {
+            font-weight: 900;
+            padding: 6px 30px!important;
+            border-style: solid!important;
+            border-radius: 10px!important;
+            border-color: gray!important;
+        }
+    }
+    .camera-update {
+        height: 30vh;
+        text-align: center;
+        background-color: gainsboro;
+        margin: 20px;
+        vertical-align: middle;
+        line-height: 30vh;
+        border-style: dashed;
+        border-color: white;
+        ion-icon {
+            color: ghostwhite;
+            font-size: 5.0em !important;
+            vertical-align: middle;
+        }
+    }
+    .remove-icon {
+        background-color: red;
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        left: -4px;
+        top: -4px;
+        border-radius: 50%;
+        color: white;
+        cursor: pointer;
+    }
+    .pic-grid {
+        text-align: center;
+        background-color: gainsboro;
+        margin: 20px;
+        vertical-align: middle;
+        border-style: solid;
+        border-color: white;
+        .upload-pic-icon {
+            color: white;
+            background-color: lightgray;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 3rem;
+            cursor: pointer;
+        }
+        img {
+            max-height: 10vh;
+            width: 100%;
+        }
+    }
+    button.swiper-pagination-bullet {
+        width: 1rem;
+        height: 1rem;
+        background: lightgray;
+    }
+    button.swiper-pagination-bullet-active {
+        background: color($colors, primary);
+    }
+    button.swiper-pagination-bullet-active {
+        background: color($colors, primary);
+    }
+    ion-modal {
+        padding: 40px;
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+}

@@ -1,0 +1,864 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3C096F6C-FEAA-4179-9507-1841839F71A6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ptc.Seteng</RootNamespace>
+    <AssemblyName>Ptc.Seteng.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>發行\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BaiduPush, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BaiduPush.1.0.0.1\lib\net20\BaiduPush.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="cn.jpush.api, Version=3.2.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\cn.jpush.api.3.2.7.0\lib\net40\cn.jpush.api.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LinqKit, Version=1.1.8.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqKit.1.1.8.0\lib\net451\LinqKit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=1.1.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.1.1.3\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.1.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.1.3\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MvcCodeRouting, Version=1.3.0.0, Culture=neutral, PublicKeyToken=bf7cf9743009fe42, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcCodeRouting.1.3.0\lib\net40\MvcCodeRouting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ptc.Logger.Domain">
+      <HintPath>..\libs\Ptc.Logger.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Amazon, Version=4.0.10.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
+      <HintPath>..\packages\PushSharp.4.0.10\lib\net45\PushSharp.Amazon.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PushSharp.Apple, Version=4.0.10.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
+      <HintPath>..\packages\PushSharp.4.0.10\lib\net45\PushSharp.Apple.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PushSharp.Blackberry, Version=4.0.10.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
+      <HintPath>..\packages\PushSharp.4.0.10\lib\net45\PushSharp.Blackberry.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PushSharp.Core, Version=4.0.10.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
+      <HintPath>..\packages\PushSharp.4.0.10\lib\net45\PushSharp.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PushSharp.Firefox, Version=4.0.10.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
+      <HintPath>..\packages\PushSharp.4.0.10\lib\net45\PushSharp.Firefox.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PushSharp.Google, Version=4.0.10.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
+      <HintPath>..\packages\PushSharp.4.0.10\lib\net45\PushSharp.Google.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PushSharp.Windows, Version=4.0.10.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
+      <HintPath>..\packages\PushSharp.4.0.10\lib\net45\PushSharp.Windows.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RequestGetImg">
+      <HintPath>..\libs\RequestGetImg.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.2.0\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.1.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.1.3\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="zxing, Version=0.14.0.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.14.0.1\lib\net40\zxing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.14.0.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.14.0.1\lib\net40\zxing.presentation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataBase\C__RefactorLog.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\GetSystemDateTime_Result.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\Holiday.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\Migration_Default_TCMPDAT.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\My_split_Result.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\Seteng.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Seteng.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\Seteng.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\Seteng.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Seteng.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\sysdiagrams.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TAcceptedLog.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TAJCREP.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TAJCREP_LOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TAJCYCL.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TAJCYCL_LOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TAJKIND.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TAPPLOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TAPPVER.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TAREANM.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TASSETS.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TASSETS_LOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TASTIMG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TASTKND.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TAUTONO.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TBFFDTL.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TBFFMST.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TBFSPCM.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TBFYOUD.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TBFYOUM.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TBULIMG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TBULTIN.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TBULTIN_LOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TBUPART.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TCALERR.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TCALEXT.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TCALIMG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TCALINV.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TCALINV_LOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TCALLER.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TCallLogDateRecord.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TCallLogRecord.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TCALLOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TCallogCourse.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TCALLOG_LOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TCALSTA.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TCFMTN.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TCFMTNL.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TCFRANK.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TCMPDAT.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TCMPDAT_LOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TCTLINV.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TDAMAGE.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TDAMMTN.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TDAMMTN_LOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TDAYCTL.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TDeviceSchedule.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TDeviceScheduleDetail.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TDZCREP.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TDZCREP_LOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TDZKIND.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TDZPQTY.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TDZUPRC.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TELECDE.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TELEPAR.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TENGMST.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TENGMST_LOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TENGSTK.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TETCCAN.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TETCDTL.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TETCINV.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TETCLOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TETCVND.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TEXPFIL.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TFCSAST.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TFINISH.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TFINISH_LOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TINVDTL.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TINVMST.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TKNDHST.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TLAYHST.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TLAYKND.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TLAYOUTIMG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TLVCREP.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TLVKIND.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TLVRHST.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TLYIMGM.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TPAPERS.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TPGMAUT.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TPGMEXE.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TPGMMST.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TPGMUSR.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TPRJACT.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TPRJDTL.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TPRJMST.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TPRVMST.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TRECLOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TREFDAT.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TREFDAT_Test.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TRSTDTA.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TRSTNAM.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSBFYOU.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSENDMAIL.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSENDMAILVND.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSTAIPD.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSTAIPM.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSTASTM.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSTRAST.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSTRHST.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSTRKND.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSTRKND_LOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSTRLAY.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSTRMEM.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSTRMOD.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSTRMOD_LOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSTRMST.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSTRMZO.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSTRPWR.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSTRPWR_Wait_LOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSTRTMP.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSTSAMD.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSTSAMM.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSTVNDM.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSYSDAT.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSYSDAT_LOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSYSLOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TSYSROL.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TTechnicianGroup.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TTechnicianGroupClaims.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TTNSCALH.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TTNSCALT.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TTNSCALT__Test.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TTNSCFFH.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TTNSCFFT.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TTNSCFMH.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TTNSCFMT.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TTNSCLFH.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TTNSCLFT.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TUpFile.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TUSERHC.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TUSRDTL.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TUSREXT.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TUSRMST.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TUSRVENRELATION.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVBULTIN.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVBULTIN_ReadRecord.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVENDER.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVenderTechnician.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVNDAST.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVNDCNT.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVNDCON.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVNDENG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVNDMEM.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVNDPOP.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVNDSHOW.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVNDTMP.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVNDUSR.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVNDUSRD.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVNDZO.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVNOTICE.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVNTCRD.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVOUCH.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVOUCTL.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVPRICE.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVPRICE_LOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVUPART.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TVZOAST.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TWRKKND.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TWRKKND_LOG.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TWSHCYC.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\TZOCODE.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\uspW40R010_getCallInvoiceData_Result.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\uspW40R010_getInvData_by_Do_Result.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\uspW40R010_getInvData_Result.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\uspW40R010_getMoneyShareData_Result.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\uspW40R010_getProjectInvoiceAll_Result.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\uspW40R010_getProjectInvoicePartial_Result.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\uspW40R010_getProjectInvoice_Result.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\uspW41P010_genVouToTxt_Result.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\VSTRPWR.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\VW_MobileCallogList.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\VW_MobileCallogNoFinish.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\VW_MobileCallogSearch.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\VW_NeedPushAgain.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\VW_NewTVENDER.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\VW_PGM.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\VW_W33M020.cs">
+      <DependentUpon>Seteng.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Factory\CallogFactory.cs" />
+    <Compile Include="Factory\FileFactory.cs" />
+    <Compile Include="Factory\JPushFactory.cs" />
+    <Compile Include="Factory\MailFactory.cs" />
+    <Compile Include="Factory\UserFactory.cs" />
+    <Compile Include="Factory\VendorFactory.cs" />
+    <Compile Include="LambdaExpressions.cs" />
+    <Compile Include="LogContext.cs" />
+    <Compile Include="Misc\AutoMapperConfig.cs" />
+    <Compile Include="Misc\AutoMapperExtension.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider\TechnicianProvider.cs" />
+    <Compile Include="Provider\TcallogProvider.cs" />
+    <Compile Include="Repository\AspUserRepository.cs" />
+    <Compile Include="Repository\BaseRepository.cs" />
+    <Compile Include="Repository\ImgRepository.cs" />
+    <Compile Include="Repository\JPushRepository.cs" />
+    <Compile Include="Repository\MailRepository.cs" />
+    <Compile Include="Repository\PostData.cs" />
+    <Compile Include="ServerProfile.cs" />
+    <Compile Include="Service\authInterator\interface\IRoleIterator.cs" />
+    <Compile Include="Service\authInterator\RoleIterator.cs" />
+    <Compile Include="Service\authInterator\roles\AdminRole.cs" />
+    <Compile Include="Service\authInterator\roles\CMRole.cs" />
+    <Compile Include="Service\authInterator\roles\FMRole.cs" />
+    <Compile Include="Service\authInterator\roles\StoreRole.cs" />
+    <Compile Include="Service\authInterator\roles\TLRole.cs" />
+    <Compile Include="Service\authInterator\roles\VendorRole.cs" />
+    <Compile Include="Service\CallogService.cs" />
+    <Compile Include="Factory\PartFactory.cs" />
+    <Compile Include="Service\VendorService.cs" />
+    <Compile Include="Service\workflow\extend\AttachedMethods.cs" />
+    <Compile Include="Service\TechnicianService.cs" />
+    <Compile Include="Service\UserService.cs" />
+    <Compile Include="Util\FileUtil.cs" />
+    <Compile Include="Util\HttpClientExtension.cs" />
+    <Compile Include="Util\TokenUtil.cs" />
+    <Compile Include="Util\WebApiUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="DataBase\Seteng.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Seteng.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataBase\Seteng.edmx.diagram">
+      <DependentUpon>Seteng.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ptc.AspnetMvc.Authentication\Ptc.AspnetMvc.Authentication.csproj">
+      <Project>{7c480dea-7569-47f8-8720-2b29b89c5684}</Project>
+      <Name>Ptc.AspnetMvc.Authentication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ptc.AspnetMvc\Ptc.AspnetMvc.csproj">
+      <Project>{28F47762-DAA6-419D-9187-2EE963AA2A92}</Project>
+      <Name>Ptc.AspnetMvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ptc.Seteng.Domain\Domain.csproj">
+      <Project>{8eac01ef-0489-47ff-87b8-0c4040ac3891}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="DataBase\Seteng.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Seteng.edmx</DependentUpon>
+      <LastGenOutput>Seteng.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataBase\Seteng.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Seteng.edmx</DependentUpon>
+      <LastGenOutput>Seteng.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>此專案參照此電腦中缺少的  NuGet 套件。啟用「NuGet 套件還原」以便下載。如需詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的檔案為 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

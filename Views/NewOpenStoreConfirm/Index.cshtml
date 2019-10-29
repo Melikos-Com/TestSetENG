@@ -1,0 +1,348 @@
+﻿@model Ptc.Spcc.CCEng.Models.NewOpenStoreConfirmViewModel
+
+<div class="row">
+    <div class="col-xs-12">
+        @using (Html.BeginForm("GetList", "NewOpenStoreConfirm", FormMethod.Post, new { @id = "searchForm", @name = "searchForm", @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+        {
+
+
+         <!--RWD condition ctrl-->
+            <div type="button" class="visible-xs visible-sm hidden-md hidden-lg  btn btn-default ptc-dismiss">隱藏篩選條件</div>
+         <!--end RWD condition ctrl -->
+
+         <!--dynamic tabs-->
+            <div class="row ptc-conditions">
+
+                <!--clone block-->
+                <div clsss="ptc-content-clone" hidden>
+                    <button type="button" class="ptc-cancel" data-toggle="tooltip btn btn-secondary" data-placement="bottom" title="移除條件">x</button>
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-4">
+                                <!--公司-->
+                                <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.CompCd)</label>
+                                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                            <select id="CompCd" name="CompCd" class="js-data-example-ajax form-control" data-header="Select a condiment"></select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--區域-->
+                                <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.ZoCd)</label>
+                                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                            <select id="ZoCd" name="ZoCd" class="js-data-example-ajax form-control" data-header="Select a condiment"></select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--門市-->
+                                <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.StoreCd)</label>
+                                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                            @Html.TextBoxFor(x => x.StoreCd)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-4">
+                                <!--廠商-->
+                                <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.VenderCd)</label>
+                                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                            <select id="VenderCd" name="VenderCd" class="js-data-example-ajax form-control" data-header="Select a condiment"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--申請日期(起)-->
+                                <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.CreateDateStart)</label>
+
+                                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                            <div class="input-group">
+                                                <input class="form-control date-picker mailbox-input-text wide-mailbox-input" id="CreateDateStart" name="CreateDateStart" type="text" value="@DateTime.Now.AddMonths(-2).ToString("yyyy/MM/dd")" placeholder="申請日期(起)" />
+                                                <span class="input-group-addon" onclick="$('#CreateDateStart').focus()">
+                                                    <i class="fa fa-calendar bigger-110"></i>
+                                                </span>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <!--申請日期(迄)-->
+                                <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.CreateDateEnd)</label>
+
+                                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                            <div class="input-group">
+                                                <input class="form-control date-picker mailbox-input-text wide-mailbox-input" id="CreateDateEnd" name="CreateDateEnd" type="text" value="@DateTime.Now.AddMonths(-2).ToString("yyyy/MM/dd")" placeholder="申請日期(起)" />
+                                                <span class="input-group-addon" onclick="$('#CreateDateEnd').focus()">
+                                                    <i class="fa fa-calendar bigger-110"></i>
+                                                </span>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-xs-12 col-sm-4">
+                                <!--批價單號-->
+                                <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.Order_No)</label>
+                                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                            <div class="input-group">
+                                                @Html.TextBoxFor(x => x.Order_No, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <!--店名-->
+                                <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.Store_Name)</label>
+
+                                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                            <div class="input-group">
+                                                @Html.TextBoxFor(x => x.Store_Name, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <!--訂單類型-->
+                                <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label">@Html.DisplayNameFor(x => x.OrderKind)</label>
+                                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                            <select id="OrderKind" name="OrderKind" class="js-data-example-ajax form-control" data-header="Select a condiment">
+                                                <option value="">全部</option>
+                                                <option value="0">立案</option>
+                                                <option value="Y">預算</option>
+                                                <option value="J">決算</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <!--end clone block-->
+                <!--tabs block-->
+                <ul class="ptc-tabs nav nav-tabs"></ul>
+                <!--end tabs block-->
+                <!--content block-->
+                <div class="ptc-content tab-content"></div>
+                <!--end content block-->
+
+            </div>
+         <!--end dynamic tabs-->
+                        <!--btn block-->
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <button type="submit" class="btn-search btn-sm AuthRead" id="searchBtn" name="searchBtn" data-loading-text="處理中...">查詢</button>
+                </div>
+            </div>
+                        <!--end btn block-->
+        }
+
+    </div>
+
+</div>
+
+
+<div class="row">
+    <div id="grid-table">
+
+        <!--table header-->
+        <div class="table-header">
+            <span>&nbsp;</span>
+        </div>
+        <!--end table header-->
+        <!--result table-->
+        <table class="table table-bordered table-striped table-bordered dt-responsive nowrap" id="resultTable">
+            <thead>
+                <tr role="row">
+                    <th class="center" role="columnheader">批價單號</th>
+                    <th class="center" role="columnheader">區域名稱</th>
+                    <th class="center" role="columnheader">店名</th>
+                    <th class="center" role="columnheader">CM預算審核</th>
+                    <th class="center" role="columnheader">TL預算審核</th>
+                    <th class="center" role="columnheader">FM決算審核</th>
+                    <th class="center" role="columnheader">TL決算審核</th>
+                    <th class="center" role="columnheader">明細</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <!--end result table-->
+
+    </div>
+</div>
+
+@section scripts{
+    <!--methods-->
+    <script type="text/javascript">
+
+        //導向明細
+        function Detail(data) {
+
+            DirectToUrl('@Url.Action("Detail", "NewOpenStoreConfirm")', data[0]);
+
+        }
+
+        //明細-按鈕觸發
+        function Detail(Sn) {
+            var data = [{ Sn: Sn }]
+
+            this.Detail(data);
+        }
+
+    </script>
+    <!--validation-->
+    <script type="text/javascript">
+        $('#searchForm').PTCValidation({});
+
+        function InitValidation(index) {
+            $(`#c${index} #CreateDateStart`).rules("add", {
+                date: 0,
+
+            });
+            $(`#c${index} #CreateDateEnd`).rules("add", {
+                date: 0,
+            });
+        }
+
+        function IsValid() {
+
+            var isValid = true;
+            var validator = $('#searchForm').validate();
+            $('#searchForm').find("input").each(function () {
+                if (!validator.element(this)) {
+                    $('a[href=#' + $(this).closest('.tab-pane:not(.active)').attr('id') + ']').tab('show');
+                    isValid = false;
+
+                }
+            });
+            return isValid;
+        }
+
+    </script>
+    <!--select2-->
+    <script type="text/javascript">
+
+        function InitSelect2(index) {
+
+            window.PTC.Select2.Area({ name: `#c${index}  #CompCd`, url: '@Url.Action("Get", "Tcmpdat")' },
+                                    { name: `#c${index}  #ZoCd`, url: '@Url.Action("Get", "Tzocode")' })
+            window.PTC.Select2.Vender(`#c${index}  #VenderCd`, '@Url.Action("Get", "Tvender")',
+                     function () {
+                         return { CompCd: $(`#c${index}  #CompCd`).val() }
+                     });
+
+
+        }
+
+    </script>
+    <!--tabs-->
+    <script type="text/javascript">
+
+            $('.ptc-tabs').PTCDynamicTabs({ initUI: this.InitUI });
+
+            function InitUI(index) {
+                InitSelect2(index);
+            }
+
+    </script>
+    <!--dataTable-->
+    <script type="text/javascript">
+
+        var columns = [
+
+         { targets: 0, name: "Order_No", id: "Order_No", className: 'min-mobile-l text-center' },
+         { targets: 1, name: "ZoName", id: "ZoName", className: ' text-center' },
+         { targets: 2, name: "Store_Name", id: "StoreName", className: 'min-mobile-l text-center' },
+         { targets: 3, name: "IsCM", id: "IsCM", className: 'text-center' },
+         { targets: 4, name: "IsTLY", id: "IsTLY", className: 'text-center' },
+         { targets: 5, name: "IsFM", id: "IsFM", className: 'text-center' },
+         { targets: 6, name: "IsTLJ", id: "IsTLJ", className: 'text-center' },
+         {
+             targets: 7,
+             className: 'text-center',
+             searchable: false,
+             orderable: false,
+             render: function (data, type, full, meta) {
+                 return `<button  type="button" onclick="Detail(${data})" role="button" class="btn btn-xs btn-success rowTabholdOK` +
+                        `"><i class="ace-icon fa fa-search bigger-120"></i></button>`;
+
+             }
+         }
+        ];
+
+        $('#resultTable').PTCDataTable({
+            colmDefs: columns,
+            form: "#searchForm",
+            rowTabholdOKText: '前往明細',
+            rowTabholdOK: this.Detail,
+            validate: this.IsValid,
+            trMethod: this.TRmethod,
+            refill: function (criteria) {
+                $(this.form).ReductionDynamicTabs({
+                    array: criteria,
+                    refill: function (data, index) {
+
+                        if (data.CompCd) {
+                            $(`#c${index + 1} #CompCd`).InitSelect2Data({
+                                url: '@Url.Action("Get", "Tcmpdat")',
+                                data: { CompCd: data.CompCd }
+
+                            })
+                        }
+
+                        if (data.ZoCd) {
+                            $(`#c${index + 1} #ZoCd`).InitSelect2Data({
+                                url: '@Url.Action("Get", "Tzocode")',
+                                data: { ZoCd: data.ZoCd }
+
+                            })
+                        }
+
+                        if (data.StoreCd) {
+                            $(`#c${index + 1} #StoreCd`).InitSelect2Data({
+                                url: '@Url.Action("Get", "Tstrmst")',
+                                data: { StoreCd: data.StoreCd }
+
+                            })
+                        }
+
+
+
+                    }
+                });
+            }
+        });
+
+    </script>
+
+
+}

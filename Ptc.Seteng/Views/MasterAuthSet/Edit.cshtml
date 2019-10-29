@@ -1,0 +1,381 @@
+﻿@model Ptc.Seteng.Models.RoleAuthViewModel
+
+@{
+    ViewBag.HeadTitle = "系統管理-權限設定"; //左方選單大標題
+    ViewBag.Title = "修改權限"; //選單標題
+    ViewBag.TitleLink = Url.Action("Modify", "AuthSet"); //選單標題連結網址
+}
+
+<div class="page-header">
+    @*<h2>權限設定</h2>*@
+</div>
+
+<div class="row">
+    <div class="col-sm-12 col-xs-12">
+        <div class="widget-box">
+            <div class="widget-header">
+                <h4 class="widget-title">修改權限</h4>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main no-padding">
+                    @using (Html.BeginForm("ModifyMasterAuth", "AuthSet", FormMethod.Post, new { style = "margin:0" }))
+                    {
+                        <div class="row" style="padding-top:1em;">
+                            <div class="input-group form-horizontal col-sm-6 col-xs-12" style="padding-left:1em;padding-right:1em;">
+                                <label class="col-sm-2 control-label no-padding-right" for="txtRoleName"> 公司名稱 </label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(m => m.Compcd," ", new { @id = "txtCompcd", @class = "col-sm-6 col-xs-12", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="input-group form-horizontal col-sm-6 col-xs-12" style="padding-left:1em;padding-right:1em;">
+                                <label class="col-sm-2 control-label no-padding-right" for="txtRoleName"> 角色名稱 </label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(m => m.RoleName, new { @id = "txtRoleName", @class = "col-sm-6 col-xs-12", @readonly = "readonly" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="padding-top:1rem">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="widget-box">
+                                    <div class="widget-header">
+                                        <h4 class="widget-title">功能權限</h4>
+
+                                        <div class="widget-toolbar">
+                                            <a href="#" data-action="collapse">
+                                                <i class="ace-icon fa fa-chevron-up"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="widget-body">
+                                        <div class="widget-main padding-8">
+                                            <div id="GroupAuth"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-actions center">
+                            <button id="btnSave" class="btn btn-info" type="button" onclick="save()">
+                                <i class="ace-icon fa fa-check bigger-110"></i>
+                                送出
+                            </button>
+                            <button class="btn" type="button" onclick="window.location = '@Url.Action("Index", "MasterAuthSet")'">
+                                <i class="ace-icon fa fa-undo bigger-110"></i>
+                                回上頁
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @*** JQuery js ***@
+    
+    <script type="text/javascript">
+
+        //功能授權
+        var pageAuthModel = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.PageAuth));
+
+        jQuery(function ($) {
+          
+
+            //功能權限
+            var tree = $('#GroupAuth').treeview(
+                  {
+                      data: pageAuthModel,
+                      checkedIcon: "fa fa-check-square",
+                      uncheckedIcon: "fa fa-square-o",
+                      color: "#000000",
+                      backColor: "#FFFFFF",
+                      level:3,
+                                       
+                  });
+
+          
+          
+
+        });
+
+        //檢查子node是否有被選取
+        function checkedChild(currentNode) {
+            debugger;
+            if( currentNode.nodes=== undefined || currentNode.nodes==null){
+                return;
+            }
+
+            var childNodes= currentNode.nodes;
+
+            var isAllUncheck=true;
+            $.each(childNodes, function(index, child) {
+                if(child.state.checked==true)
+                {
+                    isAllUncheck=false;
+                }
+
+            });
+
+            //如果本層有勾選，下層都沒勾選就全選本層
+            if(currentNode.state.checked && isAllUncheck){
+                $.each(childNodes, function(index, child) {
+                    child.state.checked=true;
+                });
+                //$('#DataRangeTree').treeview('checkNode', [ childNodes, { silent: true } ]);
+            }
+
+            $.each(childNodes, function(index, child) {
+                checkedChild(child);
+            });
+        }
+
+        //檢查parent要被Checked
+        function checkedParent(parentNode) {
+
+            if( parentNode.nodes=== undefined){
+                return;
+            }
+
+            var childNodes= _getChildren(parentNode);
+
+            var isAllCheck=false;
+            $.each(childNodes, function(index, child) {
+
+                if(child.state.checked)
+                    isAllCheck=true;
+            });
+
+            if(isAllCheck){
+                $('#DataRangeTree').treeview('checkNode', [ parentNode.nodeId, { silent: true } ]);
+            }
+
+            checkedParent($('#DataRangeTree').treeview('getParent', parentNode));
+        }
+
+        //檢查parent要被unchecked
+        function uncheckedParent(parentNode) {
+            if( parentNode.nodes=== undefined){
+                return;
+            }
+
+            var childNodes= _getChildren(parentNode);
+
+            var isAlluncheck=true;
+            $.each(childNodes, function(index, child) {
+
+                if(child.state.checked==true)
+                    isAlluncheck=false;
+            });
+
+            if(isAlluncheck){
+                $('#DataRangeTree').treeview('uncheckNode', [ parentNode.nodeId, { silent: true } ]);
+            }
+
+            uncheckedParent($('#DataRangeTree').treeview('getParent', parentNode));
+        }
+
+        //取得子節點
+        function _getChildren(node) {
+            if (node.nodes === null || node.nodes=== undefined) return [];
+            var childrenNodes = node.nodes;
+            node.nodes.forEach(function(n) {
+                childrenNodes = childrenNodes.concat(_getChildren(n));
+            });
+
+            return childrenNodes;
+        }
+
+        function RecursiveDataRangeChild(node){
+            var dataRange = [];
+
+            //是否還有下一層
+            if(node.nodes!=null && node.nodes.length>=1){
+                $.each(node.nodes, function(index, value) {
+                    var child = RecursiveDataRangeChild(value);
+                    if(child!=null){
+                        dataRange.push(child);
+                    }
+                });
+
+                //如果數量相等表示下一層都勾選了，就放棄
+                if(node.nodes.length==dataRange.length){
+                    dataRange=[];
+                }
+            }
+
+            //本層的資料
+            if(node.state.checked){
+                return   {
+                    id:$(node).attr('id'),
+                    name:$(node).attr('name'),
+                    node:$(node).attr('isTail'),
+                    DataRangeList:dataRange,
+                };
+            }else{
+                return null;
+            }
+
+        }
+
+
+        function SelectAll(obj) {
+            //讀取模式不能改 2:READ
+
+            if ('@(Convert.ToInt32(Model.WorkType))'=='2') { return; }
+
+            //找到node item
+            var handle = $(obj).parent();
+            var currentNode =  $('#GroupAuth').treeview('getNode', handle.closest('li.list-group-item').attr('data-nodeid'));
+
+            var checkNo = 0;
+            var chekx;
+
+            if (handle.length > 0)
+                chekx = handle.find('input:checkbox');
+            else
+                chekx = $(obj).closest('li.dd-item').find('input:checkbox');
+
+            $.each(chekx, function(index, value) {
+                if (value.checked)
+                    checkNo += 1;
+            });
+            //全選OR不選
+            $.each(chekx, function(index, value) {
+                if (value.checked  == (checkNo != 0)) {
+                    value.checked = (checkNo == 0);
+                }
+                switch (value.name) {
+                    case "Create":
+                        currentNode.state.authCreate = value.checked;
+                        break;
+                    case "Delete":
+                        currentNode.state.authDelete = value.checked;
+                        break;
+                    case "Edit":
+                        currentNode.state.authEdit = value.checked;
+                        break;
+                    case "Read":
+                        currentNode.state.authRead = value.checked;
+                        break;
+                    case "Export":
+                        currentNode.state.authExport = value.checked;
+                        break;
+                    case "Report":
+                        currentNode.state.authReport = value.checked;
+                        break;
+                    default:
+                }
+            });
+        };
+
+        function save() {
+
+            if ('@(Convert.ToInt32(Model.WorkType))'=='2') { return; }
+
+            var rolename = $('#txtRoleName').val();
+            var checkNode=$('#GroupAuth').treeview('getChecked');
+            var pageauth = [];
+            $.each(checkNode, function(index, value) {
+                //末端節點
+                if(value.nodes==null)
+                {
+                    var groupname = $(value).attr('id');
+                    var authtype = 0;
+
+                    if(value.state.authCreate){
+                        authtype += @((int)Ptc.AspnetMvc.Authentication.AuthNodeType.Create);
+                    }
+                    if(value.state.authDelete){
+                        authtype += @((int)Ptc.AspnetMvc.Authentication.AuthNodeType.Delete);
+                    }
+                    if(value.state.authEdit){
+                        authtype += @((int)Ptc.AspnetMvc.Authentication.AuthNodeType.Edit);
+                    }
+                    if(value.state.authRead){
+                        authtype += @((int)Ptc.AspnetMvc.Authentication.AuthNodeType.Read);
+                    }
+                    if(value.state.authExport){
+                        authtype += @((int)Ptc.AspnetMvc.Authentication.AuthNodeType.Export);
+                    }
+                    if(value.state.authReport){
+                        authtype += @((int)Ptc.AspnetMvc.Authentication.AuthNodeType.Report);
+                    }
+                    if(authtype==0){
+                        authtype = null;
+                    }
+                    if(authtype){
+                        pageauth.push({id:groupname, AuthType:authtype});
+                    }
+                }
+            });
+
+            //取得資料範圍，如果子節點全選，就不選子節點
+            var dataRange = [];
+            $.each($('#DataRangeTree').treeview('getNode'), function(index, value) {  //得到root
+                if(value.state.checked){
+                    var childDataRange = RecursiveDataRangeChild(value);
+                    if (childDataRange != null)
+                        dataRange.push(childDataRange);
+                }
+            });
+
+            var buTypeList = [];
+            $.each($('#BusinessTypeTree').treeview('getChecked'), function(index, value) {
+                var datarangeID = $(value).attr('id');
+                buTypeList.push({id:datarangeID});
+            });
+
+            var postObj = { Compcd: $('#txtCompcd').val(),ErpComp:$('#txtErpComp').val(), RoleId:'@(string.IsNullOrEmpty(Model.RoleId)?"0":Model.RoleId)', RoleName:rolename, WorkType:@((int)Model.WorkType), PageAuth:pageauth, SaveDataRange:dataRange,BusinessTypeList:buTypeList };
+
+           
+            jQuery.ajax({
+                type: "POST",
+                url:'@Url.Action("ModifyMasterAuth", "MasterAuthSet")',
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(postObj),
+                success: function (data) {
+                    var result = data.Data
+                    if (result.IsSuccess) {
+                        window.PTC.alertInfo(result.Message);
+
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
+
+                        window.PTC.Loading(false);
+                        return;
+                       // window.location = '@Url.Action("Index", "AuthSet")'; //執行完導至Index頁
+                    }
+                    else {
+                        window.PTC.alertWarning(result.Message);
+                    }
+                },
+                failure: function (errMsg) {
+                    window.PTC.alertWarning(errMsg);
+
+                   
+                }
+            });
+        };
+
+        //鎖定畫面相關功能
+
+        if ('@(Convert.ToInt32(Model.WorkType))'=='@(Convert.ToInt32(Ptc.AspnetMvc.Authentication.AuthNodeType.Edit))') {
+            $('#txtErpComp').attr('disabled','disabled');
+        }
+        else if  ('@(Convert.ToInt32(Model.WorkType))'=='@(Convert.ToInt32(Ptc.AspnetMvc.Authentication.AuthNodeType.Read))') {
+            $('#txtErpComp').attr('disabled','disabled');
+            $('#txtRoleName').attr('readonly','true');
+            $('#RoleAuthDD').attr('disabled','disabled');
+            $('#WarehouseTree').attr('selectable','false');
+            $('#btnSave').addClass('hidden');
+        }
+
+    </script>
+}

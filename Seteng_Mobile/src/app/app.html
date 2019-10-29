@@ -1,0 +1,22 @@
+﻿<ion-menu [content]="content">
+
+  <ion-content class="menu-left menu">
+    <!-- User profile -->
+    <div padding class="menu-left menu-bg">
+      <a menuClose>
+        <h4 color="dark" style="padding-top: 90px;">{{(user$ | async).Name}}</h4>
+      </a>
+    </div>
+
+    <ion-list class="list-full-border">
+      <button ion-item menuClose *ngFor="let page of pages" (click)="openPage(page)">
+        <ion-icon item-left name="{{ page.icon }}"></ion-icon>
+        {{ page.title }}
+        <ion-badge color="danger" item-right *ngIf="page.count">{{ page.count }}</ion-badge>
+      </button>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

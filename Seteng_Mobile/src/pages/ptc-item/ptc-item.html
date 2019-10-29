@@ -1,0 +1,94 @@
+﻿<!--案件內容判別-->
+<div [ngSwitch]="item.CallKind">
+    <!--叫修-->
+    <ion-card class="repair">
+        <ion-card-header>
+            <h3 class="title-padding-wait" *ngIf="item.IsWait">(待上傳)</h3>
+            <h3 class="title-padding-warning" *ngIf="item.CallLevel=='2'">
+                <ion-icon name="md-alert"></ion-icon>
+            </h3>
+            <h3 class="title-padding-warning">
+                &nbsp;<ion-icon name="flash"></ion-icon>
+            </h3>
+            {{item.StoreCd}}&nbsp;{{item.StoreName}}&nbsp;{{ item.Sn }}
+        </ion-card-header>
+        <ion-card-content>
+            <ion-thumbnail item-left>
+                <div class="sequence-left">
+                    <div>
+                        <h3 *ngIf="item.Overtime">到店時間剩餘</h3>
+                    </div>
+                    <div>
+                        <h3 *ngIf="!item.Overtime">到店時間</h3>
+                    </div>
+                    <div class="day">{{item.TimeDescription}}</div>
+                </div>
+            </ion-thumbnail>
+            <div class="sequence-right">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-5 grid-col-titme>
+                            設備名稱:
+                        </ion-col>
+                        <ion-col col-7 text-wrap>
+                            {{ item.AssetName }}
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-col col-5 grid-col-titme>
+                            故障原因:
+                        </ion-col>
+                        <ion-col col-7 text-wrap>
+                            {{ item.DamageDesc}}
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-col col-5 grid-col-titme>
+                            應到時間:
+                        </ion-col>
+                        <ion-col col-7>
+                            <!--style="white-space: nowrap;text-overflow : ellipsis;" -->
+                            {{ item.FaDate}}
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-col col-5 grid-col-titme>
+                            受理時間:
+                        </ion-col>
+                        <ion-col col-7>
+                            <!--style="white-space: nowrap;text-overflow : ellipsis;" -->
+                            {{ item.AcceptDatetime}}
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-col col-5 grid-col-titme>
+                            門市地址:
+                        </ion-col>
+                        <ion-col col-7 text-wrap>
+                            {{ item.StoreAddress}}
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+        </ion-card-content>
+        <div *ngIf="item.Enable">
+            <ul class="progress-indicator">
+                <li [ngClass]="list.class" *ngFor="let list of TimePointName;">
+                    <p *ngIf ="list.name != '完成'">
+                            <span class="bubble"><img src="./assets/img/dash.png" alt="" style="margin-left: 35px; height:100%"></span>                            
+                    </p>
+                    <p *ngIf ="list.name == '完成'">
+                    <span class="bubble"></span>
+                    </p>
+                    <i class="fa fa-check-circle"></i>
+                    <span style="font-size:1.2rem">{{list.name}}</span>
+                </li>
+            </ul>
+        </div>
+    </ion-card>
+    <!--end 叫修-->
+</div>

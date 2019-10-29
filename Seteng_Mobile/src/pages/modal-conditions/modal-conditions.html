@@ -1,0 +1,71 @@
+﻿<!-- 標題 -->
+<ion-header>
+    <ion-navbar color="secondary">
+        <ion-title>查詢條件</ion-title>
+    </ion-navbar>
+</ion-header>
+<!-- end 標題 -->
+<!-- 內文 -->
+<ion-content class="common-bg">
+
+    <!--時間戳記-->
+    <div class="card light-bg" margin-top padding>
+        <div class="title">日期</div>
+        <ion-row class="item-stats">
+            <ion-col>
+                <span font-size color="gray">開始日期</span>
+                <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="dateStart" placeholder="選擇日期"></ion-datetime>
+            </ion-col>
+        </ion-row>
+        <ion-row class="item-stats">
+            <ion-col>
+                <span  color="gray">結束日期</span>
+                <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="dateEnd" placeholder="選擇日期"></ion-datetime>
+            </ion-col>
+        </ion-row>
+    </div>
+    
+    <!--基本條件-->
+    <div class="card light-bg" margin-top padding>
+        <div class="title">條件</div>
+        <ion-list class="list-form">           
+            <ion-item>
+                <ion-label stacked>門市代號</ion-label>
+                <ion-input type="text" [(ngModel)]="item.StoreCd"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>門市名稱</ion-label>
+                <ion-input type="text" [(ngModel)]="item.StoreName"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>叫修編號</ion-label>
+                <ion-input type="text" [(ngModel)]="item.Sn"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>緊急度</ion-label>
+                <ion-select [(ngModel)]="item.CallLevel" cancelText="取消" okText="確定">
+                    <ion-option value="" selected>全部</ion-option>
+                    <ion-option value=1>普通</ion-option>
+                    <ion-option value=2>緊急</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label>案件目前狀態</ion-label>
+                <ion-select [(ngModel)]="item.Timepoint" cancelText="取消" okText="確定">
+                    <ion-option value="" selected>全部</ion-option>
+                    <ion-option value=1>派工</ion-option>
+                    <ion-option value=2>認養</ion-option>
+                    <ion-option value=3>到店</ion-option>
+                    <ion-option value=4>完成</ion-option>
+                </ion-select>
+            </ion-item> 
+        </ion-list>
+    </div>
+</ion-content>
+<!-- end 內文-->
+<!-- 標底 -->
+<ion-footer no-shadow text-center>
+    <button ion-button (click)="closeModal()" color="buttonNo">關閉</button>
+    <button ion-button (click)="search()" color="buttonSubmit">查詢</button>
+</ion-footer>
+<!-- end 標底 -->

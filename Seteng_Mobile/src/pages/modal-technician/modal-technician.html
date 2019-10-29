@@ -1,0 +1,67 @@
+﻿<!-- 標題 -->
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>選擇技師</ion-title>
+    </ion-navbar>
+</ion-header>
+<!-- end 標題 -->
+<!-- 內文 -->
+<ion-content class="common-bg">
+
+    <!-- 關鍵字查詢 -->
+    <div class="card">
+        <ion-item class="no-border">
+            <ion-label>關鍵字查詢</ion-label>
+            <ion-input type="text" placeholder="請輸入關鍵字" (change)="filter($event)" [(ngModel)]="keyword"></ion-input>
+
+        </ion-item>
+
+    </div>
+    <!-- end關鍵字查詢 -->
+    <!-- 查詢結果 -->
+
+    <ion-list class="list-full-border" no-margin>
+        <!--標題-->
+        <ion-item>
+            <ion-label>
+                <ion-row>
+                    <ion-col>技師帳號</ion-col>
+                    <ion-col>技師姓名</ion-col>
+                </ion-row>
+            </ion-label>
+        </ion-item>
+        <!--end 標題-->
+        <!--清單-->
+        <ion-item *ngFor="let item of items ;let i = index" (click)="check(item)">
+            <ion-label>
+                <ion-row [ngClass]="item.IsCheck ? 'selected' : 'noselected'">
+                    <ion-col>
+                        {{item.Account}}
+                    </ion-col>
+                    <ion-col>
+                        {{item.Name}}
+                    </ion-col>
+                </ion-row>
+            </ion-label>
+        </ion-item>
+        <!--end 清單-->
+    </ion-list>
+
+    <!-- end查詢結果 -->
+    <!-- 續載區塊 -->
+    <!-- <ion-infinite-scroll (ionInfinite)="continuousLoading($event)" threshold="-10%">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll> -->
+    <!-- end續載區塊 -->
+
+</ion-content>
+<!-- end 內容-->
+<!-- 標底 -->
+<ion-footer no-shadow text-center>
+
+        <button ion-button (click)="closeModal()" color="buttonNo">取消</button>
+        <button ion-button (click)="confirm()" color="buttonSubmit">確定</button>
+
+</ion-footer>
+<!-- end標底 -->

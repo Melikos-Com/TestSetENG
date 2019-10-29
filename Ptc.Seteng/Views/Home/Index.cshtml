@@ -1,0 +1,147 @@
+﻿@model Ptc.Seteng.Models.TassetsViewModel
+
+<div class="row">
+    <div class="col-xs-12">
+        @*** 查詢條件 ****@
+        @using (Html.BeginForm("GetList", "Home", FormMethod.Post, new { @id = "searchForm", @name = "searchForm", @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+        {
+
+            <div clsss="ptc-content-clone" hidden>
+                <button type="button" class="ptc-cancel" data-toggle="tooltip btn btn-secondary" data-placement="bottom" title="移除條件">x</button>
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12 col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label class="col-sm-4 col-md-4 col-lg-4 control-label">公司</label>
+                            <div class="col-sm-8 col-md-8 col-lg-8">
+                                <select id="Company" name="Company" class="js-data-example-ajax form-control" data-header="Select a condiment"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xs-12 col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label class="col-sm-4 col-md-4 col-lg-4 control-label">大分類</label>
+                            <div class="col-sm-8 col-md-8 col-lg-8">
+                                <select id="AstKind1" name="AstKind1" class="js-data-example-ajax form-control" data-header="Select a condiment"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xs-12 col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label class="col-sm-4 col-md-4 col-lg-4 control-label">中分類</label>
+                            <div class="col-sm-8 col-md-8 col-lg-8">
+                                <select id="AstKind2" name="AstKind2" class="js-data-example-ajax form-control" data-header="Select a condiment"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xs-12 col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label class="col-sm-4 col-md-4 col-lg-4 control-label">小分類</label>
+                            <div class="col-sm-8 col-md-8 col-lg-8">
+                                <select id="AstKind3" name="AstKind3" class="js-data-example-ajax form-control" data-header="Select a condiment"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xs-12 col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label class="col-sm-4 col-md-4 col-lg-4 control-label">設備</label>
+                            <div class="col-sm-8 col-md-8 col-lg-8">
+                                <select id="AssetCd" name="AssetCd" class="js-data-example-ajax form-control" data-header="Select a condiment"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="ptc-tabs nav nav-tabs"></ul>
+
+            <div class="ptc-content tab-content"></div>
+
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <button type="submit" class="btn-search btn-sm AuthRead" id="searchBtn" name="searchBtn" data-loading-text="處理中...">查詢</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<table class="table table-bordered" id="resultTable">
+
+    <thead>
+        <tr role="row">
+            <th class="center" role="columnheader">公司</th>
+            <th class="center" role="columnheader">設備代號</th>
+            <th class="center" role="columnheader">設備名稱</th>
+            <th class="center" role="columnheader">大分類代號</th>
+            <th class="center" role="columnheader">中分類代號</th>
+            <th class="center" role="columnheader">小分類代號</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts{
+
+    <script src="~/Scripts/PTC/PTCTabview.js"></script>
+
+   
+
+    <!--select2-->
+    <script type="text/javascript">
+
+
+        function InitSelect2(index) {
+
+            window.PTC.Select2.AssetsWithComp({ name: "#c"+index+"  #Company", url: '@Url.Action("Get", "Tcmpdat")' },
+                                              { name: "#c"+index+"  #AstKind1", url: '@Url.Action("Get", "Tastknd")' },
+                                              { name: "#c"+index+"  #AstKind2", url: '@Url.Action("Get", "Tastknd")' },
+                                              { name: "#c"+index+"  #AstKind3", url: '@Url.Action("Get", "Tastknd")' },
+                                              { name: "#c"+index+"  #AssetCd", url: '@Url.Action("Get", "Tassets")' });
+
+        }
+
+    </script>
+
+    <!--tabs-->
+    <script type="text/javascript">
+
+        $('.ptc-tabs').PTCDynamicTabs({ initUI: this.InitUI });
+
+
+        function InitUI(index) {
+
+            InitSelect2(index)
+
+        }
+
+    </script>
+
+
+
+    <!--dataTable-->
+    <script type="text/javascript">
+
+        var columns = [
+
+         { targets: 0, width: '40%', name: "Comp_Cd", id: "CompCd", className: 'text-center' },
+         { targets: 1, width: '20%', name: "Asset_Cd", id: "AssetCd", className: 'text-center' },
+         { targets: 2, width: '10%', name: "Asset_Name", id: "AssetName", className: 'min-mobile-l text-center' },
+         { targets: 3, width: '10%', name: "Ast_Kind1", id: "AstKind1", className: 'min-mobile-l text-center' },
+         { targets: 4, width: '10%', name: "Ast_Kind2", id: "AstKind2", className: 'min-mobile-l text-center' },
+         { targets: 5, width: '10%', name: "Ast_Kind3", id: "AstKind3", className: 'min-mobile-l text-center' },
+        ];
+
+
+        $('#resultTable').PTCDataTable({
+            colmDefs: columns,
+            form: "#searchForm",
+            deleteUrl: '@Url.Action("Delete", "Home")',
+            updateUrl: '@Url.Action("Update", "Home")',
+            addUrl: '@Url.Action("Add", "Home")',
+        });
+
+
+    </script>
+
+
+}

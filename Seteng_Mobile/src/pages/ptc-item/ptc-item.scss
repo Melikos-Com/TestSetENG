@@ -1,0 +1,173 @@
+﻿ptc-item {
+    $repairColor: #33cd5f;
+    $maintainColor: #984807;
+    $purchaseColor: #4A452A; //邊框
+    @mixin border($color: #000000) {
+        border-color: $color;
+        border-style: groove;
+        border-width: thin;
+    } //card 標頭
+    @mixin card-header($color) {
+        ion-card-header {
+            background-color: $color;
+             box-shadow: 0px 2px 1px rgba(0,0,0,0.2);
+            color: white !important;
+            text-align: right;
+            font-size: 1.6rem !important;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+    } //card 內容
+    @mixin card-content($color) {
+        ion-card-header {
+            h3{
+                ion-icon{
+                    font-size: 2rem;
+                    color:#f0e617;
+                }
+            }
+        
+        }
+        //card內容
+        ion-card-content {
+            padding: 0px !important;
+            display: -webkit-inline-box; //card左邊區塊
+            ion-thumbnail {
+                .sequence-left {
+                    font-size: 1.6rem;
+                    color: #000000;
+                    text-align: -webkit-center;
+                    margin: 25% auto;
+                    .day {
+                        font-size: 3rem;
+                        color: #000000;
+                    }
+                }
+                @include border($color);
+                text-align: center;
+                margin: 10px !important;
+                margin-top: 7% !important;
+                margin-bottom: 7% !important;
+                border-radius: 5%;
+                width: 30vw;
+                height: 100%;
+            } //card右邊區塊
+            .sequence-right {
+                width: 60%;
+                margin: 10px 0px;
+                font-size: 1.4rem;
+                color: black;
+                div {
+                    margin-top: 2px;
+                    margin-bottom: 2px;                   
+                   
+                }
+            }
+        }
+    } //card整體
+    @mixin card($color) {
+        @include border($color);
+        @include card-header($color);
+        @include card-content($color);
+        box-shadow: 4px 4px 3px rgba(20%,20%,40%,0.2);
+        border-radius: 3%;
+    }
+    ion-card.repair {
+        @include card($repairColor);
+    }
+    ion-card.maintain {
+        @include card($maintainColor);
+    }
+    ion-card.purchase {
+        @include card($purchaseColor);
+    }
+
+ .grid-col-titme {
+    text-align: right;
+ }
+
+    .title-padding-wait {
+        color: white;
+        float: left;
+        display: -webkit-inline-box;
+        font-size: 1.6rem;
+    }
+    .title-padding-warning {
+        color: red;
+        float: left;
+        display: -webkit-inline-box;
+        font-size: 1.6rem;
+    }
+    .progress-indicator {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+    }
+    // .progress-indicator>li .bubble {
+    //     border-radius: 1000px;
+    //     width: 20px;
+    //     height: 20px;
+    //     background-color: #bbb;
+    //     display: block;
+    //     margin: 0 auto .5em;
+    //     border-bottom: 1px solid #888;
+    // }
+    .progress-indicator>li.completed,
+    .progress-indicator>li.completed .bubble {
+        color: black;
+        font-weight: bold;
+    }
+    
+    .progress-indicator>li .bubble {
+        // border-radius: 1000px;
+        width: 27px;
+        height: 27px;
+        // background-color: #bbb;
+        display: block;
+        margin: 0 auto .5em;
+        // border-bottom: 1px solid #888;
+    }
+    // .progress-indicator>li .bubble:after,
+    // .progress-indicator>li .bubble:before {
+    //     display: block;
+    //     position: absolute;
+    //     top: 9px;
+    //     width: 100%;
+    //     height: 3px;
+    //     background-color: #bbb;
+    // }
+    
+    .progress-indicator>li .bubble,
+    .progress-indicator>li .bubble:after,
+    .progress-indicator>li .bubble:before {
+        background: url('../assets/img/point1.png');
+    }
+    
+    .progress-indicator>li.completed .bubble,
+    .progress-indicator>li.completed .bubble:after,
+    .progress-indicator>li.completed .bubble:before {
+        background: url('../assets/img/point.png');
+    }
+    
+    .progress-indicator>li .bubble:before {
+        left: 0;
+    }
+    
+    .progress-indicator>li .bubble:after {
+        right: 0;
+    }
+    
+    .progress-indicator>li:first-child .bubble:after,
+    .progress-indicator>li:first-child .bubble:before {
+        width: 50%;
+        margin-left: 50%;
+    }
+    
+    .progress-indicator>li:last-child .bubble:after,
+    .progress-indicator>li:last-child .bubble:before {
+        width: 50%;
+        margin-right: 50%;
+    }
+}
